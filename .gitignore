@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+.Thumbs.db
+
+# Build outputs
+dist/
+build/
+*.min.css
+*.min.js
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local files (backups)
+*.bak
+*.tmp
+*.backup

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>/// WANTED_DB :: PROJECT_TRINITY_RED ///</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/mostwanted.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Wallpoet&family=Pirata+One&family=Rubik+Glitch&family=Share+Tech+Mono&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- SYSTEM LAYERS -->
+    <div id="cursor-system" class="hidden md:block">
+        <div class="cursor-reticle">
+            <div class="cursor-corner"></div>
+            <div class="cursor-corner"></div>
+            <div class="cursor-corner"></div>
+            <div class="cursor-corner"></div>
+        </div>
+        <div class="cursor-dot"></div>
+        <div class="cursor-label">TARGET: UNKNOWN</div>
+    </div>
+    
+    <div id="spotlight"></div>
+    <div class="noise"></div>
+    <div class="scanlines"></div>
+    <div id="ascii-bg"></div>
+
+    <!-- INTRO SCREEN -->
+    <div id="intro-screen" class="fixed inset-0 z-[99999] bg-black flex flex-col items-center justify-center overflow-hidden">
+    
+    <div id="hint-bg" class="absolute inset-0 z-0 pointer-events-none opacity-50"></div>
+    <div class="grid-bg z-0 opacity-20"></div>
+
+    <div class="relative z-10 w-full max-w-md px-6 text-center">
+        
+        <div class="mb-10 relative group flex flex-col items-center">
+    <div class="relative">
+        <div class="absolute inset-0 bg-[var(--trinity-red)] blur-[30px] opacity-20 animate-pulse rounded-full"></div>
+        <img src="assets/icons/mostwanted.png" 
+             alt="Access Control" 
+             class="relative h-32 md:h-40 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,0,60,0.5)]">
+    </div>
+    
+    <p class="font-mono text-[var(--trinity-red)] text-sm md:text-base tracking-[0.3em] mt-6 border-b border-red-900/30 pb-2">
+        AUTHENTIFICATION REQUISE
+    </p>
+</div>
+
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-[var(--trinity-red)] to-[#333] opacity-30 group-hover:opacity-100 transition duration-500 blur-sm"></div>
+            
+            <div class="relative bg-black border border-[#333] p-1 flex items-center">
+                <span class="pl-4 font-mono text-[var(--trinity-red)] animate-pulse">></span>
+                
+                <input type="text" id="password-input" 
+                    class="w-full bg-transparent border-none outline-none text-white font-mono text-xl p-4 uppercase placeholder-gray-800 tracking-widest"
+                    placeholder="MOST WANTED" 
+                    autocomplete="off"
+                    autofocus>
+                
+                <button onclick="checkPassword()" class="p-3 hover:bg-[var(--trinity-red)]/20 transition-colors">
+                    <i data-lucide="arrow-right" class="text-white w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-6 font-mono text-xs space-y-2">
+            <div id="login-status" class="text-gray-500 tracking-widest">STATUS: LOCKED</div>
+            <div class="text-[var(--deep-red)] text-[10px] animate-pulse">/// HINT: LOOK AROUND ///</div>
+        </div>
+
+    </div>
+</div>
+
+    <!-- STORY MODAL (POPUP) -->
+    <div id="story-modal">
+        <button onclick="closeStory()" class="fixed top-4 right-4 md:top-8 md:right-8 z-50 text-white hover:text-[var(--trinity-red)] font-mono tracking-widest text-sm md:text-xl group bg-black/50 p-2 rounded backdrop-blur">
+            [ CLOSE_FILE ] <span class="block h-[1px] w-full bg-[var(--trinity-red)] scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+        </button>
+
+        <div class="modal-content max-w-6xl mx-auto w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                <!-- Left: Visuals -->
+                <div class="lg:col-span-5 relative order-2 lg:order-1">
+                    <div class="lg:sticky lg:top-12">
+                        <div class="border border-[var(--trinity-red)] p-2 bg-black/50 backdrop-blur">
+                            <img id="modal-img" src="" class="w-full aspect-[3/4] object-cover filter grayscale contrast-125">
+                        </div>
+                        <div class="mt-4 flex justify-between font-mono text-[10px] text-gray-500">
+                            <span>FILE_ID: <span id="modal-id" class="text-white"></span></span>
+                            <span>STATUS: <span class="text-[var(--trinity-red)] animate-pulse">CLASSIFIED</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Story Content -->
+                <div class="lg:col-span-7 order-1 lg:order-2">
+                    <h2 id="modal-name" class="font-bestial text-5xl md:text-7xl text-white mb-2 leading-none break-words"></h2>
+                    <p id="modal-subtitle" class="font-mono text-[var(--trinity-red)] text-xs md:text-sm tracking-[0.3em] mb-8"></p>
+                    
+                    <div class="story-text-container">
+                        <p id="modal-text" class="font-mono text-gray-300 text-sm md:text-lg leading-relaxed whitespace-pre-wrap"></p>
+                        <div class="h-4 w-4 bg-[var(--trinity-red)] mt-4 animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="opacity-0 hidden relative z-10 pb-20 md:pb-0">
+        
+        <!-- NAVIGATION -->
+        <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-4 md:px-8 py-4 md:py-6 mix-blend-difference pointer-events-none bg-black/50 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none border-b border-[#222] md:border-none">
+    
+    <div class="pointer-events-auto group cursor-pointer flex flex-col items-center">
+        <img src="assets/icons/mostwanted.png" 
+             alt="Most Wanted Crew" 
+             class="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_var(--trinity-red)]">
+        
+        <div class="h-[1px] w-0 group-hover:w-full bg-[var(--trinity-red)] transition-all duration-300 mt-1"></div>
+    </div>
+    
+    <div class="flex gap-4 md:gap-8 pointer-events-auto">
+        <a href="#wanted-list" class="nav-link font-mono text-[10px] md:text-xs text-gray-400 hover:text-[var(--trinity-red)] transition-colors tracking-widest">[MEMBERS]</a>
+    </div>
+</nav>
+
+        <!-- HERO SECTION -->
+        <header class="min-h-screen flex flex-col justify-center px-4 md:px-6 relative overflow-hidden">
+            <!-- Background Elements -->
+            <div class="perspective-grid"></div>
+            <div class="beast-aura"></div>
+            <div class="absolute top-0 right-0 p-12 opacity-20 pointer-events-none select-none writing-vertical-rl text-[var(--trinity-red)] font-mono text-xs tracking-widest hidden md:block">
+                WARNING: CONTAINMENT BREACH // SECTOR 7G
+            </div>
+
+            <div class="max-w-[90vw] mx-auto w-full pt-20 relative z-10">
+                
+                <!-- Status Bar -->
+                <div class="flex items-center gap-4 mb-4 md:mb-6 ml-2 border-l-2 border-[var(--trinity-red)] pl-4">
+                    <div class="w-2 h-2 bg-[var(--trinity-red)] animate-pulse shadow-[0_0_10px_var(--trinity-red)]"></div>
+                    <p class="font-mono text-[var(--trinity-red)] text-[10px] md:text-xs tracking-[0.4em] typing-effect">SYSTEM OVERRIDE // TARGET LOCKED</p>
+                </div>
+
+                <!-- Main Title -->
+                <div class="relative z-10 group">
+                    <!-- Background giant text -->
+                    <h1 class="absolute -top-10 -left-4 md:-left-10 text-[20vw] font-bestial text-[#111] opacity-50 select-none pointer-events-none leading-none z-0">
+                        WANTED
+                    </h1>
+                    
+                    <h1 class="relative font-trinity text-[15vw] md:text-[12vw] leading-[0.85] text-white mix-blend-screen glitch-wrapper z-10" data-text="MOST WANTED">
+                        MOST <br> WANTED
+                    </h1>
+                </div>
+
+                <!-- Info Grid -->
+                <div class="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-8 items-end border-t border-[#222] pt-8 relative">
+                    <!-- Decor line -->
+                    <div class="absolute top-0 left-0 w-1/3 h-[1px] bg-[var(--trinity-red)]"></div>
+
+                    <!-- Description -->
+                    <div class="md:col-span-5">
+                        <p class="font-mono text-gray-400 text-sm md:text-lg leading-relaxed">
+                             "Alors je vis que <span class="text-white bg-[var(--trinity-red)] px-1 selection-highlight"> l’Agneau</span> avait ouvert un des sceaux, et j’entendis l’un des quatre animaux qui disait d’une voix de tonnerre : Viens et vois."
+                        </p>
+                    </div>
+
+                    <!-- Tech Stats -->
+                    <div class="md:col-span-7 flex flex-col md:flex-row gap-4 md:justify-end">
+    <div class="border border-[#333] bg-black/50 p-4 min-w-[150px] relative overflow-hidden group">
+        <div class="absolute top-0 left-0 w-full h-[2px] bg-[var(--trinity-red)] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+        <div class="text-[9px] md:text-[10px] text-gray-500 mb-1 tracking-widest">BOUNTY_TOTAL</div>
+        <div class="text-xl md:text-2xl font-display text-white transition-colors flex items-center gap-1">
+            <span id="bounty-counter" class="text-[var(--trinity-red)]">0</span>
+            <span class="text-xs text-gray-500">BERRY</span>
+        </div>
+    </div>
+    
+    <div class="border border-[#333] bg-[var(--trinity-red)] p-4 min-w-[150px] relative overflow-hidden group">
+        <div class="absolute inset-0 bg-black/10"></div> 
+        <div class="relative z-10">
+            <div class="text-[9px] md:text-[10px] text-black mb-1 font-bold tracking-widest">LAST_KNOWN_LOC</div>
+            <div id="status-text" class="text-xl md:text-2xl font-display text-black flex items-center gap-2 uppercase">
+                SABAODY
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-black"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- UNPREDICTABLE CONTINUOUS FLOW (HIERARCHY) -->
+        <section id="wanted-list" class="py-20 md:py-32 border-t border-[#111] relative">
+            <div class="absolute inset-y-0 left-10 w-[1px] bg-[#1a1a1a] hidden lg:block"></div>
+            
+            <div class="max-w-[90vw] mx-auto space-y-32">
+                
+                <!-- 1. KORAZON (CAPTAIN) - Full Width Center -->
+                <div class="tilt-box group cursor-pointer relative" onclick="openStory('korazon')">
+                    <div class="flex flex-col items-center text-center mb-8">
+                        <span class="font-mono text-[var(--trinity-red)] text-xl tracking-[0.5em] mb-2">01 // CAPTAINE</span>
+                        <h2 class="font-bestial text-6xl md:text-9xl text-white leading-none">KORAZON</h2>
+                    </div>
+                    
+                    <div class="cyber-card h-[500px] md:h-[800px] w-full max-w-5xl mx-auto tilt-content border-2 border-[var(--trinity-red)]">
+                        <div class="absolute top-4 right-4 z-20 bg-[var(--trinity-red)] text-black font-bold px-4 py-1 text-xs md:text-sm">WANTED DEAD OR ALIVE</div>
+                        <img src="assets/icons/mara1.png" class="cyber-img w-full h-full object-cover">
+                        <div class="card-overlay"></div>
+                        
+                        <!-- Marquee -->
+                        <div class="marquee-container">
+                            <div class="marquee-inner"><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span></div>
+                            <div class="marquee-inner"><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span></div>
+                            <div class="marquee-inner"><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. ELIO (SECOND / PALE) - Right Aligned / Unpredictable -->
+                <div class="tilt-box group cursor-pointer relative flex justify-end" onclick="openStory('elio')">
+                    <div class="w-full lg:w-2/3 relative">
+                        <div class="absolute -left-12 top-20 z-20 hidden lg:block">
+                            <h2 class="font-bestial text-7xl text-white leading-none text-right">ELIO<br>VIRELLI</h2>
+                            <p class="font-mono text-[var(--trinity-red)] text-right mt-2 tracking-widest">VICE-CAPTAINE // CAVALIER PÂLE</p>
+                        </div>
+                        
+                        <!-- Mobile Title -->
+                        <div class="lg:hidden mb-4 text-right">
+                            <span class="font-mono text-[var(--trinity-red)] text-sm tracking-widest">02 // CAVALIER PÂLE</span>
+                            <h2 class="font-bestial text-5xl text-white">ELIO VIRELLI</h2>
+                        </div>
+
+                        <div class="cyber-card h-[500px] md:h-[700px] tilt-content">
+                            <img src="assets/icons/cieven1.png" class="cyber-img w-full h-full object-cover">
+                            <div class="card-overlay"></div>
+                             <div class="marquee-container">
+                                <div class="marquee-inner"><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span></div>
+                                <div class="marquee-inner"><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span></div>
+                                <div class="marquee-inner"><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. BLANC (Left Aligned) -->
+                <div class="tilt-box group cursor-pointer relative flex justify-start" onclick="openStory('c_blanc??')">
+                    <div class="w-full lg:w-1/2 relative">
+                        <div class="mb-4">
+                            <span class="font-mono text-gray-500 text-xs tracking-widest">03 // CAVALIER BLANC</span>
+                            <h2 class="font-bestial text-5xl text-white">PLACE LIBRE</h2>
+                        </div>
+                        <div class="cyber-card h-[450px] tilt-content">
+                            <img src="assets/icons/blanc3.png" class="cyber-img w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 bg-[var(--trinity-red)] text-black px-4 py-2 font-mono text-xs font-bold">CONQUÊTE</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. ROUGE (Center / Offset) -->
+                <div class="tilt-box group cursor-pointer relative flex justify-center lg:translate-x-20" onclick="openStory('c_rouge??')">
+                    <div class="w-full lg:w-1/2 relative">
+                        <div class="mb-4 text-center lg:text-left">
+                            <span class="font-mono text-gray-500 text-xs tracking-widest">04 // CAVALIER ROUGE</span>
+                            <h2 class="font-bestial text-5xl text-white">PLACE LIBRE</h2>
+                        </div>
+                        <div class="cyber-card h-[450px] tilt-content border-red-900">
+                            <img src="assets/icons/rouge3.png" class="cyber-img w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 bg-[var(--trinity-red)] text-black px-4 py-2 font-mono text-xs font-bold">GUERRE</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. NOIR (Right Aligned) -->
+                <div class="tilt-box group cursor-pointer relative flex justify-end" onclick="openStory('c_noir??')">
+                    <div class="w-full lg:w-1/2 relative">
+                        <div class="mb-4 text-right">
+                            <span class="font-mono text-gray-500 text-xs tracking-widest">05 // CAVALIER NOIR</span>
+                            <h2 class="font-bestial text-5xl text-white">PLACE LIBRE</h2>
+                        </div>
+                        <div class="cyber-card h-[450px] tilt-content">
+                            <img src="assets/icons/noir4.png" class="cyber-img w-full h-full object-cover">
+                            <div class="absolute bottom-0 right-0 bg-[var(--trinity-red)] text-black px-4 py-2 font-mono text-xs font-bold">FAMINE</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- LOGS SECTION REMOVED -->
+
+        <!-- FOOTER -->
+        <footer class="relative bg-[#020202] border-t border-[#1a1a1a] overflow-hidden pt-16 pb-8">
+    
+    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" 
+         style="background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px); background-size: 20px 20px;">
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+            
+            <div class="md:col-span-5 flex flex-col justify-between">
+                <div>
+                    <div class="group inline-block cursor-pointer mb-6">
+                        <img src="assets/icons/mostwanted.png" class="h-16 w-auto object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:drop-shadow-[0_0_10px_var(--trinity-red)]">
+                    </div>
+                    
+                    <p class="font-mono text-gray-400 text-xs leading-relaxed max-w-sm mb-6">
+                        "Je regardai donc, et je vis un cheval blanc, et celui qui était monté dessus avait un arc, et on lui donna une couronne, et il partit en vainqueur, pour remporter la victoire."
+                    </p>
+
+                    <div class="inline-flex items-center gap-3 border border-red-900/30 bg-red-900/10 px-4 py-2 rounded-sm">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--trinity-red)] opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--trinity-red)]"></span>
+                        </span>
+                        <span class="font-mono text-[10px] text-[var(--trinity-red)] tracking-[0.2em]">WANTED LEVEL: EXTREME</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-3 pt-2">
+                <h4 class="font-display text-white mb-6 flex items-center gap-2 text-xs tracking-widest">
+                    <i data-lucide="anchor" class="w-4 h-4 text-[var(--trinity-red)]"></i> NAV_SYSTEM
+                </h4>
+                <ul class="space-y-3 font-mono text-xs text-gray-500">
+                    <li>
+                        <a href="#wanted-list" class="flex items-center gap-2 hover:text-white transition-colors group">
+                            <span class="w-1 h-1 bg-[var(--trinity-red)] opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            [///] ÉQUIPAGE
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-2 hover:text-white transition-colors group">
+                            <span class="w-1 h-1 bg-[var(--trinity-red)] opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            [///] NAVIRE
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-2 hover:text-white transition-colors group">
+                            <span class="w-1 h-1 bg-[var(--trinity-red)] opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            [///] HISTOIRE
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-2 hover:text-white transition-colors group">
+                            <span class="w-1 h-1 bg-[var(--trinity-red)] opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            [///] ALLIANCES
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-4 flex flex-col gap-6">
+                
+                <a href="https://discord.gg/xK7mwaCJaG" target="_blank" class="group relative block overflow-hidden border border-[#333] hover:border-[var(--trinity-red)] bg-[#050505] transition-colors duration-300 p-6">
+                    <div class="absolute top-0 right-0 p-2 opacity-50">
+                        <i data-lucide="radio" class="w-6 h-6 text-gray-600 group-hover:text-[var(--trinity-red)] transition-colors"></i>
+                    </div>
+                    <h5 class="font-display text-white text-sm mb-1">JOIN_FREQUENCY</h5>
+                    <p class="font-mono text-[10px] text-gray-500 mb-4">CHANNEL: DISCORD_SERVER_07</p>
+                    <div class="flex items-center gap-2 text-[var(--trinity-red)] font-mono text-xs tracking-widest group-hover:translate-x-2 transition-transform">
+                        <span>CONNECTER</span> <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                    </div>
+                </a>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="border-l border-[#333] pl-4">
+                        <span class="block font-mono text-[9px] text-gray-600 mb-1">LOG POSE</span>
+                        <span class="block font-mono text-xs text-white">CALIBRATED</span>
+                    </div>
+                    <div class="border-l border-[#333] pl-4">
+                        <span class="block font-mono text-[9px] text-gray-600 mb-1">ENCRYPTION</span>
+                        <span class="block font-mono text-xs text-white">PONEGLYPH_V3</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="border-t border-[#1a1a1a] pt-8 flex flex-col md:flex-row justify-between items-end gap-4">
+            <div>
+                <p class="font-mono text-[10px] text-gray-600">
+                    &copy; 2026 TENKAI_RP // PROJET TRINITY RED.
+                </p>
+                <p class="font-mono text-[9px] text-[#222] mt-1">
+                    NOUS NE SOMMES PAS AFFILIÉS À EIICHIRO ODA OU SHUEISHA. FAN PROJECT.
+                </p>
+            </div>
+
+            <div class="opacity-30 hover:opacity-100 transition-opacity cursor-help" title="DECODING...">
+                <div class="flex items-end gap-[2px] h-8">
+                    <div class="w-[2px] h-full bg-[var(--trinity-red)]"></div>
+                    <div class="w-[1px] h-1/2 bg-white"></div>
+                    <div class="w-[3px] h-3/4 bg-white"></div>
+                    <div class="w-[1px] h-full bg-white"></div>
+                    <div class="w-[2px] h-1/3 bg-[var(--trinity-red)]"></div>
+                    <div class="w-[4px] h-full bg-white"></div>
+                    <div class="w-[1px] h-2/3 bg-white"></div>
+                    <div class="w-[2px] h-full bg-[var(--trinity-red)]"></div>
+                    <div class="w-[1px] h-1/4 bg-white"></div>
+                    <div class="w-[3px] h-full bg-white"></div>
+                </div>
+                <div class="text-[8px] font-mono text-right text-[var(--trinity-red)] mt-1 tracking-[0.3em]">ID: 666-JOYBOY</div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+</body>
+</html>
