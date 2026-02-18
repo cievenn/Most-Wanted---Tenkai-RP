@@ -5,7 +5,7 @@ const database = {
     'korazon': {
         name: 'KORAZON',
         subtitle: 'THE HEARTLESS CHILD',
-        img: 'assets/icons/mara2.png',
+        img: 'assets/icons/mara3.png',
         story: `
             <span class="story-paragraph">
                 <strong>Korazon</strong> naquit dans les ruelles de <span class="redacted">Namakura</span>, une île où la faim valait plus que l’or et où les <span class="redacted">dieux</span>, s’ils existaient, avaient détourné le regard. Étant un enfant abandonné, il survécut dans un monde de misère et de violence, avec le ventre creux, ça créera un lieu de prières et surtout que les faibles périssaient.
