@@ -1,21 +1,22 @@
 // ====================================
-// DATABASE OF STORIES
+// DATABASE OF STORIES (REDACTED VERSION)
 // ====================================
 const database = {
     'korazon': {
         name: 'KORAZON',
         subtitle: 'THE HEARTLESS CHILD',
-        img: 'assets/icons/mara3.png',
+        img: 'assets/icons/mara2.png',
         story: `
             <span class="story-paragraph">
-                <strong>Korazon</strong> naquit dans les ruelles de Namakura, une île où la faim valait plus que l’or et où les dieux, s’ils existaient, avaient détourné le regard. Étant un enfant abandonné, il survécut dans un monde de misère et de violence, avec le ventre creux, ça créera un lieu de prières et surtout que les faibles périssaient.
+                <strong>Korazon</strong> naquit dans les ruelles de <span class="redacted">Namakura</span>, une île où la faim valait plus que l’or et où les <span class="redacted">dieux</span>, s’ils existaient, avaient détourné le regard. Étant un enfant abandonné, il survécut dans un monde de misère et de violence, avec le ventre creux, ça créera un lieu de prières et surtout que les faibles périssaient.
+            </span>
             
             <span class="story-paragraph">
-                <strong>On</strong> l’appela Korazon, avec beaucoup d'ironie, car il n’avait pas de cœur. Pas de pitié, pas de tendresse, et surtout rien dans son regard. Dès son plus jeune âge, il apprit que la confiance est un sacré luxe et que la loyauté mène au cimetière. Il volait, poignardait, trahissait, et la peur devint son instrument.
+                <strong>On</strong> l’appela Korazon, avec beaucoup d'ironie, car il n’avait pas de cœur. Pas de pitié, pas de tendresse, et surtout rien dans son regard. Dès son plus jeune âge, il apprit que la confiance est un sacré luxe et que la loyauté mène au <span class="redacted">cimetière</span>. Il volait, poignardait, trahissait, et la peur devint son instrument.
             </span>
 
             <span class="story-paragraph">
-                <strong>À l’adolescence</strong>, Korazon n’était plus un enfant, mais un prédateur, montant dans la chaîne alimentaire. Il fonda son propre groupe de bandits, imposant sa loi par la terreur. La famine devint un outil de contrôle, finalement, ceux qui servaient survivaient, les autres disparaissaient dans les abysses de la mer. Il jouait avec les croyances de chacun et superstitions de l’île, laissant croire que les spectres lui obéissaient, quand en réalité, il n’avait besoin de personne.
+                <strong>À l’adolescence</strong>, Korazon n’était plus un enfant, mais un prédateur, montant dans la chaîne alimentaire. Il fonda son propre groupe de bandits, imposant sa loi par la terreur. La <span class="redacted">famine</span> devint un outil de contrôle, finalement, ceux qui servaient survivaient, les autres disparaissaient dans les abysses de la mer. Il jouait avec les croyances de chacun et superstitions de l’île, laissant croire que les <span class="redacted">spectres</span> lui obéissaient, quand en réalité, il n’avait besoin de personne.
             </span>
             
             <div class="story-dialogue">
@@ -23,15 +24,15 @@ const database = {
             </div>
 
             <span class="story-paragraph">
-                <strong>À</strong> seulement vingt ans, Korazon régnait sur partie de Namakura. Mais cette partie, rempli de ruines et de misère qui règne, elle était trop petite pour un homme de son ambition. Une nuit, durant une réunion, il exécuta ses hommes, un massacre calculé qui démontrait que le véritable spectre de l’île était lui-même, des rumeurs disent que les ruelles étaient rouges.
+                <strong>À</strong> seulement vingt ans, Korazon régnait sur partie de Namakura. Mais cette partie, rempli de ruines et de misère qui règne, elle était trop petite pour un homme de son ambition. Une nuit, durant une réunion, il exécuta ses hommes, un <span class="redacted">massacre</span> calculé qui démontrait que le véritable spectre de l’île était lui-même, des rumeurs disent que les ruelles étaient rouges.
             </span>
 
             <span class="story-paragraph">
-                <strong>Lorsque</strong> la Marine arriva, les habitants trahirent le tyran, ils virent une chance pour sa sauver de la misère, et enfin se débarrasser de celui qu’ils avaient craint. Korazon ne fut pas surpris, car une révolution se crée souvent via la fragilité du peuple. Mais cette trahison affûta sa volonté, s’il voulait régner, il lui fallait un royaume à la mesure de son ambition. Il prit un navire et quitta Namakura, non en fugitif, mais en conquérant.
+                <strong>Lorsque</strong> la <span class="redacted">Marine</span> arriva, les habitants trahirent le tyran, ils virent une chance pour sa sauver de la misère, et enfin se débarrasser de celui qu’ils avaient craint. Korazon ne fut pas surpris, car une révolution se crée souvent via la fragilité du peuple. Mais cette trahison affûta sa volonté, s’il voulait régner, il lui fallait un royaume à la mesure de son ambition. Il prit un navire et quitta Namakura, non en fugitif, mais en conquérant.
             </span>
 
             <span class="story-paragraph">
-                <strong>Ainsi</strong> naquit le pirate Korazon, stratège sans pitié, maître de la terreur et fondateur de l’équipage Most Wanted. Son royaume désormais n’aurait plus de frontières. Son but premier était de trouver ces futurs membres, il lui fallait un rendez pour chacun, à Logue Town, l'endroit où les légendes s'éveillent. En l’an 1496, le 6/11, il ne reste à Korazen que 5 ans et 1 mois pour rassembler les futures légendes et montrer au monde toute sa puissance.
+                <strong>Ainsi</strong> naquit le pirate Korazon, stratège sans pitié, maître de la terreur et fondateur de l’équipage <span class="redacted">Most Wanted</span>. Son royaume désormais n’aurait plus de frontières. Son but premier était de trouver ces futurs membres, il lui fallait un rendez pour chacun, à <span class="redacted">Logue Town</span>, l'endroit où les légendes s'éveillent. En l’an 1496, le 6/11, il ne reste à Korazen que 5 ans et 1 mois pour rassembler les futures légendes et montrer au monde toute sa puissance.
             </span>
 
             <div class="story-date-container">
@@ -51,15 +52,15 @@ const database = {
         img: 'assets/icons/cieven2.png',
         story: `
             <span class="story-paragraph">
-                <strong>Elio Virelli</strong> naquit dans une famille de chercheurs anonymes, mais le monde ne tarda pas à découvrir qu’il n’était pas simplement brillant, il était dangereux. Car dès son adolescence, il développa une fascination maladive pour la douleur humaine, et non par cruauté, mais par curiosité scientifique. Il disséquait les animaux, étudiait les réactions du cerveau à la peur, et parlait à des voix que personne d’autre n’entendait. Peu à peu, la frontière entre génie et folie se brisa en lui.
+                <strong>Elio Virelli</strong> naquit dans une famille de chercheurs anonymes, mais le monde ne tarda pas à découvrir qu’il n’était pas simplement brillant, il était dangereux. Car dès son adolescence, il développa une fascination maladive pour la <span class="redacted">douleur humaine</span>, et non par cruauté, mais par curiosité scientifique. Il disséquait les animaux, étudiait les réactions du cerveau à la peur, et parlait à des voix que personne d’autre n’entendait. Peu à peu, la frontière entre génie et folie se brisa en lui.
             </span>
             
             <span class="story-paragraph">
-                <strong>Nika</strong>. c'est le nom que les voix lui révélèrent. Bizarrement, il ne vit celui-ci comme un dieu de la liberté, mais une version tordue, reconstruite, réinterprétée, pour lui c’était un algorithme cosmique, un moteur de chaos, un plan mathématique derrière la souffrance humaine.
+                <strong><span class="redacted">Nika</span></strong>. c'est le nom que les voix lui révélèrent. Bizarrement, il ne vit celui-ci comme un dieu de la liberté, mais une version tordue, reconstruite, réinterprétée, pour lui c’était un algorithme cosmique, un moteur de chaos, un plan mathématique derrière la souffrance humaine.
             </span>
 
             <span class="story-paragraph">
-                <strong>Et</strong> il décida… de devenir son prophète. À vingt ans, il renversa une petite île isolée, utilisant la terreur, les expériences, et une poignée de fanatiques recrutés parmi les marginaux. Il imposa son règne comme un scientifique tyrannique, opérant sur les habitants au nom de son dieu imaginaire, envoyant des lettres incohérentes à une mystérieuse personne sur Namakura, des lettres remplies de schémas, des écrits, des prophéties.
+                <strong>Et</strong> il décida… de devenir son prophète. À vingt ans, il renversa une petite île isolée, utilisant la terreur, les expériences, et une poignée de fanatiques recrutés parmi les marginaux. Il imposa son règne comme un scientifique tyrannique, opérant sur les habitants au nom de son <span class="redacted">dieu imaginaire</span>, envoyant des lettres incohérentes à une mystérieuse personne sur Namakura, des lettres remplies de schémas, des écrits, des prophéties.
             </span>
 
             <span class="story-paragraph">
@@ -79,11 +80,11 @@ const database = {
             </div>
 
             <span class="story-paragraph">
-                <strong>Elio</strong> cessa de rire. Nous sommes en l’an 1497, 28/06, un instant, il vit ou crut voir les lignes du destin se tordre autour de Korazon comme des serpents d’ombre. Il n’eut pas besoin d’en savoir plus. Il n’eut pas besoin de comprendre. Il accepta. Car il ne suivait pas un capitaine… Il suivait le seul homme dont la folie dépassait la sienne. La seule condition était d'attendre les nouvelles recrues, les futurs conquérants de ses mers. C'est ici que le Most Wanted s'officilisera...
+                <strong>Elio</strong> cessa de rire. Nous sommes en l’an 1497, 28/06, un instant, il vit ou crut voir les lignes du destin se tordre autour de Korazon comme des serpents d’ombre. Il n’eut pas besoin d’en savoir plus. Il n’eut pas besoin de comprendre. Il accepta. Car il ne suivait pas un capitaine… Il suivait le seul homme dont la folie dépassait la sienne. La seule condition était d'attendre les nouvelles recrues, les futurs conquérants de ses mers. C'est ici que le <span class="redacted">Most Wanted</span> s'officilisera...
             </span>
 
             <span class="story-paragraph">
-                <strong>Le</strong>capitaine donnera un rendez-vous sur Logue Town, dans précisément 4 ans et 5 mois et 8 jours, jour pour jour, le Most Wanted s'éveillera à ce moment, une nouvelle ère débutera, et le duo élevera la piraterie avec l'équipage. Elio Virelli est devenu le chirurgien du chaos, le terroriste, le scientifique dément et le prophète de son propre dieu imaginaire. Sous le pavillon des Most Wanted, sa science n’a plus de limites, et sa voix résonne encore sur les mers, son rire se fit entendre à chaque endroit que le Most Wanted fit une action, portée par ses éclats de rire et ses visions.
+                <strong>Le</strong>capitaine donnera un rendez-vous sur <span class="redacted">Logue Town</span>, dans précisément 4 ans et 5 mois et 8 jours, jour pour jour, le Most Wanted s'éveillera à ce moment, une nouvelle ère débutera, et le duo élevera la piraterie avec l'équipage. Elio Virelli est devenu le chirurgien du chaos, le terroriste, le scientifique dément et le prophète de son propre dieu imaginaire. Sous le pavillon des Most Wanted, sa science n’a plus de limites, et sa voix résonne encore sur les mers, son rire se fit entendre à chaque endroit que le Most Wanted fit une action, portée par ses éclats de rire et ses visions.
             </span>
 
             <div class="story-date-container">
@@ -103,11 +104,11 @@ const database = {
         img: 'assets/icons/blanc2.png',
         story: `
             <span class="story-paragraph">
-                <strong>Lancelot de Beaumont</strong> naquit à Loguetown, la ville où naissent et meurent les légendes. Fils de marchands, il fut élevé comme un prince, dans un confort où le bonheur était la normalité et la douleur une simple rumeur lointaine.
+                <strong>Lancelot de Beaumont</strong> naquit à <span class="redacted">Loguetown</span>, la ville où naissent et meurent les légendes. Fils de marchands, il fut élevé comme un prince, dans un confort où le bonheur était la normalité et la douleur une simple rumeur lointaine.
             </span>
             
             <span class="story-paragraph">
-                Cette illusion se brisa le jour où des pirates attaquèrent la ville. Lancelot, terrifié, se réfugia dans les bas-fonds. Pendant qu’il tremblait dans l’ombre, ses parents furent capturés, utilisés comme monnaie d’échange… puis exécutés.
+                Cette illusion se brisa le jour où des <span class="redacted">pirates</span> attaquèrent la ville. Lancelot, terrifié, se réfugia dans les bas-fonds. Pendant qu’il tremblait dans l’ombre, ses parents furent capturés, utilisés comme monnaie d’échange… puis exécutés.
             </span>
 
             <span class="story-paragraph">
@@ -127,7 +128,7 @@ const database = {
             </span>
 
             <span class="story-paragraph">
-                Le garçon choyé de Loguetown mourut ce jour-là pour laisser naître un nouveau visage du <strong>Most Wanted</strong>. Korazon abandonna une carte au sol avant de partir.
+                Le garçon choyé de Loguetown mourut ce jour-là pour laisser naître un nouveau visage du <strong><span class="redacted">Most Wanted</span></strong>. Korazon abandonna une carte au sol avant de partir.
             </span>
 
             <div class="story-date-container">
@@ -148,7 +149,7 @@ const database = {
         img: 'assets/icons/noir2.png',
         story: `
             <span class="story-paragraph">
-                <strong>Caïn</strong> naquit sur l’île isolée de Namakura, dans l’archipel de Sanctaris. Dès sa naissance, les prêtres de L’Ordre du Premier Péché remarquèrent une marque rouge sombre sur son corps, symbole du meurtrier mythique.
+                <strong>Caïn</strong> naquit sur l’île isolée de Namakura, dans l’archipel de <span class="redacted">Sanctaris</span>. Dès sa naissance, les prêtres de <span class="redacted">L’Ordre du Premier Péché</span> remarquèrent une marque rouge sombre sur son corps, symbole du meurtrier mythique.
             </span>
             
             <span class="story-paragraph">
@@ -168,7 +169,7 @@ const database = {
             </span>
 
             <span class="story-paragraph">
-                Aujourd’hui, Caïn navigue en tant que divinateur du <strong>Most Wanted</strong>. Stoïque et fataliste, il reçut une dernière lettre de son capitaine en fuite. Il nota le lieu du rendez-vous au dos de l'Arcane 13.
+                Aujourd’hui, Caïn navigue en tant que divinateur du <strong><span class="redacted">Most Wanted</span></strong>. Stoïque et fataliste, il reçut une dernière lettre de son capitaine en fuite. Il nota le lieu du rendez-vous au dos de l'<span class="redacted">Arcane 13</span>.
             </span>
 
             <div class="story-date-container">
@@ -189,7 +190,7 @@ const database = {
         img: 'assets/icons/rouge2.png',
         story: `
             <span class="story-paragraph">
-                <strong>Sir Julius</strong> et sa jumelle Alune naquirent lors d’une convergence lunaire au Mont Targon. Le culte des Lunaris les attendait depuis des générations. Julius reçut le don de la lune de pierre, une aura froide absorbant la lumière.
+                <strong>Sir Julius</strong> et sa jumelle Alune naquirent lors d’une convergence lunaire au <span class="redacted">Mont Targon</span>. Le culte des <span class="redacted">Lunaris</span> les attendait depuis des générations. Julius reçut le don de la lune de pierre, une aura froide absorbant la lumière.
             </span>
             
             <div class="story-dialogue">
@@ -197,7 +198,7 @@ const database = {
             </div>
 
             <span class="story-paragraph">
-                Cachés des Solaris qui les traquaient, ils grandirent dans l'ombre. Mais en l'an 1499, le <strong>12/12</strong>, les Solaris découvrirent leur cachette et massacrèrent tout le monde. Julius et Alune s'enfuirent, jurant de reprendre ce qui avait été volé.
+                Cachés des <span class="redacted">Solaris</span> qui les traquaient, ils grandirent dans l'ombre. Mais en l'an 1499, le <strong>12/12</strong>, les Solaris découvrirent leur cachette et massacrèrent tout le monde. Julius et Alune s'enfuirent, jurant de reprendre ce qui avait été volé.
             </span>
 
             <span class="story-paragraph">
@@ -238,7 +239,7 @@ const database = {
             </span>
 
             <div class="search-ia-monologue">
-                « <strong>[SCANNING_SECTOR_WHITE]... [VIBRATION_DETECTED]...</strong> Le silence de la domination s'installe. Le système identifie une signature royale. Cible verrouillée : celui qui ne recule jamais avant la victoire totale. »
+                « <strong>[SCANNING_<span class="redacted">SECTOR_WHITE</span>]... [VIBRATION_DETECTED]...</strong> Le silence de la domination s'installe. Le système identifie une signature royale. Cible verrouillée : celui qui ne recule jamais avant la victoire totale. »
             </div>
 
             <span class="story-paragraph">
@@ -255,7 +256,7 @@ const database = {
             </div>
 
             <div class="story-quote">
-                <p>« Je regardai donc, et je vis un cheval blanc, et celui qui était monté dessus avait un arc, et on lui donna une couronne, et il partit en vainqueur, pour remporter la victoire. »</p>
+                <p>« Je regardai donc, et je vis un <span class="redacted">cheval blanc</span>, et celui qui était monté dessus avait un arc, et on lui donna une couronne, et il partit en vainqueur, pour remporter la victoire. »</p>
                 <footer>- APOCALYPSE 6:2</footer>
             </div>
         `
@@ -274,7 +275,7 @@ const database = {
             </span>
 
             <div class="search-ia-monologue">
-                « <strong>[CORE_TEMP_CRITICAL]... [SIGNAL_RED_OVERFLOW]...</strong> La paix est effacée de la mémoire vive. Le fer appelle le fer. Recherche d'un signal de destruction pure. Le monde s'apprête à s'égorger. »
+                « <strong>[CORE_TEMP_CRITICAL]... [SIGNAL_<span class="redacted">RED_OVERFLOW</span>]...</strong> La paix est effacée de la mémoire vive. Le fer appelle le fer. Recherche d'un signal de destruction pure. Le monde s'apprête à s'égorger. »
             </div>
 
             <span class="story-paragraph">
@@ -291,7 +292,7 @@ const database = {
             </div>
 
             <div class="story-quote">
-                <p>« Et il sortit un autre cheval qui était roux ; et celui qui le montait reçut le pouvoir de bannir la paix de la terre, et de faire que les hommes se tuassent les uns les autres ; et on lui donna une grande épée. »</p>
+                <p>« Et il sortit un autre cheval qui était roux ; et celui qui le montait reçut le pouvoir de bannir la <span class="redacted">paix</span> de la terre, et de faire que les hommes se tuassent les uns les autres ; et on lui donna une grande épée. »</p>
                 <footer>- APOCALYPSE 6:4</footer>
             </div>
         `
@@ -310,7 +311,7 @@ const database = {
             </span>
 
             <div class="search-ia-monologue">
-                « <strong>[RESOURCES_DEPLETED]... [MARKET_CRASH_DETECTED]...</strong> La balance oscille dans le vide. Le prix de la vie dépasse les réserves du système. Traçage d'une silhouette tenant le poids de notre survie entre ses doigts. »
+                « <strong>[RESOURCES_DEPLETED]... [<span class="redacted">MARKET_CRASH</span>_DETECTED]...</strong> La balance oscille dans le vide. Le prix de la vie dépasse les réserves du système. Traçage d'une silhouette tenant le poids de notre survie entre ses doigts. »
             </div>
 
             <span class="story-paragraph">
@@ -327,7 +328,7 @@ const database = {
             </div>
 
             <div class="story-quote">
-                <p>« Et quand l’Agneau eut ouvert le troisième sceau, j’entendis le troisième animal, qui disait : Viens et vois. Et je regardai, et il parut un cheval noir, et celui qui était monté dessus avait une balance à la main. »</p>
+                <p>« Et quand l’Agneau eut ouvert le troisième sceau, j’entendis le troisième animal, qui disait : Viens et vois. Et je regardai, et il parut un cheval noir, et celui qui était monté dessus avait une <span class="redacted">balance</span> à la main. »</p>
                 <footer>- APOCALYPSE 6:5</footer>
             </div>
         `
@@ -356,6 +357,10 @@ document.addEventListener('DOMContentLoaded', function() {
     initHackEffects();
 
     initLoginSystem();
+
+    initHeroEffects();
+
+    initManifestoAnimations();
 });
 
 // ====================================
@@ -799,3 +804,103 @@ function initHackEffects() {
         }
     }, 3000);
 }
+
+// ====================================
+// HERO SECTION EFFECTS
+// ====================================
+
+function initHeroEffects() {
+    // 1. Générateur de Cendres (Embers)
+    const container = document.getElementById('embers-container');
+    const emberCount = 50; // Nombre de particules
+
+    for (let i = 0; i < emberCount; i++) {
+        const ember = document.createElement('div');
+        ember.classList.add('ember');
+        
+        // Randomisation des propriétés CSS via variables
+        const left = Math.random() * 100 + '%';
+        const duration = 5 + Math.random() * 10 + 's'; // Vitesse entre 5 et 15s
+        const delay = Math.random() * 5 + 's';
+        const sway = (Math.random() - 0.5) * 100 + 'px'; // Dérive gauche/droite
+        
+        ember.style.left = left;
+        ember.style.setProperty('--duration', duration);
+        ember.style.setProperty('--delay', delay);
+        ember.style.setProperty('--sway', sway);
+        
+        container.appendChild(ember);
+    }
+
+    // 2. Parallaxe sur les Kanji (Mouvement souris)
+    document.addEventListener('mousemove', (e) => {
+        if (window.matchMedia("(pointer: coarse)").matches) return; // Pas sur mobile
+
+        const x = (e.clientX / window.innerWidth - 0.5) * 2; // -1 à 1
+        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+        document.querySelectorAll('.floating-kanji').forEach(el => {
+            const speed = parseFloat(el.getAttribute('data-speed'));
+            // Déplacement inversé ou accéléré selon le speed
+            gsap.to(el, {
+                x: x * 30 * speed,
+                y: y * 30 * speed,
+                duration: 1,
+                ease: "power2.out"
+            });
+        });
+    });
+    
+    // 3. Date Dynamique
+    const dateEl = document.getElementById('hero-date');
+    if(dateEl) {
+        const today = new Date();
+        dateEl.textContent = `SYSTEM DATE // ${today.getDate()}.${today.getMonth()+1}.1522`;
+    }
+}
+
+
+// A AJOUTER DANS VOTRE SCRIPT JS
+
+// Ajoutez cette fonction dans votre fichier script.js
+function initManifestoAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. Apparition du Titre "Apocalypse"
+    gsap.from("#manifesto h2", {
+        scrollTrigger: {
+            trigger: "#manifesto",
+            start: "top 70%",
+        },
+        y: 100,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power3.out"
+    });
+
+    // 2. Les 4 Piliers montent un par un
+    gsap.from(".monolith-card", {
+        scrollTrigger: {
+            trigger: ".monolith-card",
+            start: "top 80%",
+        },
+        y: 100,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2, // Délai entre chaque carte
+        ease: "back.out(1.7)"
+    });
+
+    // 3. Le Grand Reset (Zoom effect)
+    gsap.from("#manifesto .border-2", { // Cible la div finale
+        scrollTrigger: {
+            trigger: "#manifesto .border-2",
+            start: "top 85%",
+        },
+        scale: 0.95,
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out"
+    });
+}
+

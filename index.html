@@ -83,39 +83,96 @@
 </div>
 
     <!-- STORY MODAL (POPUP) -->
-    <div id="story-modal">
-        <button onclick="closeStory()" class="fixed top-4 right-4 md:top-8 md:right-8 z-50 text-white hover:text-[var(--trinity-red)] font-mono tracking-widest text-sm md:text-xl group bg-black/50 p-2 rounded backdrop-blur">
-            [ CLOSE_FILE ] <span class="block h-[1px] w-full bg-[var(--trinity-red)] scale-x-0 group-hover:scale-x-100 transition-transform"></span>
-        </button>
+    <div id="story-modal" class="fixed inset-0 z-[10001] hidden opacity-0">
+    
+    <div class="absolute inset-0 bg-black/95 backdrop-blur-xl">
+        <div class="absolute inset-0 bg-[url('assets/grid.png')] opacity-5 animate-pan-grid"></div>
+    </div>
 
-        <div class="modal-content max-w-6xl mx-auto w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-                <!-- Left: Visuals -->
-                <div class="lg:col-span-5 relative order-2 lg:order-1">
-                    <div class="lg:sticky lg:top-12">
-                        <div class="border border-[var(--trinity-red)] p-2 bg-black/50 backdrop-blur">
-                            <img id="modal-img" src="" class="w-full aspect-[3/4] object-cover filter grayscale contrast-125">
+    <button onclick="closeStory()" class="absolute top-4 right-4 md:top-8 md:right-8 z-[10002] flex items-center gap-3 bg-black border border-[var(--trinity-red)] px-5 py-3 md:px-6 md:py-3 hover:bg-[var(--trinity-red)] group transition-all duration-300 shadow-[0_0_20px_rgba(255,0,60,0.2)]">
+        <div class="flex flex-col items-end leading-none">
+            <span class="font-mono text-[10px] text-gray-400 group-hover:text-black tracking-widest transition-colors">SYSTEM</span>
+            <span class="font-display text-sm md:text-base text-white group-hover:text-black tracking-widest transition-colors">TERMINATE</span>
+        </div>
+        <div class="h-8 w-[1px] bg-[var(--trinity-red)] group-hover:bg-black transition-colors"></div>
+        <i data-lucide="x" class="w-6 h-6 text-[var(--trinity-red)] group-hover:text-black transition-colors"></i>
+    </button>
+
+    <div class="absolute inset-0 overflow-y-auto overflow-x-hidden custom-scrollbar pt-24 pb-12">
+        <div class="modal-content w-full max-w-7xl mx-auto px-4 md:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+                
+                <div class="lg:col-span-5 relative order-1">
+                    <div class="lg:sticky lg:top-8">
+                        <div class="border-2 border-[#333] p-1 bg-black relative overflow-hidden group">
+                            <div class="absolute inset-0 z-20 pointer-events-none bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px]"></div>
+                            <div class="absolute inset-0 z-20 pointer-events-none bg-gradient-to-b from-transparent via-[var(--trinity-red)]/10 to-transparent h-[20%] animate-scan-vertical"></div>
+                            
+                            <img id="modal-img" src="" class="w-full max-h-[50vh] md:max-h-none md:aspect-[3/4] object-cover object-top filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 transition-all duration-700">
+                            
+                            <div class="absolute top-0 left-0 w-8 h-8 border-l-4 border-t-4 border-[var(--trinity-red)] z-30"></div>
+                            <div class="absolute bottom-0 right-0 w-8 h-8 border-r-4 border-b-4 border-[var(--trinity-red)] z-30"></div>
+                            
+                            <div class="absolute bottom-4 left-4 z-30 bg-[var(--trinity-red)] text-black font-bold px-2 py-0.5 text-xs tracking-widest">
+                                TARGET_LOCKED
+                            </div>
                         </div>
-                        <div class="mt-4 flex justify-between font-mono text-[10px] text-gray-500">
-                            <span>FILE_ID: <span id="modal-id" class="text-white"></span></span>
-                            <span>STATUS: <span class="text-[var(--trinity-red)] animate-pulse">CLASSIFIED</span></span>
+
+                        <div class="mt-4 grid grid-cols-2 gap-4 font-mono text-[9px] text-gray-500 uppercase tracking-wider border-t border-[#333] pt-2">
+                            <div>
+                                <span class="block text-[var(--trinity-red)]">ID_TAG</span>
+                                <span id="modal-id" class="text-white">LOADING...</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-[var(--trinity-red)]">THREAT_LEVEL</span>
+                                <span class="text-white">EXTREME / OMEGA</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right: Story Content -->
-                <div class="lg:col-span-7 order-1 lg:order-2">
-                    <h2 id="modal-name" class="font-bestial text-5xl md:text-7xl text-white mb-2 leading-none break-words"></h2>
-                    <p id="modal-subtitle" class="font-mono text-[var(--trinity-red)] text-xs md:text-sm tracking-[0.3em] mb-8"></p>
+                <div class="lg:col-span-7 order-2">
                     
-                    <div class="story-text-container">
-                        <p id="modal-text" class="font-mono text-gray-300 text-sm md:text-lg leading-relaxed whitespace-pre-wrap"></p>
-                        <div class="h-4 w-4 bg-[var(--trinity-red)] mt-4 animate-pulse"></div>
+                    <div class="mb-8 border-b border-[#333] pb-6 relative">
+                        <div class="absolute -left-4 top-0 h-full w-1 bg-[var(--trinity-red)] hidden md:block"></div>
+                        
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-0.5 border border-[var(--trinity-red)] text-[var(--trinity-red)] text-[9px] font-mono tracking-widest bg-[var(--trinity-red)]/10">TOP SECRET</span>
+                            <span class="text-gray-500 text-[9px] font-mono">CIPHER POL ARCHIVES // DECRYPTION COMPLETE</span>
+                        </div>
+
+                        <h2 id="modal-name" class="font-bestial text-5xl md:text-8xl text-white mb-1 leading-[0.8] break-words uppercase mix-blend-screen"></h2>
+                        <p id="modal-subtitle" class="font-mono text-[var(--trinity-red)] text-xs md:text-sm tracking-[0.4em] uppercase opacity-80"></p>
+                    
+                        <div class="flex items-end gap-1 h-8 mt-6 opacity-50">
+                            <div class="w-1 bg-[var(--trinity-red)] animate-wave" style="--d:0s"></div>
+                            <div class="w-1 bg-[var(--trinity-red)] animate-wave" style="--d:0.1s"></div>
+                            <div class="w-1 bg-[var(--trinity-red)] animate-wave" style="--d:0.2s"></div>
+                            <div class="w-1 bg-[var(--trinity-red)] animate-wave" style="--d:0.3s"></div>
+                            <div class="w-1 bg-[var(--trinity-red)] animate-wave" style="--d:0.1s"></div>
+                            <div class="w-1 bg-[var(--trinity-red)] animate-wave" style="--d:0.4s"></div>
+                            <div class="w-1 bg-[var(--trinity-red)] animate-wave" style="--d:0.2s"></div>
+                            <div class="w-1 bg-[var(--trinity-red)] animate-wave" style="--d:0.5s"></div>
+                            <div class="w-full h-[1px] bg-[#333] mb-1 ml-2"></div>
+                        </div>
                     </div>
+                    
+                    <div class="story-text-container relative pl-0 md:pl-4">
+                        <div id="modal-text" class="font-mono text-gray-300 text-sm md:text-lg leading-relaxed whitespace-pre-wrap relative z-10 selection:bg-[var(--trinity-red)] selection:text-black"></div>
+                        
+                        <div class="flex items-center gap-2 mt-8 opacity-50">
+                            <div class="h-3 w-3 bg-[var(--trinity-red)] animate-pulse"></div>
+                            <span class="font-mono text-[10px] text-[var(--trinity-red)] tracking-widest">END_OF_FILE</span>
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 
     <!-- MAIN CONTENT -->
     <main id="main-content" class="opacity-0 hidden relative z-10 pb-20 md:pb-0">
@@ -137,289 +194,549 @@
 </nav>
 
         <!-- HERO SECTION -->
-        <header class="min-h-screen flex flex-col justify-center px-4 md:px-6 relative overflow-hidden">
-            <!-- Background Elements -->
-            <div class="perspective-grid"></div>
-            <div class="beast-aura"></div>
-            <div class="absolute top-0 right-0 p-12 opacity-20 pointer-events-none select-none writing-vertical-rl text-[var(--trinity-red)] font-mono text-xs tracking-widest hidden md:block">
-                WARNING: CONTAINMENT BREACH // SECTOR 7G
+        <header class="relative min-h-screen flex flex-col justify-center overflow-hidden selection:bg-[var(--trinity-red)] selection:text-black">
+    
+    <div class="perspective-grid opacity-30"></div>
+    
+    <div class="beast-aura animate-pulse-slow"></div>
+    
+    <div id="embers-container" class="absolute inset-0 pointer-events-none z-0"></div>
+
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
+        <span class="floating-kanji text-[20vw] absolute top-[-10%] right-[-5%] text-[#111] font-bold opacity-50 blur-[2px]" data-speed="2">悪</span>
+        <span class="floating-kanji text-[15vw] absolute bottom-[-5%] left-[-5%] text-[#0a0a0a] font-bold opacity-80" data-speed="-1">党</span>
+    </div>
+
+    <div class="absolute top-0 right-0 h-full w-24 border-l border-[#1a1a1a] hidden md:flex flex-col justify-center items-center gap-8 z-10 bg-gradient-to-l from-black/50 to-transparent backdrop-blur-sm">
+        <div class="writing-vertical-rl text-[var(--trinity-red)] font-mono text-[10px] tracking-[0.3em] opacity-60">
+            THREAT LEVEL: DRAGON
+        </div>
+        <div class="w-[1px] h-32 bg-gradient-to-b from-transparent via-[var(--trinity-red)] to-transparent"></div>
+        <div class="writing-vertical-rl text-gray-600 font-mono text-[10px] tracking-[0.3em]">
+            SECURE CONNECTION
+        </div>
+    </div>
+
+    <div class="max-w-[90vw] mx-auto w-full relative z-10 pl-0 md:pl-12">
+        
+        <div class="flex items-center gap-4 mb-2 overflow-hidden">
+            <div class="h-[1px] w-12 bg-[var(--trinity-red)]"></div>
+            <p class="font-mono text-[var(--trinity-red)] text-[9px] md:text-xs tracking-[0.5em] uppercase" id="hero-date">
+                SYSTEM DATE // 1522
+            </p>
+        </div>
+
+        <div class="relative group mb-12">
+            <h1 class="absolute -top-16 -left-8 md:-left-16 text-[18vw] font-bestial text-transparent stroke-text opacity-10 select-none pointer-events-none leading-none z-0 scale-y-150">
+                WANTED
+            </h1>
+            
+            <div class="relative z-10">
+                <h1 class="font-trinity text-[13vw] md:text-[11vw] leading-[0.85] text-white mix-blend-screen tracking-tighter">
+                    MOST <br> 
+                    <span class="text-outline-red relative inline-block">
+                        WANTED
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--trinity-red)] to-transparent opacity-20 h-[5px] w-full animate-scanline pointer-events-none"></div>
+                    </span>
+                </h1>
+            </div>
+            
+            <div class="absolute bottom-4 right-0 md:right-1/3 bg-[var(--trinity-red)] text-black px-4 py-1 transform rotate-[-2deg] hover:rotate-0 transition-transform">
+                <span class="font-bestial text-xl md:text-2xl">DEAD OR ALIVE</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end border-t border-[#222] pt-8 relative backdrop-blur-sm bg-black/20">
+            <div class="absolute -top-[3px] -left-[3px] w-6 h-6 border-l border-t border-[var(--trinity-red)]"></div>
+
+            <div class="md:col-span-5 relative">
+                <div class="absolute -left-6 top-2 h-full w-[2px] bg-gradient-to-b from-[var(--trinity-red)] to-transparent opacity-50"></div>
+                <p class="font-mono text-gray-400 text-xs md:text-sm leading-relaxed text-justify">
+                    <span class="text-[var(--trinity-red)]">>> APOCALYPSE_01:</span><br>
+                    "Alors je vis que <span class="text-white border-b border-[var(--trinity-red)]">l’Agneau</span> avait ouvert un des sceaux. Le monde retient son souffle. Nous ne sommes pas ici pour le trésor. Nous sommes ici pour voir le monde brûler et renaître de ses cendres."
+                </p>
             </div>
 
-            <div class="max-w-[90vw] mx-auto w-full pt-20 relative z-10">
+            <div class="md:col-span-7 flex flex-col md:flex-row gap-6 md:justify-end">
                 
-                <!-- Status Bar -->
-                <div class="flex items-center gap-4 mb-4 md:mb-6 ml-2 border-l-2 border-[var(--trinity-red)] pl-4">
-                    <div class="w-2 h-2 bg-[var(--trinity-red)] animate-pulse shadow-[0_0_10px_var(--trinity-red)]"></div>
-                    <p class="font-mono text-[var(--trinity-red)] text-[10px] md:text-xs tracking-[0.4em] typing-effect">SYSTEM OVERRIDE // TARGET LOCKED</p>
+                <div class="relative group min-w-[200px]">
+                    <div class="flex justify-between items-end border-b border-[#333] pb-2 mb-2 group-hover:border-[var(--trinity-red)] transition-colors">
+                        <span class="font-mono text-[9px] text-gray-500">TOTAL_BOUNTY</span>
+                        <i data-lucide="crosshair" class="w-4 h-4 text-[var(--trinity-red)] animate-spin-slow"></i>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="font-display text-white text-3xl group-hover:text-[var(--trinity-red)] transition-colors" id="bounty-counter">0</span>
+                        <span class="font-mono text-[10px] text-[var(--trinity-red)]">BERRY</span>
+                    </div>
+                    <div class="absolute bottom-0 right-0 h-1 w-full bg-[#111] overflow-hidden">
+                        <div class="h-full w-1/3 bg-[var(--trinity-red)] animate-loading-bar"></div>
+                    </div>
                 </div>
 
-                <!-- Main Title -->
-                <div class="relative z-10 group">
-                    <!-- Background giant text -->
-                    <h1 class="absolute -top-10 -left-4 md:-left-10 text-[20vw] font-bestial text-[#111] opacity-50 select-none pointer-events-none leading-none z-0">
-                        WANTED
-                    </h1>
-                    
-                    <h1 class="relative font-trinity text-[15vw] md:text-[12vw] leading-[0.85] text-white mix-blend-screen glitch-wrapper z-10" data-text="MOST WANTED">
-                        MOST <br> WANTED
-                    </h1>
+                <div class="relative group min-w-[200px]">
+                    <div class="flex justify-between items-end border-b border-[#333] pb-2 mb-2 group-hover:border-[var(--trinity-red)] transition-colors">
+                        <span class="font-mono text-[9px] text-gray-500">CURRENT_LOC</span>
+                        <span class="flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-red-500 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+                        </span>
+                    </div>
+                    <div id="status-text" class="font-display text-white text-xl uppercase tracking-wider">SABAODY</div>
                 </div>
 
-                <!-- Info Grid -->
-                <div class="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-8 items-end border-t border-[#222] pt-8 relative">
-                    <!-- Decor line -->
-                    <div class="absolute top-0 left-0 w-1/3 h-[1px] bg-[var(--trinity-red)]"></div>
+            </div>
+        </div>
+    </div>
 
-                    <!-- Description -->
-                    <div class="md:col-span-5">
-                        <p class="font-mono text-gray-400 text-sm md:text-lg leading-relaxed">
-                             "Alors je vis que <span class="text-white bg-[var(--trinity-red)] px-1 selection-highlight"> l’Agneau</span> avait ouvert un des sceaux, et j’entendis l’un des quatre animaux qui disait d’une voix de tonnerre : Viens et vois."
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity cursor-pointer z-20">
+        <div class="relative w-12 h-12 border border-[var(--trinity-red)] rounded-full flex items-center justify-center">
+            <div class="absolute w-full h-[1px] bg-[var(--trinity-red)] animate-scan-radar"></div>
+            <div class="w-1 h-1 bg-white rounded-full"></div>
+        </div>
+        <span class="font-mono text-[9px] text-[var(--trinity-red)] tracking-widest">SCROLL_DOWN</span>
+    </div>
+
+</header>
+
+<section id="manifesto" class="relative py-20 md:py-32 bg-[#020202] overflow-hidden border-y border-[#333]">
+    
+    <div class="absolute inset-0 bg-[url('assets/grid.png')] opacity-5 pointer-events-none"></div>
+    <div class="absolute top-0 right-0 w-[300px] md:w-[800px] h-[300px] md:h-[800px] bg-[var(--trinity-red)] opacity-[0.03] blur-[80px] md:blur-[150px] rounded-full pointer-events-none"></div>
+    
+    <div class="absolute -left-12 top-20 md:-left-24 md:top-40 text-[30vw] md:text-[25vw] font-bestial text-[#0a0a0a] leading-none select-none pointer-events-none z-0 opacity-50 rotate-90 md:rotate-0">
+        RESET
+    </div>
+
+    <div class="max-w-[95vw] mx-auto px-4 md:px-8 relative z-10">
+
+        <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 md:mb-20 border-b-2 border-[var(--trinity-red)] pb-6">
+            <div class="max-w-4xl w-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="px-2 py-1 bg-[var(--trinity-red)] text-black font-mono text-[9px] md:text-[10px] font-bold tracking-widest animate-pulse">CLASSIFIED_DOC</span>
+                    <span class="font-mono text-gray-500 text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em]">> MANIFESTE DU MOST WANTED</span>
+                </div>
+                <h2 class="font-bestial text-5xl sm:text-6xl md:text-9xl text-white uppercase leading-[0.8] mix-blend-screen glitch-wrapper break-words" data-text="L'APOCALYPSE">
+                    L'APOCALYPSE<br><span class="text-transparent stroke-text">DES ROIS</span>
+                </h2>
+            </div>
+            <div class="hidden sm:block mt-4 md:mt-0 text-right">
+                <div class="flex gap-1 h-8 md:h-12 justify-end mb-2 opacity-50">
+                    <div class="w-1 bg-[var(--trinity-red)]"></div><div class="w-2 bg-white"></div><div class="w-1 bg-[var(--trinity-red)]"></div><div class="w-4 bg-white"></div>
+                </div>
+                <p class="font-mono text-[var(--trinity-red)] text-[10px] md:text-xs tracking-widest">SEQ_INIT_v4.0</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 mb-20 md:mb-32">
+            
+            <div class="lg:col-span-7 prose-manifesto space-y-6 md:space-y-8">
+                <p class="font-mono text-base md:text-lg text-gray-300 leading-relaxed text-justify border-l-2 md:border-l-4 border-[#333] pl-4 md:pl-6 hover:border-[var(--trinity-red)] transition-colors duration-500">
+                    <strong class="text-white text-xl md:text-2xl font-display block mb-2">FORCE DE CORRECTION HISTORIQUE.</strong>
+                    L'équipage Most Wanted n'est pas une simple bande de pirates en quête de trésors, à vrai dire, c'est une force née des décombres de trônes brisés. Cet équipage regroupe d'anciens conquérants qui ont choisi de ne plus servir la loi, mais de <span class="bg-white/10 text-white px-1">devenir la seule loi</span>.
+                </p>
+
+                <p class="font-mono text-xs md:text-sm text-gray-400 leading-relaxed">
+                    Leur philosophie postule que tout pouvoir ne reposant pas sur la force brute est une <span class="redacted">illusion fragile</span> qui mérite d'être piétinée. Pour eux, la liberté pirate ne consiste pas à naviguer sans entraves, mais à exercer le droit souverain de reprendre ce que le monde leur a volé : <strong>LA DOMINATION ABSOLUE.</strong>
+                </p>
+            </div>
+
+            <div class="lg:col-span-5 flex flex-col justify-center items-center text-center relative p-6 md:p-8 border border-[#222] bg-black/50 backdrop-blur-sm group hover:border-[var(--trinity-red)] transition-all duration-500 mt-4 md:mt-0">
+                <div class="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-[var(--trinity-red)]"></div>
+                <div class="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-[var(--trinity-red)]"></div>
+                
+                <div class="mb-6">
+                    <i data-lucide="crown" class="w-10 h-10 md:w-12 md:h-12 text-gray-700 group-hover:text-[var(--trinity-red)] transition-colors duration-500 mb-4 mx-auto"></i>
+                    <h3 class="font-bestial text-4xl md:text-7xl text-white leading-none group-hover:scale-105 transition-transform duration-500">
+                        BRISE<br><span class="text-[var(--trinity-red)]">TA COURONNE</span>
+                    </h3>
+                </div>
+                <p class="font-mono text-[9px] md:text-[10px] text-gray-500 uppercase tracking-[0.3em] md:tracking-[0.4em]">
+                    // LE CRI DE GUERRE UNIVERSEL
+                </p>
+            </div>
+        </div>
+
+        <div class="mb-20 md:mb-32">
+            <div class="flex items-center gap-4 mb-8 md:mb-12">
+                <div class="h-[1px] flex-grow bg-gradient-to-r from-transparent via-[var(--trinity-red)] to-transparent"></div>
+                <h4 class="font-mono text-white text-xs md:text-sm tracking-[0.2em] md:tracking-[0.3em] uppercase bg-black px-4 border border-[#333] whitespace-nowrap">
+                    SÉQUENCE DE L'APOCALYPSE
+                </h4>
+                <div class="h-[1px] flex-grow bg-gradient-to-r from-transparent via-[var(--trinity-red)] to-transparent"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                
+                <div class="monolith-card group relative h-[300px] md:h-[400px] border border-[#222] bg-[#050505] overflow-hidden hover:border-white transition-all duration-500">
+                    <div class="absolute inset-0 bg-[url('assets/icons/blanc1.png')] bg-cover bg-center opacity-20 grayscale group-hover:opacity-40 group-hover:scale-110 transition-all duration-700"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                    <div class="relative z-10 p-6 h-full flex flex-col justify-end">
+                        <span class="font-display text-5xl md:text-6xl text-[var(--trinity-red)] opacity-20 absolute top-4 right-4 group-hover:opacity-100 transition-opacity">I</span>
+                        <h5 class="font-bestial text-2xl md:text-3xl text-white mb-2">C O N Q UÊ T E</h5>
+                        <div class="h-[1px] w-0 group-hover:w-full bg-[var(--trinity-red)] transition-all duration-500 mb-4"></div>
+                        <p class="font-mono text-[10px] text-gray-400 leading-relaxed md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500">
+                            Destruction systématique des défenses. Briser l'ennemi psychologiquement.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="monolith-card group relative h-[300px] md:h-[400px] border border-[#222] bg-[#050505] overflow-hidden hover:border-[var(--trinity-red)] transition-all duration-500">
+                    <div class="absolute inset-0 bg-[url('assets/icons/rouge1.png')] bg-cover bg-center opacity-20 grayscale group-hover:opacity-40 group-hover:scale-110 transition-all duration-700"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                    <div class="relative z-10 p-6 h-full flex flex-col justify-end">
+                        <span class="font-display text-5xl md:text-6xl text-[var(--trinity-red)] opacity-20 absolute top-4 right-4 group-hover:opacity-100 transition-opacity">II</span>
+                        <h5 class="font-bestial text-2xl md:text-3xl text-white mb-2">G U E R R E</h5>
+                        <div class="h-[1px] w-0 group-hover:w-full bg-[var(--trinity-red)] transition-all duration-500 mb-4"></div>
+                        <p class="font-mono text-[10px] text-gray-400 leading-relaxed md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500">
+                            Conflit total. Aucun prisonnier. La violence comme langage unique.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="monolith-card group relative h-[300px] md:h-[400px] border border-[#222] bg-[#050505] overflow-hidden hover:border-gray-500 transition-all duration-500">
+                    <div class="absolute inset-0 bg-[url('assets/icons/noir1.png')] bg-cover bg-center opacity-20 grayscale group-hover:opacity-40 group-hover:scale-110 transition-all duration-700"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                    <div class="relative z-10 p-6 h-full flex flex-col justify-end">
+                        <span class="font-display text-5xl md:text-6xl text-[var(--trinity-red)] opacity-20 absolute top-4 right-4 group-hover:opacity-100 transition-opacity">III</span>
+                        <h5 class="font-bestial text-2xl md:text-3xl text-white mb-2">F A M I N E</h5>
+                        <div class="h-[1px] w-0 group-hover:w-full bg-[var(--trinity-red)] transition-all duration-500 mb-4"></div>
+                        <p class="font-mono text-[10px] text-gray-400 leading-relaxed md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500">
+                            Privation des ressources. La soumission comme seule option de survie.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="monolith-card group relative h-[300px] md:h-[400px] border border-[#222] bg-[#050505] overflow-hidden hover:border-[#cieven] transition-all duration-500">
+                    <div class="absolute inset-0 bg-[url('assets/icons/cieven1.png')] bg-cover bg-center opacity-20 grayscale group-hover:opacity-40 group-hover:scale-110 transition-all duration-700"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                    <div class="relative z-10 p-6 h-full flex flex-col justify-end">
+                        <span class="font-display text-5xl md:text-6xl text-[var(--trinity-red)] opacity-20 absolute top-4 right-4 group-hover:opacity-100 transition-opacity">IV</span>
+                        <h5 class="font-bestial text-2xl md:text-3xl text-white mb-2">P Â L E</h5>
+                        <div class="h-[1px] w-0 group-hover:w-full bg-[var(--trinity-red)] transition-all duration-500 mb-4"></div>
+                        <p class="font-mono text-[10px] text-gray-400 leading-relaxed md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500">
+                            L'ascension finale. L'aristocratie du sang remplace l'ancien monde.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative mt-20 md:mt-32 border border-[#333] bg-black overflow-hidden group">
+            
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] md:w-[500px] md:h-[500px] rounded-full shadow-[0_0_50px_var(--trinity-red)] md:shadow-[0_0_100px_var(--trinity-red)] z-0 animate-eclipse-pulse overflow-hidden border-2 md:border-4 border-black/50">
+                <img src="assets/icons/mara5.png" alt="Korazon" class="w-full h-full object-cover filter grayscale contrast-150 brightness-[0.3] scale-110 animate-slow-zoom mix-blend-luminosity">
+                <div class="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--trinity-red)]/20 to-transparent h-[20%] animate-scan-vertical opacity-50"></div>
+            </div>
+
+            <div class="absolute inset-0 bg-[url('assets/grid.png')] opacity-10 z-0"></div>
+            
+            <div class="absolute top-0 left-0 w-full h-1 md:h-2 bg-[repeating-linear-gradient(45deg,var(--trinity-red),var(--trinity-red)_10px,black_10px,black_20px)] opacity-50"></div>
+            <div class="absolute bottom-0 left-0 w-full h-1 md:h-2 bg-[repeating-linear-gradient(45deg,var(--trinity-red),var(--trinity-red)_10px,black_10px,black_20px)] opacity-50"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 p-6 md:p-16 items-center">
+                
+                <div class="text-left relative">
+                    <div class="flex items-center gap-3 mb-4 md:mb-6">
+                        <span class="w-2 h-2 md:w-3 md:h-3 bg-[var(--trinity-red)] animate-ping rounded-full"></span>
+                        <span class="font-mono text-[var(--trinity-red)] text-[10px] md:text-xs tracking-[0.3em] uppercase">Phase Finale Initiée</span>
+                    </div>
+
+                    <h3 class="font-bestial text-5xl md:text-8xl text-white mb-6 uppercase leading-[0.8] mix-blend-difference break-words">
+                        GRAND<br>
+                        <span class="text-[var(--trinity-red)] glitch-wrapper" data-text="RESET">RESET</span>
+                    </h3>
+
+                    <div class="border-l-2 border-[var(--trinity-red)] pl-4 md:pl-6 py-2 mb-8 bg-gradient-to-r from-[var(--trinity-red)]/5 to-transparent backdrop-blur-sm">
+                        <p class="font-mono text-gray-300 text-[10px] md:text-sm leading-relaxed">
+                            <strong class="text-white block mb-2">VERDICT DU SYSTÈME :</strong>
+                            "Cruel, bestial et dépourvu de toute morale conventionnelle, le <span class="text-[var(--trinity-red)]">Most Wanted</span> avance avec une clarté stratégique terrifiante. Sous le ciel rouge, la vengeance est une destinée universelle."
                         </p>
                     </div>
 
-                    <!-- Tech Stats -->
-                    <div class="md:col-span-7 flex flex-col md:flex-row gap-4 md:justify-end">
-    <div class="border border-[#333] bg-black/50 p-4 min-w-[150px] relative overflow-hidden group">
-        <div class="absolute top-0 left-0 w-full h-[2px] bg-[var(--trinity-red)] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-        <div class="text-[9px] md:text-[10px] text-gray-500 mb-1 tracking-widest">BOUNTY_TOTAL</div>
-        <div class="text-xl md:text-2xl font-display text-white transition-colors flex items-center gap-1">
-            <span id="bounty-counter" class="text-[var(--trinity-red)]">0</span>
-            <span class="text-xs text-gray-500">BERRY</span>
-        </div>
-    </div>
-    
-    <div class="border border-[#333] bg-[var(--trinity-red)] p-4 min-w-[150px] relative overflow-hidden group">
-        <div class="absolute inset-0 bg-black/10"></div> 
-        <div class="relative z-10">
-            <div class="text-[9px] md:text-[10px] text-black mb-1 font-bold tracking-widest">LAST_KNOWN_LOC</div>
-            <div id="status-text" class="text-xl md:text-2xl font-display text-black flex items-center gap-2 uppercase">
-                SABAODY
-                <span class="relative flex h-3 w-3">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-3 w-3 bg-black"></span>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
+                    <div class="flex items-center gap-2 md:gap-4">
+                        <div class="px-3 py-2 border border-[#333] bg-[#050505]/80 backdrop-blur">
+                            <span class="block font-mono text-[8px] md:text-[9px] text-gray-500">CIBLE</span>
+                            <span class="font-display text-xs md:text-base text-white"><span class="redacted">LE MONDE</span>
+                        </div>
+                        <div class="px-3 py-2 border border-[#333] bg-[#050505]/80 backdrop-blur">
+                            <span class="block font-mono text-[8px] md:text-[9px] text-gray-500">PROBABILITÉ</span>
+                            <span class="font-display text-xs md:text-base text-[var(--trinity-red)]">100%</span>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="relative flex flex-col items-center justify-center text-center mt-8 md:mt-0">
+                    
+                    <i data-lucide="crown" class="w-32 h-32 md:w-64 md:h-64 text-black stroke-[var(--trinity-red)] stroke-[0.5] drop-shadow-[0_0_15px_var(--trinity-red)] animate-float-slow"></i>
+                    
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-black/80 backdrop-blur-sm border border-[var(--trinity-red)] px-4 py-3 md:px-6 md:py-4 transform rotate-[-5deg] hover:rotate-0 transition-transform duration-300">
+                            <p class="font-bestial text-xl md:text-4xl text-white tracking-widest">
+                                KORAZON
+                            </p>
+                            <div class="h-[1px] w-full bg-[var(--trinity-red)] my-1"></div>
+                            <p class="font-mono text-[8px] md:text-[10px] text-[var(--trinity-red)] uppercase tracking-[0.4em]">
+                                MAÎTRE ABSOLU
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 md:mt-12 flex items-center justify-center gap-1 font-mono text-3xl md:text-6xl text-[#333] tracking-widest bg-black/50 px-2 rounded">
+                        <span class="opacity-60">00:00:</span>
+                        <div class="relative inline-block text-[var(--trinity-red)] glitch-aggressive font-bold" data-text="01">
+                            01
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </header>
+        </div>
+
+    </div>
+</section>
+
 
         <!-- UNPREDICTABLE CONTINUOUS FLOW (HIERARCHY) -->
-        <section id="wanted-list" class="py-20 md:py-32 border-t border-[#111] relative">
-            <div class="absolute inset-y-0 left-10 w-[1px] bg-[#1a1a1a] hidden lg:block"></div>
-            
-            <div class="max-w-[90vw] mx-auto space-y-32">
-                
-                <!-- 1. KORAZON (CAPTAIN) - Full Width Center -->
-                <div class="tilt-box group cursor-pointer relative" onclick="openStory('korazon')">
-                    <div class="flex flex-col items-center text-center mb-8">
-                        <span class="font-mono text-[var(--trinity-red)] text-xl tracking-[0.5em] mb-2">01 // CAPTAINE</span>
-                        <h2 class="font-bestial text-6xl md:text-9xl text-white leading-none">KORAZON</h2>
-                    </div>
-                    
-                    <div class="cyber-card h-[500px] md:h-[800px] w-full max-w-5xl mx-auto tilt-content border-2 border-[var(--trinity-red)]">
-                        <div class="absolute top-4 right-4 z-20 bg-[var(--trinity-red)] text-black font-bold px-4 py-1 text-xs md:text-sm">WANTED DEAD OR ALIVE</div>
-                        <img src="assets/icons/mara1.png" class="cyber-img w-full h-full object-cover">
-                        <div class="card-overlay"></div>
-                        
-                        <!-- Marquee -->
-                        <div class="marquee-container">
-                            <div class="marquee-inner"><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span></div>
-                            <div class="marquee-inner"><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span></div>
-                            <div class="marquee-inner"><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">KORAZON KORAZON KORAZON</span></div>
-                        </div>
-                    </div>
+        <section id="wanted-list" class="py-24 md:py-40 relative overflow-hidden">
+    
+    <div class="absolute inset-0 bg-[url('assets/grid.png')] opacity-10 pointer-events-none"></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-[#333] to-transparent hidden lg:block"></div>
+
+    <svg class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 hidden lg:block opacity-50" preserveAspectRatio="none">
+        <path d="M50% 0 V 15% L 20% 25% M50% 30% L 80% 40% M50% 50% L 20% 60% M50% 70% L 60% 80% M50% 85% L 80% 95%" 
+              fill="none" stroke="var(--trinity-red)" stroke-width="1" class="animate-dash-draw" stroke-dasharray="10,10"/>
+    </svg>
+
+    <div class="max-w-[95vw] mx-auto space-y-32 relative z-10" id="hierarchy-container">
+
+        <div class="tilt-box group relative w-full max-w-6xl mx-auto z-20" onclick="openStory('korazon')">
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 text-center z-20">
+                <div class="inline-block bg-[var(--trinity-red)] text-black font-bestial text-xl px-6 py-1 transform skew-x-[-20deg]">
+                    <span class="inline-block transform skew-x-[20deg] tracking-widest">CAPTAIN // KING</span>
                 </div>
-
-                <!-- 2. ELIO (SECOND / PALE) - Right Aligned / Unpredictable -->
-                <div class="tilt-box group cursor-pointer relative flex justify-end" onclick="openStory('elio')">
-                    <div class="w-full lg:w-2/3 relative">
-                        <div class="absolute -left-12 top-20 z-20 hidden lg:block">
-                            <h2 class="font-bestial text-7xl text-white leading-none text-right">ELIO<br>VIRELLI</h2>
-                            <p class="font-mono text-[var(--trinity-red)] text-right mt-2 tracking-widest">VICE-CAPTAINE // CAVALIER PÂLE</p>
-                        </div>
-                        
-                        <!-- Mobile Title -->
-                        <div class="lg:hidden mb-4 text-right">
-                            <span class="font-mono text-[var(--trinity-red)] text-sm tracking-widest">02 // CAVALIER PÂLE</span>
-                            <h2 class="font-bestial text-5xl text-white">ELIO VIRELLI</h2>
-                        </div>
-
-                        <div class="cyber-card h-[500px] md:h-[700px] tilt-content">
-                            <img src="assets/icons/cieven1.png" class="cyber-img w-full h-full object-cover">
-                            <div class="card-overlay"></div>
-                             <div class="marquee-container">
-                                <div class="marquee-inner"><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span></div>
-                                <div class="marquee-inner"><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span></div>
-                                <div class="marquee-inner"><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span><span class="font-glitch text-8xl text-[var(--trinity-red)]">ELIO CAVALIER PÂLE ELIO</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. BLANC (Left Aligned) -->
-                <div class="tilt-box group cursor-pointer relative flex justify-start" onclick="openStory('c_blanc??')">
-                    <div class="w-full lg:w-1/2 relative">
-                        <div class="mb-4">
-                            <span class="font-mono text-gray-500 text-xs tracking-widest">03 // CAVALIER BLANC</span>
-                            <h2 class="font-bestial text-5xl text-white">PLACE LIBRE</h2>
-                        </div>
-                        <div class="cyber-card h-[450px] tilt-content">
-                            <img src="assets/icons/blanc3.png" class="cyber-img w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 bg-[var(--trinity-red)] text-black px-4 py-2 font-mono text-xs font-bold">CONQUÊTE</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4. ROUGE (Center / Offset) -->
-                <div class="tilt-box group cursor-pointer relative flex justify-center lg:translate-x-20" onclick="openStory('c_rouge??')">
-                    <div class="w-full lg:w-1/2 relative">
-                        <div class="mb-4 text-center lg:text-left">
-                            <span class="font-mono text-gray-500 text-xs tracking-widest">04 // CAVALIER ROUGE</span>
-                            <h2 class="font-bestial text-5xl text-white">PLACE LIBRE</h2>
-                        </div>
-                        <div class="cyber-card h-[450px] tilt-content border-red-900">
-                            <img src="assets/icons/rouge3.png" class="cyber-img w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 bg-[var(--trinity-red)] text-black px-4 py-2 font-mono text-xs font-bold">GUERRE</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5. NOIR (Right Aligned) -->
-                <div class="tilt-box group cursor-pointer relative flex justify-end" onclick="openStory('c_noir??')">
-                    <div class="w-full lg:w-1/2 relative">
-                        <div class="mb-4 text-right">
-                            <span class="font-mono text-gray-500 text-xs tracking-widest">05 // CAVALIER NOIR</span>
-                            <h2 class="font-bestial text-5xl text-white">PLACE LIBRE</h2>
-                        </div>
-                        <div class="cyber-card h-[450px] tilt-content">
-                            <img src="assets/icons/noir4.png" class="cyber-img w-full h-full object-cover">
-                            <div class="absolute bottom-0 right-0 bg-[var(--trinity-red)] text-black px-4 py-2 font-mono text-xs font-bold">FAMINE</div>
-                        </div>
-                    </div>
-                </div>
-
+                <div class="h-8 w-[1px] bg-[var(--trinity-red)] mx-auto"></div>
             </div>
-        </section>
+
+            <div class="cyber-card h-[600px] md:h-[850px] tilt-content border-2 border-[var(--trinity-red)] shadow-[0_0_50px_rgba(255,0,60,0.1)] group-hover:shadow-[0_0_100px_rgba(255,0,60,0.3)] bg-black">
+                
+                <div class="absolute inset-0 z-20 p-6 flex flex-col justify-between pointer-events-none">
+                    <div class="flex justify-between items-start">
+                        <div class="font-mono text-[var(--trinity-red)] text-xs border border-[var(--trinity-red)] px-2 py-1">ID: 001_KORAZON</div>
+                        <i data-lucide="crown" class="text-[var(--trinity-red)] w-8 h-8 drop-shadow-[0_0_10px_var(--trinity-red)]"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h2 class="font-bestial text-7xl md:text-[10rem] text-white leading-none opacity-80 group-hover:opacity-100 transition-opacity mix-blend-overlay">KORAZON</h2>
+                        <div class="flex items-center gap-4">
+                            <div class="w-full h-[2px] bg-[#333]"><div class="h-full w-[95%] bg-[var(--trinity-red)] shadow-[0_0_10px_var(--trinity-red)]"></div></div>
+                            <span class="font-mono text-[var(--trinity-red)] text-xs whitespace-nowrap">THREAT: ∞</span>
+                        </div>
+                    </div>
+                </div>
+
+                <img src="assets/icons/mara1.png" class="cyber-img w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
+                
+                <div class="absolute inset-0 bg-[url('assets/noise.png')] opacity-20 mix-blend-overlay"></div>
+                <div class="scan-line absolute top-0 left-0 w-full h-[5px] bg-[var(--trinity-red)] opacity-50 shadow-[0_0_20px_var(--trinity-red)] animate-scan-vertical"></div>
+            </div>
+        </div>
+
+        <div class="tilt-box group relative w-full max-w-4xl ml-auto mr-4 md:mr-12" onclick="openStory('elio')">
+            <div class="absolute -left-4 md:-left-12 top-20 text-right z-20 hidden lg:block">
+                <span class="writing-vertical-rl font-mono text-[var(--trinity-red)] text-xs tracking-[0.5em] opacity-60">SCIENCE_DIVISION</span>
+            </div>
+            
+            <div class="cyber-card h-[500px] md:h-[700px] tilt-content border border-[#333] group-hover:border-[var(--trinity-red)]">
+                <div class="absolute top-4 right-4 z-20 bg-black/80 border border-[var(--trinity-red)] px-3 py-1 font-mono text-[10px] text-[var(--trinity-red)]">NO. 02</div>
+                
+                <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-black/50 to-transparent p-6 z-20">
+                    <h2 class="font-bestial text-5xl md:text-8xl text-white leading-none group-hover:text-[var(--trinity-red)] transition-colors">ELIO VIRELLI</h2>
+                    <p class="font-mono text-gray-400 text-xs tracking-[0.5em] mt-2">CAVALIER PÂLE</p>
+                </div>
+
+                <img src="assets/icons/cieven1.png" class="cyber-img w-full h-full object-cover">
+                <div class="glitch-slice"></div>
+            </div>
+        </div>
+
+        <div class="tilt-box group relative w-full max-w-2xl ml-4 md:ml-12" onclick="openStory('c_blanc??')">
+            <div class="cyber-card h-[450px] tilt-content border border-white/20 group-hover:border-white">
+                <div class="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors z-10"></div>
+                
+                <div class="absolute top-0 left-0 bg-white text-black px-4 py-2 font-bestial text-xl z-20">CONQUÊTE</div>
+                
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20 duration-500">
+                    <span class="font-display text-6xl text-transparent stroke-white stroke-1">BLANC</span>
+                </div>
+
+                <div class="absolute bottom-6 right-6 text-right z-20">
+                    <h2 class="font-display text-4xl text-white group-hover:tracking-widest transition-all duration-500">PLACE LIBRE</h2>
+                    <div class="font-mono text-xs text-gray-400">[ CAVALIER BLANC ]</div>
+                </div>
+
+                <img src="assets/icons/blanc3.png" class="cyber-img w-full h-full object-cover filter grayscale contrast-150">
+            </div>
+        </div>
+
+        <div class="tilt-box group relative w-full max-w-3xl mx-auto translate-x-4 md:translate-x-12" onclick="openStory('c_rouge??')">
+            <div class="cyber-card h-[500px] tilt-content border border-red-900 group-hover:border-red-600">
+                <div class="absolute inset-0 bg-red-900/10 group-hover:bg-red-900/20 transition-colors z-10"></div>
+                
+                <div class="absolute top-0 right-0 bg-red-700 text-black px-4 py-2 font-bestial text-xl z-20">GUERRE</div>
+
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20 duration-500">
+                    <span class="font-display text-6xl text-transparent stroke-white stroke-1">ROUGE</span>
+                </div>
+                
+                <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                    <h2 class="font-display text-5xl text-white mix-blend-difference">PLACE LIBRE</h2>
+                    <div class="w-full h-[1px] bg-red-600 mt-2 mb-1"></div>
+                    <div class="flex justify-between font-mono text-[10px] text-red-500">
+                        <span>[ CAVALIER ROUGE ]</span>
+                        <span>STATUS: PENDING</span>
+                    </div>
+                </div>
+
+                <img src="assets/icons/rouge3.png" class="cyber-img w-full h-full object-cover">
+            </div>
+        </div>
+
+        <div class="tilt-box group relative w-full max-w-2xl ml-auto mr-4 md:mr-24" onclick="openStory('c_noir??')">
+            <div class="cyber-card h-[450px] tilt-content border border-gray-800 group-hover:border-gray-500">
+                
+                <div class="absolute top-0 left-0 bg-[#111] text-gray-400 px-4 py-2 font-bestial text-xl z-20 border border-gray-700">FAMINE</div>
+                
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20 duration-500">
+                    <span class="font-display text-6xl text-transparent stroke-white stroke-1">NOIR</span>
+                </div>
+
+                
+
+                <div class="absolute bottom-6 right-6 text-right z-20">
+                    <h2 class="font-display text-4xl text-white group-hover:tracking-widest transition-all duration-500">PLACE LIBRE</h2>
+                    <div class="font-mono text-xs text-gray-400">[ CAVALIER NOIR ]</div>
+                </div>
+
+                <img src="assets/icons/noir4.png" class="cyber-img w-full h-full object-cover brightness-50 group-hover:brightness-75">
+            </div>
+        </div>
+
+    </div>
+</section>
 
         <!-- LOGS SECTION REMOVED -->
 
         <!-- FOOTER -->
-        <footer class="relative bg-[#020202] border-t border-[#1a1a1a] overflow-hidden pt-16 pb-8">
-    
-    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" 
-         style="background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px); background-size: 20px 20px;">
-    </div>
+        <footer class="relative bg-black border-t-2 border-[var(--trinity-red)] overflow-hidden pb-8 mt-20">
 
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-        
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+    <div class="absolute inset-0 bg-[url('assets/grid.png')] opacity-5 pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[var(--trinity-red)] opacity-5 blur-[80px] md:blur-[100px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-[95vw] mx-auto px-4 md:px-8 pt-10 md:pt-16 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-20">
             
-            <div class="md:col-span-5 flex flex-col justify-between">
-                <div>
-                    <div class="group inline-block cursor-pointer mb-6">
-                        <img src="assets/icons/mostwanted.png" class="h-16 w-auto object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:drop-shadow-[0_0_10px_var(--trinity-red)]">
-                    </div>
-                    
-                    <p class="font-mono text-gray-400 text-xs leading-relaxed max-w-sm mb-6">
-                        "Je regardai donc, et je vis un cheval blanc, et celui qui était monté dessus avait un arc, et on lui donna une couronne, et il partit en vainqueur, pour remporter la victoire."
-                    </p>
+            <div class="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left">
+                <div class="relative group w-fit mb-6 md:mb-8">
+                    <div class="absolute -inset-4 bg-[var(--trinity-red)]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+                    <img src="assets/icons/mostwanted.png" class="h-16 md:h-20 w-auto object-contain relative z-10 filter drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[var(--trinity-red)] opacity-50 animate-scan-vertical pointer-events-none z-20"></div>
+                </div>
 
-                    <div class="inline-flex items-center gap-3 border border-red-900/30 bg-red-900/10 px-4 py-2 rounded-sm">
-                        <span class="relative flex h-2 w-2">
-                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--trinity-red)] opacity-75"></span>
-                          <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--trinity-red)]"></span>
-                        </span>
-                        <span class="font-mono text-[10px] text-[var(--trinity-red)] tracking-[0.2em]">WANTED LEVEL: EXTREME</span>
+                <p class="font-mono text-gray-500 text-[10px] md:text-xs leading-relaxed mb-6 border-l-2 md:border-l border-[#333] pl-4 md:pl-4 mx-auto md:mx-0 max-w-xs md:max-w-none text-left">
+                    "Le monde attend une réponse. Nous sommes la question."<br>
+                    <span class="text-[var(--trinity-red)] mt-2 block">> PROTOCOLE: CHAOS_THEORY</span>
+                </p>
+
+                <div class="grid grid-cols-3 gap-2 w-full md:w-auto font-mono text-[9px] text-gray-600">
+                    <div class="bg-[#111] px-2 py-1 border border-[#222] text-center md:text-left">
+                        <span class="block text-[var(--trinity-red)]">CPU</span>
+                        <span>98%</span>
+                    </div>
+                    <div class="bg-[#111] px-2 py-1 border border-[#222] text-center md:text-left">
+                        <span class="block text-[var(--trinity-red)]">RAM</span>
+                        <span>ERR</span>
+                    </div>
+                    <div class="bg-[#111] px-2 py-1 border border-[#222] text-center md:text-left">
+                        <span class="block text-[var(--trinity-red)]">NET</span>
+                        <span>ON</span>
                     </div>
                 </div>
             </div>
 
-            <div class="md:col-span-3 pt-2">
-                <h4 class="font-display text-white mb-6 flex items-center gap-2 text-xs tracking-widest">
-                    <i data-lucide="anchor" class="w-4 h-4 text-[var(--trinity-red)]"></i> NAV_SYSTEM
+            <div class="md:col-span-3 pt-2 border-t border-[#222] md:border-none mt-4 md:mt-0 pt-6 md:pt-2">
+                <h4 class="font-display text-white mb-4 md:mb-8 flex items-center justify-center md:justify-start gap-2 text-sm tracking-widest border-b border-[#333] pb-4 w-full">
+                    <i data-lucide="share-2" class="w-4 h-4 text-[var(--trinity-red)]"></i> NODES
                 </h4>
-                <ul class="space-y-3 font-mono text-xs text-gray-500">
+                <ul class="flex flex-wrap md:flex-col gap-x-6 gap-y-4 justify-center md:justify-start font-mono text-xs text-gray-400">
                     <li>
-                        <a href="#wanted-list" class="flex items-center gap-2 hover:text-white transition-colors group">
-                            <span class="w-1 h-1 bg-[var(--trinity-red)] opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                            [///] ÉQUIPAGE
+                        <a href="#wanted-list" class="flex items-center gap-3 hover:text-white transition-all group">
+                            <span class="w-2 h-2 border border-[var(--trinity-red)] bg-transparent group-hover:bg-[var(--trinity-red)] transition-colors rotate-45 hidden md:block"></span>
+                            [ DATABASE ]
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center gap-2 hover:text-white transition-colors group">
-                            <span class="w-1 h-1 bg-[var(--trinity-red)] opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                            [///] NAVIRE
+                        <a href="#" class="flex items-center gap-3 hover:text-white transition-all group">
+                            <span class="w-2 h-2 border border-[var(--trinity-red)] bg-transparent group-hover:bg-[var(--trinity-red)] transition-colors rotate-45 hidden md:block"></span>
+                            [ SHIP_LOGS ]
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center gap-2 hover:text-white transition-colors group">
-                            <span class="w-1 h-1 bg-[var(--trinity-red)] opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                            [///] HISTOIRE
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center gap-2 hover:text-white transition-colors group">
-                            <span class="w-1 h-1 bg-[var(--trinity-red)] opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                            [///] ALLIANCES
+                        <a href="#" class="flex items-center gap-3 hover:text-white transition-all group">
+                            <span class="w-2 h-2 border border-[var(--trinity-red)] bg-transparent group-hover:bg-[var(--trinity-red)] transition-colors rotate-45 hidden md:block"></span>
+                            [ ALLIANCES ]
                         </a>
                     </li>
                 </ul>
             </div>
 
-            <div class="md:col-span-4 flex flex-col gap-6">
+            <div class="md:col-span-5 flex flex-col gap-4 md:gap-6">
                 
-                <a href="https://discord.gg/xK7mwaCJaG" target="_blank" class="group relative block overflow-hidden border border-[#333] hover:border-[var(--trinity-red)] bg-[#050505] transition-colors duration-300 p-6">
-                    <div class="absolute top-0 right-0 p-2 opacity-50">
-                        <i data-lucide="radio" class="w-6 h-6 text-gray-600 group-hover:text-[var(--trinity-red)] transition-colors"></i>
-                    </div>
-                    <h5 class="font-display text-white text-sm mb-1">JOIN_FREQUENCY</h5>
-                    <p class="font-mono text-[10px] text-gray-500 mb-4">CHANNEL: DISCORD_SERVER_07</p>
-                    <div class="flex items-center gap-2 text-[var(--trinity-red)] font-mono text-xs tracking-widest group-hover:translate-x-2 transition-transform">
-                        <span>CONNECTER</span> <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                <a href="https://discord.gg/xK7mwaCJaG" target="_blank" class="group relative block bg-[#050505] border border-[#333] hover:border-[var(--trinity-red)] transition-colors overflow-hidden mt-4 md:mt-0">
+                    <div class="absolute inset-0 bg-[var(--trinity-red)] opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                    <div class="p-4 md:p-6 flex items-center justify-between relative z-10">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span>
+                                <h5 class="font-display text-white text-base md:text-lg">DEN_DEN_MUSHI</h5>
+                            </div>
+                            <p class="font-mono text-[9px] md:text-[10px] text-gray-500">FREQ: <span class="text-[var(--trinity-red)]">DISCORD_07</span></p>
+                        </div>
+                        <div class="h-8 w-8 md:h-10 md:w-10 border border-[var(--trinity-red)] flex items-center justify-center group-hover:bg-[var(--trinity-red)] group-hover:text-black transition-all">
+                            <i data-lucide="radio" class="w-4 h-4 md:w-5 md:h-5"></i>
+                        </div>
                     </div>
                 </a>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="border-l border-[#333] pl-4">
-                        <span class="block font-mono text-[9px] text-gray-600 mb-1">LOG POSE</span>
-                        <span class="block font-mono text-xs text-white">CALIBRATED</span>
+                <div class="bg-[#020202] border border-[#222] p-3 md:p-4 font-mono text-[8px] md:text-[9px] h-24 md:h-32 overflow-hidden relative opacity-80 md:opacity-70 hover:opacity-100 transition-opacity">
+                    <div class="absolute top-2 right-2 text-[var(--trinity-red)] text-[8px]">LIVE</div>
+                    <div class="animate-terminal-scroll text-gray-600 space-y-1">
+                        <p>> Connecting to Grand Line Net...</p>
+                        <p>> <span class="text-green-800">Success.</span> IP Hidden.</p>
+                        <p>> Decrypting Poneglyph data packet...</p>
+                        <p>> <span class="text-[var(--trinity-red)]">WARNING:</span> Marine Signal Detected</p>
+                        <p>> Rerouting traffic...</p>
+                        <p>> Uploading bounty updates...</p>
+                        <p>> Connecting to Grand Line Net...</p>
+                        <p>> <span class="text-green-800">Success.</span> IP Hidden.</p>
+                        <p>> Decrypting Poneglyph data packet...</p>
+                        <p>> <span class="text-[var(--trinity-red)]">WARNING:</span> Marine Signal Detected</p>
                     </div>
-                    <div class="border-l border-[#333] pl-4">
-                        <span class="block font-mono text-[9px] text-gray-600 mb-1">ENCRYPTION</span>
-                        <span class="block font-mono text-xs text-white">PONEGLYPH_V3</span>
-                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--trinity-red)]/5 to-transparent h-4 animate-scan-fast pointer-events-none"></div>
                 </div>
 
             </div>
         </div>
 
-        <div class="border-t border-[#1a1a1a] pt-8 flex flex-col md:flex-row justify-between items-end gap-4">
-            <div>
-                <p class="font-mono text-[10px] text-gray-600">
-                    &copy; 2026 TENKAI_RP // PROJET TRINITY RED.
-                </p>
-                <p class="font-mono text-[9px] text-[#222] mt-1">
-                    NOUS NE SOMMES PAS AFFILIÉS À EIICHIRO ODA OU SHUEISHA. FAN PROJECT.
+        <div class="border-t border-[#1a1a1a] mt-8 md:mt-12 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+                <img src="assets/icons/mostwanted.png" class="h-5 md:h-6 w-auto grayscale opacity-50">
+                <p class="font-mono text-[9px] md:text-[10px] text-gray-600">
+                    &copy; 1522 PROJECT_TRINITY.
                 </p>
             </div>
-
-            <div class="opacity-30 hover:opacity-100 transition-opacity cursor-help" title="DECODING...">
-                <div class="flex items-end gap-[2px] h-8">
-                    <div class="w-[2px] h-full bg-[var(--trinity-red)]"></div>
-                    <div class="w-[1px] h-1/2 bg-white"></div>
-                    <div class="w-[3px] h-3/4 bg-white"></div>
-                    <div class="w-[1px] h-full bg-white"></div>
-                    <div class="w-[2px] h-1/3 bg-[var(--trinity-red)]"></div>
-                    <div class="w-[4px] h-full bg-white"></div>
-                    <div class="w-[1px] h-2/3 bg-white"></div>
-                    <div class="w-[2px] h-full bg-[var(--trinity-red)]"></div>
-                    <div class="w-[1px] h-1/4 bg-white"></div>
-                    <div class="w-[3px] h-full bg-white"></div>
-                </div>
-                <div class="text-[8px] font-mono text-right text-[var(--trinity-red)] mt-1 tracking-[0.3em]">ID: 666-JOYBOY</div>
+            
+            <div class="font-mono text-[9px] text-[var(--trinity-red)] tracking-[0.3em] md:tracking-[0.5em] opacity-50">
+                32°N 14°W // RAFTEL
             </div>
         </div>
     </div>

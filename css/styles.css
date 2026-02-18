@@ -182,6 +182,7 @@ body.hovering .cursor-dot {
     opacity: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
 .modal-content {
@@ -192,11 +193,17 @@ body.hovering .cursor-dot {
     position: relative;
 }
 
+.modal-content img {
+    max-width: 100%;
+    height: auto;
+}
+
 .story-text-container {
     border-left: 2px solid var(--trinity-red);
     padding-left: 1.5rem;
     margin-top: 1.5rem;
     position: relative;
+    min-height: 30vh;
 }
 .story-text-container::before {
     content: '';
@@ -344,22 +351,40 @@ body.hovering .cursor-dot {
 }
 
 .story-paragraph {
-    margin-bottom: 0.6rem;
     display: block;
-    line-height: 1.4;
-    font-size: 0.95em;
-    min-height: 1em;
-    
-    /* C'est ici que l'espace se crée pour les paragraphes */
-    text-indent: 2.5rem; 
-    padding-left: 0;
-    text-align: justify; /* Justifié pour faire propre comme un livre */
+    margin-bottom: 1.5rem;
+    color: #a3a3a3; /* Gris technique */
+    font-family: 'Share Tech Mono', monospace; /* Police système */
+    line-height: 1.8;
+    text-align: justify;
+    position: relative;
+    padding-left: 1rem;
+    border-left: 1px solid transparent;
+    transition: all 0.3s ease;
 }
 
-.story-paragraph strong {
+/* Lettrine (Première lettre en gras/rouge) */
+.story-paragraph strong:first-child {
     color: white;
-    font-weight: normal; /* En monospace, le gras est souvent simulé par la couleur */
-    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    font-weight: bold;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Effet Hover sur paragraphe : Focus de lecture */
+.story-paragraph:hover {
+    color: #e5e5e5;
+    border-left-color: var(--trinity-red);
+    background: linear-gradient(90deg, rgba(255, 0, 60, 0.05) 0%, transparent 100%);
+    padding-left: 1.5rem; /* Petit décalage vers la droite */
+}
+
+@media (min-width: 768px) {
+    .story-paragraph {
+        text-indent: 2.5rem;
+        margin-bottom: 0.6rem;
+    }
 }
 
 /* LE CURSEUR CUBE (VOTRE DEMANDE) */
@@ -380,118 +405,146 @@ body.hovering .cursor-dot {
 /* Dans css/styles.css */
 
 .story-dialogue {
-    display: block;
-    margin: 1.5rem 0;
-    padding: 1rem;
-    border-left: 4px solid var(--trinity-red);
-    background: linear-gradient(90deg, rgba(255,0,60,0.1) 0%, transparent 100%);
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #080808;
+    border-left: 3px solid var(--trinity-red);
     color: white;
     font-style: italic;
-    font-family: 'Times New Roman', serif; /* Contraste avec le monospace du reste */
-    font-size: 1.1em;
-    text-align: center;
-    text-indent: 0;       /* Supprime tout alinéa hérité ou forcé */
-    white-space: normal;  /* Ignore les espaces du code source (annule l'effet du parent) */
+    font-family: 'Share Tech Mono', monospace;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%); /* Coin coupé */
+}
+
+/* Petite icône "Play" ou "Speaker" avant le dialogue */
+.story-dialogue::before {
+    content: "AUDIO_LOG_RECOVERED //";
+    display: block;
+    font-size: 0.6em;
+    color: var(--trinity-red);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.2em;
+    font-style: normal;
+    opacity: 0.7;
+}
+
+/* Guillemets décoratifs */
+.story-dialogue::after {
+    content: "”";
+    position: absolute;
+    right: 1rem;
+    bottom: -1rem;
+    font-size: 4rem;
+    color: #222;
+    font-family: serif;
+    pointer-events: none;
 }
 
 /* DATE (Style Header de log) */
 .story-date-container {
     margin-top: 3rem;
     margin-bottom: 2rem;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     border-top: 1px dashed #333;
     border-bottom: 1px dashed #333;
-    padding: 15px 0;
+    padding: 1rem 0;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* Écran >= 768px (taille "md" typique) */
+@media (min-width: 768px) {
+    .story-date-container {
+        flex-direction: row;
+    }
 }
 
 .story-date {
-    display: block;
-    color: var(--trinity-red);
-    font-family: 'Syncopate', sans-serif;
-    font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
+    font-size: 1.2em;
+    color: white;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    letter-spacing: 0.1em;
 }
 
 .story-time {
-    font-size: 0.8rem;
-    color: #666;
-    letter-spacing: 1px;
+    font-size: 0.8em;
+    color: var(--trinity-red);
+    background: rgba(255, 0, 60, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+    animation: pulse 2s infinite;
 }
 
 /* CITATION (Style final impactant) */
 .story-quote {
-    position: relative;
-    margin: 20px auto;
-    padding: 30px;
-    border: 1px solid rgba(255, 0, 60, 0.3);
-    background: #050505;
+    margin-top: 3rem;
     text-align: center;
-    max-width: 90%;
+    position: relative;
+    padding: 2rem;
+}
+
+/* Lignes décoratives autour de la citation */
+.story-quote::before, .story-quote::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 1px;
+    background: var(--trinity-red);
+    margin: 1rem auto;
+    opacity: 0.5;
 }
 
 .story-quote p {
-    font-family: 'Pirata One', cursive;
-    font-size: 1.8rem;
-    line-height: 1.2;
-    color: white;
-    margin: 0;
+    font-family: 'Pirata One', cursive; /* Police Pirate */
+    font-size: 1.4em;
+    color: #fff;
+    line-height: 1.4;
+    font-style: italic;
 }
 
 .story-quote footer {
-    margin-top: 10px;
+    margin-top: 1rem;
     font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8em;
     color: var(--trinity-red);
-    font-size: 0.9rem;
-    text-align: right;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
 }
 
-/* --- CLASSE DE RECHERCHE IA (REMPLACE STORY-DIALOGUE) --- */
 .search-ia-monologue {
-    display: block;
-    margin: 1.5rem 0;
-    padding: 1rem 1.5rem;
-    
-    /* Bordure technologique double pour l'aspect UI */
-    border-left: 4px solid var(--trinity-red);
-    border-right: 1px solid rgba(255, 0, 60, 0.2);
-    
-    /* Gradient plus sombre et "scanline" que le dialogue classique */
-    background: linear-gradient(90deg, 
-        rgba(255, 0, 60, 0.15) 0%, 
-        rgba(0, 0, 0, 0.8) 50%, 
-        transparent 100%);
-    
-    /* Typographie : On abandonne le Serif pour le Mono pur */
-    color: var(--trinity-red);
-    font-family: 'Share Tech Mono', monospace;
-    font-style: normal; /* Plus de texte "narratif" en italique */
-    font-size: 1rem;
-    text-transform: uppercase; /* Donne un aspect commande système */
-    letter-spacing: 1px;
-    
-    /* Alignement à gauche (style terminal) et non centré */
-    text-align: left;
-    text-indent: 0;
-    white-space: normal;
-    
+    margin: 2rem 0;
+    padding: 1rem;
+    background: #000;
+    border: 1px solid #333;
+    color: #00ff41; /* Vert Terminal classique ou Rouge selon votre goût */
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
     position: relative;
     overflow: hidden;
-    box-shadow: inset 5px 0 15px rgba(255, 0, 60, 0.1);
 }
 
-/* Effet de "Glow" sur le texte pour simuler un écran CRT */
+/* Ligne de scan verte qui descend */
 .search-ia-monologue::before {
     content: "";
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 1px,
-        rgba(255, 0, 60, 0.05) 2px
-    );
+    top: 0; left: 0; width: 100%; height: 2px;
+    background: rgba(0, 255, 65, 0.3);
+    animation: scan-vertical 2s linear infinite;
     pointer-events: none;
+}
+
+/* Le mot "ANALYSIS" en fond */
+.search-ia-monologue::after {
+    content: "SYSTEM_ANALYSIS";
+    position: absolute;
+    bottom: 2px;
+    right: 4px;
+    font-size: 0.6em;
+    opacity: 0.3;
+    color: #00ff41;
 }
 
 /* Animation de pulse sur la bordure pour simuler une recherche active */
@@ -545,4 +598,448 @@ body.hovering .cursor-dot {
     20%, 80% { transform: translate3d(2px, 0, 0); }
     30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
     40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* --- CUSTOM SCROLLBAR POUR LA MODALE --- */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #000;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--trinity-red);
+}
+
+/* Ajustement mobile pour éviter que le texte ne soit caché par le bouton */
+@media (max-width: 768px) {
+    .modal-content {
+        padding-top: 60px; /* Espace pour le bouton header */
+    }
+}
+
+/* --- HERO SECTION UPGRADES --- */
+
+/* Stroke Text Effect (Texte transparent avec contour) */
+.stroke-text {
+    -webkit-text-stroke: 1px #333;
+    color: transparent;
+}
+
+/* Texte avec contour Rouge pour le titre */
+.text-outline-red {
+    text-shadow: 
+        -1px -1px 0 var(--trinity-red),  
+         1px -1px 0 var(--trinity-red),
+        -1px  1px 0 var(--trinity-red),
+         1px  1px 0 var(--trinity-red);
+    color: black; /* Intérieur noir */
+}
+
+/* Animation Scanline sur le texte */
+@keyframes scanline {
+    0% { top: 0%; opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+.animate-scanline {
+    animation: scanline 3s linear infinite;
+}
+
+/* Animation Radar (Rotation) */
+@keyframes scan-radar {
+    0% { transform: rotate(0deg); opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { transform: rotate(360deg); opacity: 0.5; }
+}
+.animate-scan-radar {
+    animation: scan-radar 2s linear infinite;
+    transform-origin: center;
+}
+
+/* Animation Loading Bar (Stats) */
+@keyframes loading-bar {
+    0% { width: 0%; transform: translateX(-100%); }
+    100% { width: 100%; transform: translateX(200%); }
+}
+.animate-loading-bar {
+    animation: loading-bar 2s ease-in-out infinite;
+}
+
+/* Rotation lente pour le réticule */
+.animate-spin-slow {
+    animation: spin 10s linear infinite;
+}
+
+/* Kanji flottants */
+.floating-kanji {
+    font-family: 'Noto Sans JP', sans-serif; /* Fallback safe */
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Particules de Cendres (Embers) */
+.ember {
+    position: absolute;
+    bottom: -10%;
+    width: 2px;
+    height: 2px;
+    background: var(--trinity-red);
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 0 10px var(--trinity-red);
+    pointer-events: none;
+    animation: rise var(--duration) linear infinite;
+    animation-delay: var(--delay);
+}
+
+@keyframes rise {
+    0% { bottom: -10%; opacity: 0; transform: translateX(0); }
+    50% { opacity: 1; }
+    100% { bottom: 120%; opacity: 0; transform: translateX(var(--sway)); }
+}
+
+/* Vertical Text Utility */
+.writing-vertical-rl {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+/* --- HIERARCHY : NEURAL LINK STYLES --- */
+
+/* Animation de la ligne SVG */
+.animate-dash-draw {
+    stroke-dasharray: 10;
+    animation: dash-flow 20s linear infinite;
+    opacity: 0.6;
+}
+
+@keyframes dash-flow {
+    to { stroke-dashoffset: -1000; }
+}
+
+/* --- MODE FOCUS (DIMMING) --- */
+/* Quand on survole le conteneur, tout s'assombrit... */
+#hierarchy-container:hover .tilt-box {
+    opacity: 0.3;
+    filter: blur(2px) grayscale(100%);
+    transform: scale(0.98);
+    transition: all 0.5s ease;
+}
+
+/* ...Sauf celui qu'on survole (qui redevient net et coloré) */
+#hierarchy-container .tilt-box:hover {
+    opacity: 1;
+    filter: blur(0) grayscale(0%);
+    transform: scale(1.02);
+    z-index: 50;
+}
+
+/* --- CAPTAIN SCAN LINE --- */
+.scan-line {
+    box-shadow: 0 0 10px var(--trinity-red), 0 0 5px var(--trinity-red);
+}
+
+@keyframes scan-vertical {
+    0% { top: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+.animate-scan-vertical {
+    animation: scan-vertical 3s linear infinite;
+}
+
+/* --- UTILS --- */
+.stroke-white {
+    -webkit-text-stroke: 1px white;
+}
+.stroke-1 {
+    -webkit-text-stroke-width: 1px;
+}
+
+/* --- STORY MODAL : ULTIMATE UPGRADE --- */
+
+/* 1. Animation de Grille de fond */
+@keyframes pan-grid {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+.animate-pan-grid {
+    animation: pan-grid 60s linear infinite;
+}
+
+/* 2. Visualiseur Audio (Barres qui bougent) */
+@keyframes wave {
+    0%, 100% { height: 10%; }
+    50% { height: 100%; }
+}
+.animate-wave {
+    height: 10%;
+    animation: wave 1s ease-in-out infinite;
+    animation-delay: var(--d);
+}
+
+/* 3. EFFET REDACTED (CENSURE) - LE PLUS IMPORTANT */
+/* C'est la classe qu'on utilisera dans le JS */
+.redacted {
+    background-color: var(--trinity-red);
+    color: transparent;
+    cursor: help;
+    padding: 0 4px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    user-select: none; /* Empêche de copier le texte caché facilement */
+    position: relative;
+}
+
+/* Au survol, on révèle le texte */
+.redacted:hover {
+    background-color: transparent;
+    color: var(--trinity-red);
+    text-decoration: underline;
+}
+
+/* Petite icône de cadenas au survol (optionnel, pour le style) */
+.redacted::after {
+    content: "🔒";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    color: black;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.2s;
+}
+.redacted:hover::after {
+    opacity: 0;
+}
+
+/* 4. Scrollbar stylisée */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: #050505; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border: 1px solid #000; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--trinity-red); }
+
+/* --- FOOTER ANIMATIONS --- */
+
+/* 1. Terminal Scroll (Texte défilant vertical) */
+@keyframes terminal-scroll {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); } /* Monte de la moitié (car on a dupliqué le texte) */
+}
+.animate-terminal-scroll {
+    animation: terminal-scroll 10s linear infinite;
+}
+
+/* 3. Scan rapide pour le terminal */
+@keyframes scan-fast {
+    0% { top: -10%; opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 110%; opacity: 0; }
+}
+.animate-scan-fast {
+    animation: scan-fast 2s linear infinite;
+}
+
+strong {
+    color: white;
+    font-weight: normal;
+    text-shadow: 0 0 5px rgba(255,255,255,0.2);
+}
+
+/* ANIMATION PULSE POUR LE TEXTE */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* --- SECTION MANIFESTO --- */
+
+/* Hover Effect sur les Piliers */
+.pillar-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px -10px rgba(255, 0, 60, 0.2);
+}
+
+/* Texte justifié propre pour le manifeste */
+.prose-manifesto p {
+    margin-bottom: 1rem;
+}
+
+/* Effet Glitch Wrapper (Simple) */
+.glitch-wrapper {
+    position: relative;
+}
+
+.glitch-wrapper::before,
+.glitch-wrapper::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.glitch-wrapper::before {
+    color: #0ff;
+    z-index: -1;
+    animation: glitch-anim-1 3s infinite linear alternate-reverse;
+}
+
+.glitch-wrapper::after {
+    color: #f0f;
+    z-index: -2;
+    animation: glitch-anim-2 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+    20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+    100% { clip-path: inset(10% 0 50% 0); transform: translate(-2px, 2px); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, 1px); }
+    100% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, -2px); }
+}
+
+/* Text Shadow Glow pour le Grand Reset */
+.text-shadow-glow {
+    text-shadow: 0 0 0 transparent;
+}
+.group:hover .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Monolithes (Cartes Piliers) */
+.monolith-card {
+    /* Style de base géré par Tailwind, ici on ajoute la profondeur */
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+}
+
+/* Texte transparent avec contour (Stroke Text) */
+.stroke-text {
+    -webkit-text-stroke: 1px white;
+    color: transparent;
+}
+
+/* Prose : Justification et style */
+.prose-manifesto strong {
+    color: white;
+    font-weight: bold;
+}
+
+/* Effet de scanline simple */
+@keyframes scanline-horizontal {
+    0% { top: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+/* --- GRAND RESET : DOOMSDAY VISUALS --- */
+
+/* L'Eclipse Rouge Pulsante */
+@keyframes eclipse-pulse {
+    0% { box-shadow: 0 0 50px var(--trinity-red), inset 0 0 20px var(--trinity-red); transform: translate(-50%, -50%) scale(1); }
+    50% { box-shadow: 0 0 150px var(--trinity-red), inset 0 0 50px var(--trinity-red); transform: translate(-50%, -50%) scale(1.05); }
+    100% { box-shadow: 0 0 50px var(--trinity-red), inset 0 0 20px var(--trinity-red); transform: translate(-50%, -50%) scale(1); }
+}
+
+.animate-eclipse-pulse {
+    animation: eclipse-pulse 4s ease-in-out infinite;
+}
+
+/* Flottement lent pour la couronne */
+@keyframes float-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.animate-float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+}
+
+/* --- NOUVEAUX EFFETS GRAND RESET --- */
+
+/* Animation de zoom lent pour l'image dans l'éclipse */
+@keyframes slow-zoom {
+    0%, 100% { transform: scale(1.1); }
+    50% { transform: scale(1.2); }
+}
+.animate-slow-zoom {
+    animation: slow-zoom 20s ease-in-out infinite;
+}
+
+/* --- GLITCH AGRESSIF POUR LE COMPTEUR "01" --- */
+.glitch-aggressive {
+    position: relative;
+    color: var(--trinity-red);
+    /* Tremblement constant */
+    animation: glitch-skew 0.5s infinite linear alternate-reverse;
+}
+
+/* Création des "fantômes" rouge et bleu (aberration chromatique) */
+.glitch-aggressive::before,
+.glitch-aggressive::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+/* Fantôme Bleu/Cyan (décalé à gauche) */
+.glitch-aggressive::before {
+    color: #0ff;
+    z-index: -1;
+    transform: translate(-2px, 0);
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    animation: glitch-strobe 0.3s infinite steps(2, start) reverse;
+}
+
+/* Fantôme Rouge/Magenta (décalé à droite) */
+.glitch-aggressive::after {
+    color: #f0f;
+    z-index: -2;
+    transform: translate(2px, 0);
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    animation: glitch-strobe 0.5s infinite steps(2, start);
+}
+
+/* Animation de tremblement et déformation */
+@keyframes glitch-skew {
+    0% { transform: skewX(0deg); }
+    10% { transform: skewX(-2deg); }
+    20% { transform: skewX(1deg); }
+    30% { transform: skewX(0deg); }
+    40% { transform: translate(-1px, 1px); }
+    50% { transform: skewX(2deg); }
+    60% { transform: translate(1px, -1px); }
+    70% { transform: skewX(0deg); }
+    80% { transform: skewX(-1deg); }
+    90% { transform: translate(0px, 1px); }
+    100% { transform: skewX(0deg); }
+}
+
+/* Animation de flash stroboscopique */
+@keyframes glitch-strobe {
+    0% { opacity: 1; }
+    50% { opacity: 0; visibility: hidden; }
+    100% { opacity: 1; }
 }
