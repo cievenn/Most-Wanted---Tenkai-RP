@@ -5,7 +5,7 @@ const database = {
     'korazon': {
         name: 'KORAZON',
         subtitle: 'THE HEARTLESS CHILD',
-        img: 'assets/icons/mara2.png',
+        img: 'assets/icons/mara3.png',
         story: `
             <span class="story-paragraph">
                 <strong>Korazon</strong> naquit dans les ruelles de <span class="redacted">Namakura</span>, une île où la faim valait plus que l’or et où les <span class="redacted">dieux</span>, s’ils existaient, avaient détourné le regard. Étant un enfant abandonné, il survécut dans un monde de misère et de violence, avec le ventre creux, ça créera un lieu de prières et surtout que les faibles périssaient.
@@ -99,36 +99,44 @@ const database = {
         `
     },
     'blanc': {
-        name: 'LANCELOT',
-        subtitle: 'THE FALLEN PRINCE',
+        name: 'AZRAEL',
+        subtitle: 'CAVALIER BLANC',
         img: 'assets/icons/blanc2.png',
         story: `
             <span class="story-paragraph">
-                <strong>Lancelot de Beaumont</strong> naquit à <span class="redacted">Loguetown</span>, la ville où naissent et meurent les légendes. Fils de marchands, il fut élevé comme un prince, dans un confort où le bonheur était la normalité et la douleur une simple rumeur lointaine.
+                <strong>Azrael </strong> est né dans un port misérable entièrement contrôlé par la <span class="redacted">Marine</span>. Alors il grandit entre discours de propagande et têtes qui roulaient sur l’échafaud.
             </span>
             
             <span class="story-paragraph">
-                Cette illusion se brisa le jour où des <span class="redacted">pirates</span> attaquèrent la ville. Lancelot, terrifié, se réfugia dans les bas-fonds. Pendant qu’il tremblait dans l’ombre, ses parents furent capturés, utilisés comme monnaie d’échange… puis exécutés.
+                <strong>Dans </strong> la panoplie de têtes qui roulaient, il y avait son père, qui fut accusé de trahison, <span class="redacted">aucun de procès</span>, et surtout <span class="redacted">aucune d’explication</span>, tout simplement un matin… il disparut. Sa mère cessa de parler après ça, étant dans un état de choc traumatique, comme si les mots eux-mêmes étaient devenus dangereux. Car ils étaient directement dans le collimateur de la <span class="redacted">Marine</span>, très tôt, Azrael comprit que la paix imposée par le <span class="redacted">Gouvernement</span> n’était pas une protection, mais c’était une cage.
             </span>
 
             <span class="story-paragraph">
-                En l’an 1496, le <strong>01/09</strong>, Lancelot revint chez lui et ne trouva que le silence. Il attendit des jours, puis une semaine. Affamé et seul, il comprit qu'ils ne reviendraient jamais. La chaleur de son enfance s’effondra, remplacée par un vide dévorant. Désespéré, il décida de mettre fin à ses jours.
+                <strong>À </strong> douze ans, il regarda une exécution de trop. À treize ans, il quitta le port sans prévenir. À quatorze ans, il tua pour la première fois.
             </span>
 
             <div class="story-dialogue">
-                « Souviens-toi toujours, Lancelot… dans ce monde, le plus précieux n’est pas ce que l’on possède, mais ce que l’on protège… »
+                « Le silence avant ma lame est la seule miséricorde que j’accorde. »
             </div>
 
             <span class="story-paragraph">
-                Alors qu’il s’apprêtait à franchir le seuil, une silhouette apparut dans l'ombre : <strong>Korazon</strong>. Son regard transperça Lancelot comme une lame. Il rit en le voyant. Pas de compassion, pas de destin. Il parla de vérité, de vengeance et de puissance.
+                <strong>Azrael </strong> survécut seul en mer, volant des vivres, dormant sous les ponts de navires <span class="redacted">marchands</span>, apprenant à se battre comme d’autres apprennent à lire, il cherchait la conquête. Mais Azrael n’avait ni équipage ni bannière, une seule chose le sauvera, c’était sa méthode. Car Il observait, attendait, puis frappait. Grâce à cela, à vingt ans, il avait déjà renversé trois capitaines pirates et pris le contrôle d’une petite île stratégique utilisée pour le commerce illégal. Il ne se proclamait pas roi, il ne faisait aucun discours, mais il gouvernait. 
             </span>
 
             <span class="story-paragraph">
-                Il lui dit que ses parents pouvaient être vengés. Que les responsables pouvaient brûler. Il lui tendit une main. Pas celle d’un sauveur, mais celle d’un homme offrant un chemin sanglant. Lancelot accepta, car il n’avait plus rien.
+                <strong>Sous </strong> son contrôle, l’île devint une forteresse silencieuse, pas de chaos, pas de célébrations, seulement l’ordre imposé par la peur froide. Des <span class="redacted">rumeurs</span>, disaient qu’il ne criait jamais, qu’il ne menaçait jamais, et finalement ne regardait simplement que sa cible… car sa décision était déjà prise. L’île était silencieuse, seul les bruits des marchandises qui tapaient contre le sol, les coups de fusils, tel un véritable roi du silence. 
             </span>
 
             <span class="story-paragraph">
-                Le garçon choyé de Loguetown mourut ce jour-là pour laisser naître un nouveau visage du <strong><span class="redacted">Most Wanted</span></strong>. Korazon abandonna une carte au sol avant de partir.
+                <strong>Mais </strong> Azrael n’était pas fait pour rester immobile, il ne voulait pas une simple île, étant donné qu’il voulait comprendre le <span class="redacted">système</span> qui avait tué son père. Un jour, un homme arriva, il avait entendu parler certaines rumeurs sur ce dirigeant, ayant un regard plus froid que celui d’Azrael. Un homme qui ne promettait ni justice ni de fin heureuse… mais domination. Korazon. Azrael ne s’agenouilla pas, il ne jura pas fidélité, comme à son habitude, il observa, et pour la première fois de sa vie, il vit un homme capable de conquérir non pas une île, mais <span class="redacted">le monde</span>. Korazon s’avancera vers Azrael et le prend par les cheveux, il lui chuchotera à l’oreille :
+            </span>
+
+            <div class="story-dialogue">
+                « Brise ta couronne Azrael, sinon tu ne comprendras rien à ce monde que je suis entrain de bâtir. »
+            </div>
+
+            <span class="story-paragraph">
+                <strong>Après </strong> une légère discussion, des hommes s’opposèrent à Korazon, brisant leurs crânes à tout les individus voulant passer à travers de sa route, il partie, laissant un seul papier tombé de sa poche...
             </span>
 
             <div class="story-date-container">
@@ -137,8 +145,8 @@ const database = {
             </div>
 
             <div class="story-quote">
-                <p>« La perte m’a appris une seule vérité : le monde ne pardonne pas. Alors moi non plus, je ne pardonnerai jamais. »</p>
-                <footer>- LANCELOT DE BEAUMONT</footer>
+                <p>« Je n’ai jamais cru en la justice. Seulement en l’équilibre. Et je suis celui qui le rétablit. »</p>
+                <footer>- AZRAEL</footer>
             </div>
         `
     },
@@ -190,37 +198,21 @@ const database = {
         img: 'assets/icons/rouge2.png',
         story: `
             <span class="story-paragraph">
-                <strong>Sir Julius</strong> et sa jumelle Alune naquirent lors d’une convergence lunaire au <span class="redacted">Mont Targon</span>. Le culte des <span class="redacted">Lunaris</span> les attendait depuis des générations. Julius reçut le don de la lune de pierre, une aura froide absorbant la lumière.
+                <strong>EN</strong> ATTENTE
             </span>
             
             <div class="story-dialogue">
-                « Deux enfants, une seule lune. L’un de pierre, l’autre de lumière. »
+                « EN ATTENTE D UN NOUVEAU MEMBRE »
             </div>
 
-            <span class="story-paragraph">
-                Cachés des <span class="redacted">Solaris</span> qui les traquaient, ils grandirent dans l'ombre. Mais en l'an 1499, le <strong>12/12</strong>, les Solaris découvrirent leur cachette et massacrèrent tout le monde. Julius et Alune s'enfuirent, jurant de reprendre ce qui avait été volé.
-            </span>
-
-            <span class="story-paragraph">
-                Julius rallia les survivants et mena une guérilla sans merci. Au 6ème jour, épuisés et encerclés dans une grotte, tout semblait fini. C’est alors que quatre coups de fusil résonnèrent. Une silhouette acheva les soldats Solaris : <strong>Korazon</strong>, venu suivre une rumeur de prophétie.
-            </span>
-
-            <span class="story-paragraph">
-                Il alluma une cigarette, éclairant son visage, puis repartit sans un mot. Ce geste suffit. Les Lunaris triomphèrent le lendemain. Mais le règne de Julius devint un hiver sans fin, une tyrannie née de la vengeance.
-            </span>
-
-            <span class="story-paragraph">
-                Assis sur son trône, il reçut une pierre marquée d’une inscription au sang. Julius sourit en regardant sa sœur.
-            </span>
-
             <div class="story-date-container">
-                <span class="story-date">DATE : 18 DÉCEMBRE 1499</span>
-                <span class="story-time">TEMPS RESTANT : 5 MOIS ET 18 JOURS</span>
+                <span class="story-date">DATE : XX XXXXXX XXXX</span>
+                <span class="story-time">TEMPS RESTANT : X MOIS ET X JOURS</span>
             </div>
 
             <div class="story-quote">
-                <p>« Je n’ai pas choisi l’ombre. C’est la lumière qui m’a tourné le dos. »</p>
-                <footer>- SIR JULIUS</footer>
+                <p>« XXXXXXXXX »</p>
+                <footer>- NOUVEAU MEMBRE</footer>
             </div>
         `
     },

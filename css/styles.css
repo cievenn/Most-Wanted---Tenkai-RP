@@ -405,27 +405,43 @@ body.hovering .cursor-dot {
 /* Dans css/styles.css */
 
 .story-dialogue {
+    /* Utiliser Flexbox permet de "tuer" les problèmes d'indentation texte classiques */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
     margin: 2rem 0;
     padding: 1.5rem;
+    
+    /* Style visuel */
     background: #080808;
     border-left: 3px solid var(--trinity-red);
     color: white;
     font-style: italic;
     font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1em;
+    
+    /* Annulation forcée des espaces parasites */
+    text-indent: 0 !important;
+    text-align: center;
+    white-space: normal;
+    
     position: relative;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%); /* Coin coupé */
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%);
 }
 
-/* Petite icône "Play" ou "Speaker" avant le dialogue */
+/* Le pseudo-élément reste le même */
 .story-dialogue::before {
     content: "AUDIO_LOG_RECOVERED //";
     display: block;
     font-size: 0.6em;
     color: var(--trinity-red);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem; /* Un peu plus d'espace */
     letter-spacing: 0.2em;
     font-style: normal;
     opacity: 0.7;
+    text-indent: 0; /* Sécurité */
 }
 
 /* Guillemets décoratifs */
@@ -795,10 +811,20 @@ body.hovering .cursor-dot {
     background-color: var(--trinity-red);
     color: transparent;
     cursor: help;
-    padding: 0 4px;
+    
+    /* Utilisation de 'em' pour s'adapter à la taille de la police actuelle */
+    padding: 0.1em 0.4em; 
     border-radius: 2px;
     transition: all 0.3s ease;
-    user-select: none; /* Empêche de copier le texte caché facilement */
+    user-select: none;
+    
+    /* C'est ici que la magie opère pour le multi-lignes */
+    display: inline;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    
+    line-height: 1.6; /* Un peu d'air pour éviter que les barres noires se touchent */
+    vertical-align: baseline;
     position: relative;
 }
 
