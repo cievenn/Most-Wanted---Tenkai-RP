@@ -1,4 +1,126 @@
 // ====================================
+// ASSET PRELOADER (WORLD GOV BOOT)
+// ====================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Liste des fichiers lourds à précharger obligatoirement (même s'ils sont cachés ou en CSS)
+    const manualAssets = [
+        'assets/icons/denden_marine_closed.png',
+        'assets/icons/denden_marine_open.png',
+        'assets/icons/denden_closed.png',
+        'assets/icons/denden_open.png',
+        'assets/icons/denden_laugh.png',
+        'assets/icons/mostwanted.png',
+        'assets/icons/mara3.png'
+    ];
+
+    initPreloader(manualAssets);
+});
+
+function initPreloader(manualAssets) {
+    const preloader = document.getElementById('preloader-screen');
+    const loaderText = document.getElementById('loader-text');
+    const loaderBar = document.getElementById('loader-bar');
+    const loaderPercentage = document.getElementById('loader-percentage');
+    const loaderLogs = document.getElementById('loader-logs');
+    const marineContent = document.getElementById('marine-loader-content');
+    const glitchLogo = document.getElementById('preloader-glitch-logo');
+    
+    // 1. Récupérer toutes les images du site
+    const domImages = Array.from(document.images).map(img => img.src);
+    const allAssets = [...new Set([...domImages, ...manualAssets])];
+    const totalAssets = allAssets.length;
+    let loadedCount = 0;
+
+    if (totalAssets === 0) return finishLoading();
+
+    const phases = [
+        "ESTABLISHING SECURE CONNECTION...",
+        "VERIFYING ADMIRAL CREDENTIALS...",
+        "DOWNLOADING MARINE DATABASE...",
+        "DECRYPTING WANTED POSTERS...",
+        "INITIALIZING DEFENSE SYSTEMS..."
+    ];
+
+    allAssets.forEach(src => {
+        const img = new Image();
+        img.onload = img.onerror = () => {
+            loadedCount++;
+            updateProgress();
+        };
+        img.src = src;
+    });
+
+    function updateProgress() {
+        const percent = Math.floor((loadedCount / totalAssets) * 100);
+        loaderPercentage.innerText = percent + '%';
+        loaderBar.style.width = percent + '%';
+        
+        const phaseIndex = Math.min(Math.floor((percent / 100) * phases.length), phases.length - 1);
+        loaderText.innerText = phases[phaseIndex];
+
+        const log = document.createElement('div');
+        log.innerText = `> loaded asset_${loadedCount}: OK`;
+        loaderLogs.appendChild(log);
+        if(loaderLogs.children.length > 4) loaderLogs.removeChild(loaderLogs.firstChild);
+
+        if (loadedCount === totalAssets) {
+            // Petite pause une fois à 100% avant le drame
+            setTimeout(finishLoading, 800);
+        }
+    }
+
+    // =================================================
+    // LA SÉQUENCE DE L'ANOMALIE (SUBTILE & SAFE)
+    // =================================================
+    function finishLoading() {
+        const tl = gsap.timeline({
+            onComplete: () => {
+                preloader.remove();
+                // LANCE L'INTRO SUIVANTE
+                if (typeof initDenDenMushi === "function") initDenDenMushi();
+            }
+        });
+
+        // ÉTAPE 1 : SUCCÈS MARINE (Calme)
+        tl.add(() => {
+            loaderText.innerText = "SYSTEM READY.";
+            loaderText.style.color = "#00ff41";
+            loaderBar.style.backgroundColor = "#00ff41";
+            loaderBar.style.boxShadow = "0 0 10px #00ff41";
+        })
+        .to({}, { duration: 0.6 }) // Pause
+
+        // ÉTAPE 2 : L'ANOMALIE SUBTILE
+        .add(() => {
+            preloader.classList.add('malware-detected'); // Transition douce vers le rouge
+            preloader.classList.add('preloader-glitch-active'); // Distorsion très légère
+            loaderText.innerText = "WARN // ANOMALY DETECTED"; // Moins agressif que FATAL ERROR
+            loaderPercentage.innerText = "ERR";
+        })
+        // L'interface Marine s'efface doucement
+        .to(marineContent, { duration: 0.4, opacity: 0, scale: 0.98, filter: "blur(5px)", ease: "power2.inOut" }, "+=0.3") 
+
+        // ÉTAPE 3 : LE FANTÔME (Logo Most Wanted)
+        .set(glitchLogo, { display: "block" })
+        .fromTo(glitchLogo, 
+            { scale: 0.9, opacity: 0, filter: "blur(10px)" },
+            { scale: 1.05, opacity: 0.4, filter: "blur(0px)", duration: 0.5, ease: "power2.out" } // Apparition douce comme un spectre, pas de flash
+        )
+
+        // ÉTAPE 4 : LE "REBOOT" (Sortie fluide vers l'intro)
+        .to(preloader, {
+            opacity: 0,
+            scale: 1.05,
+            filter: "blur(15px)",
+            duration: 0.6,
+            ease: "power2.inOut",
+            delay: 0.2 // Temps très court où le fantôme reste visible
+        });
+    }
+}
+
+// ====================================
 // 1. DATABASE OF STORIES (REDACTED VERSION)
 // ====================================
 const database = {

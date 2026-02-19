@@ -1283,3 +1283,28 @@ body.hovering .cursor-dot {
     font-size: 0.85em;
     letter-spacing: 0.1em;
 }
+
+/* --- PRELOADER ANOMALY (EPILEPSY SAFE) --- */
+
+/* Distorsion subtile et fluide */
+@keyframes preloader-anomaly {
+    0% { transform: translate(0) skewX(0); filter: hue-rotate(0deg); }
+    25% { transform: translate(-2px, 1px) skewX(1deg); filter: hue-rotate(15deg); }
+    50% { transform: translate(1px, -1px) skewX(-0.5deg); filter: hue-rotate(-10deg); }
+    75% { transform: translate(-1px, 0px) skewX(0.5deg); filter: blur(1px); }
+    100% { transform: translate(0) skewX(0); filter: hue-rotate(0deg); }
+}
+
+.preloader-glitch-active {
+    /* Animation douce, dure 0.4s, ne boucle qu'une fois (forwards) */
+    animation: preloader-anomaly 0.4s ease-in-out forwards !important;
+}
+
+/* Changement de couleur doux vers le rouge */
+.malware-detected {
+    transition: all 0.3s ease;
+}
+.malware-detected #loader-bar { background-color: var(--trinity-red) !important; box-shadow: 0 0 10px var(--trinity-red) !important; }
+.malware-detected #loader-text { color: var(--trinity-red) !important; }
+.malware-detected #loader-percentage { color: var(--trinity-red) !important; }
+.malware-detected #preloader-grid { opacity: 0.1 !important; } /* Baisse la luminosité de la grille */
