@@ -74,48 +74,56 @@ function initPreloader(manualAssets) {
     // LA SÉQUENCE DE L'ANOMALIE (SUBTILE & SAFE)
     // =================================================
     function finishLoading() {
+        // OPTIMISATION N°1 : On initialise l'écran de la Marine EN ARRIÈRE PLAN.
+        // Comme le preloader cache encore tout, l'utilisateur ne voit rien, 
+        // mais le téléphone fait les gros calculs d'affichage maintenant, pas pendant l'animation.
+        if (typeof initDenDenMushi === "function") initDenDenMushi();
+
         const tl = gsap.timeline({
             onComplete: () => {
-                preloader.remove();
-                // LANCE L'INTRO SUIVANTE
-                if (typeof initDenDenMushi === "function") initDenDenMushi();
+                // OPTIMISATION N°2 : On cache l'élément avant de le détruire.
+                // Le `.remove()` bloque parfois le fil principal (main thread) sur les vieux CPU.
+                // En le mettant dans un setTimeout court, on laisse l'animation se terminer fluidement.
+                preloader.style.display = 'none';
+                setTimeout(() => {
+                    preloader.remove();
+                }, 100);
             }
         });
 
-        // ÉTAPE 1 : SUCCÈS MARINE (Calme)
+        // ÉTAPE 1 : SUCCÈS MARINE
         tl.add(() => {
             loaderText.innerText = "SYSTEM READY.";
             loaderText.style.color = "#00ff41";
             loaderBar.style.backgroundColor = "#00ff41";
             loaderBar.style.boxShadow = "0 0 10px #00ff41";
         })
-        .to({}, { duration: 0.6 }) // Pause
+        .to({}, { duration: 0.5 }) // Pause légèrement raccourcie
 
-        // ÉTAPE 2 : L'ANOMALIE SUBTILE
+        // ÉTAPE 2 : L'ANOMALIE
         .add(() => {
-            preloader.classList.add('malware-detected'); // Transition douce vers le rouge
-            preloader.classList.add('preloader-glitch-active'); // Distorsion très légère
-            loaderText.innerText = "WARN // ANOMALY DETECTED"; // Moins agressif que FATAL ERROR
+            preloader.classList.add('malware-detected');
+            preloader.classList.add('preloader-glitch-active');
+            loaderText.innerText = "WARN // ANOMALY DETECTED";
             loaderPercentage.innerText = "ERR";
         })
-        // L'interface Marine s'efface doucement
-        .to(marineContent, { duration: 0.4, opacity: 0, scale: 0.98, filter: "blur(5px)", ease: "power2.inOut" }, "+=0.3") 
+        // On a retiré le filter: blur() ici, beaucoup trop lourd pour le scale en même temps sur mobile
+        .to(marineContent, { duration: 0.3, opacity: 0, scale: 0.95, ease: "power2.inOut" }, "+=0.3") 
 
-        // ÉTAPE 3 : LE FANTÔME (Logo Most Wanted)
+        // ÉTAPE 3 : LE FANTÔME (Logo)
         .set(glitchLogo, { display: "block" })
         .fromTo(glitchLogo, 
-            { scale: 0.9, opacity: 0, filter: "blur(10px)" },
-            { scale: 1.05, opacity: 0.4, filter: "blur(0px)", duration: 0.5, ease: "power2.out" } // Apparition douce comme un spectre, pas de flash
+            { scale: 0.9, opacity: 0 }, // On a retiré le blur ici aussi
+            { scale: 1.05, opacity: 0.4, duration: 0.4, ease: "power2.out" }
         )
 
-        // ÉTAPE 4 : LE "REBOOT" (Sortie fluide vers l'intro)
+        // ÉTAPE 4 : LE "REBOOT" (Fade-out final matériel)
+        // L'animation ne touche qu'à l'opacité. Sur mobile, c'est traité à 100% par la puce graphique sans recalcul.
         .to(preloader, {
             opacity: 0,
-            scale: 1.05,
-            filter: "blur(15px)",
-            duration: 0.6,
+            duration: 0.5,
             ease: "power2.inOut",
-            delay: 0.2 // Temps très court où le fantôme reste visible
+            delay: 0.2
         });
     }
 }
