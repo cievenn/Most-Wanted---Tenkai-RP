@@ -510,6 +510,7 @@ body.hovering .cursor-dot {
     padding-left: 1rem;
     border-left: 1px solid transparent;
     transition: all 0.3s ease;
+    text-indent: 1.5em;
 }
 
 .story-paragraph strong:first-child {
@@ -1293,3 +1294,4 @@ body.hovering .cursor-dot {
 .malware-detected #loader-text { color: var(--trinity-red) !important; }
 .malware-detected #loader-percentage { color: var(--trinity-red) !important; }
 .malware-detected #preloader-grid { opacity: 0.1 !important; } /* Baisse la luminosité de la grille */
+

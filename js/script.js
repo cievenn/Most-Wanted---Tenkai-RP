@@ -253,8 +253,8 @@ const database = {
         `
     },
     'noir': {
-        name: 'CAÏN',
-        subtitle: 'THE CURSED PROPHET',
+        name: 'KURO KARASU',
+        subtitle: 'CAVALIER NOIR',
         img: 'assets/icons/noir2.webp',
         story: `
             <span class="story-paragraph">
@@ -291,18 +291,31 @@ const database = {
         img: 'assets/icons/rouge2.webp',
         story: `
             <span class="story-paragraph">
-                <strong>EN</strong> ATTENTE
+                <strong>Dans</strong> les contrées dorées du royaume de Luvneel, joyau orgueilleux de North Blue, naquit un enfant que l’on aurait préféré ne jamais voir. Sa mère, Inari, simple domestique du palais royal, céda un soir aux promesses d’un <span class="redacted">pirate</span> de passage. Avant l’aube, il avait déjà disparu, ce qui restera était un ventre arrondi… et la honte qui la suivra toute sa vie. Inari tenta de faire reconnaître l’enfant, amenant à des rumeurs, comme le roi lui-même aurait pu être le père.
+            </span>
+            <span class="story-paragraph">
+                <strong>Mais</strong> à la cour, les bâtards ne deviennent pas princes, mais des <span class="redacted">problèmes</span>. Karasu grandit comme une rumeur qu’on tente d’étouffer. Peut être toléré, mais jamais accepté. Et encore nourri, mais jamais aimé. Puis un jour, le silence fut choisi, pour éviter toute contestation future, pour éteindre à jamais l’idée d’un héritier illégitime, on l’accusa de <span class="redacted">complot imginaire</span> , Karasu n’a pas eu le droit à la parole, il fut envoyé aux prisons souterraines du palais, étant destinée aux oubliés, un endroit où le seul moyen de purge pas sa peine est de disparaître.
+            </span>
+            <span class="story-paragraph">
+                <strong>La</strong> prison était un tombeau humide, envahit de criminels, traîtres, tout ceux qui se sont opposés au royaume d’un façon ou d’une autre. Et parmi eux, un détenu qui ne parlait jamais, <span class="redacted">Korazon</span>. , pendant des jours, il observa Kuro, avec sa posture droite malgré les chaînes, son regard noir, et sa haine canalisé. Un soir, Korazon s’approcha enfin, il ne proposa pas la vengeance, et aucunement de justice, quelques mots lui sont soufflés :
             </span>
             <div class="story-dialogue">
-                « EN ATTENTE D UN NOUVEAU MEMBRE »
+                «  Tu peux assiéger le trône… ou t’agenouiller devant plus grand que lui. »
             </div>
+            <span class="story-paragraph">
+                <strong>Karasu</strong> comprit immédiatement que Korazon ne voulait pas renverser Luvneel pour s’y asseoir,  ce royaume peut devenir une <span class="redacted">pièce </span> sur l’échiquier du monde. L’évasion fut chirurgicale, aucune perte de temps était accepté, en une seule nuit, des gardes furent <span class="redacted">éliminés </span> en silence. Korazon galvanise les prisonniers, pendant que Karasu se dirige vers les portes de la prison et les ouvrir pour générer le conflit, tel un <span class="redacted">Cavalier</span>…
+            </span>
+            <span class="story-paragraph">
+                <strong>Ce</strong> comprit quelque chose de plus grand que le pouvoir, car un royaume est une <span class="redacted">cage</span> mais le monde est un champ de bataille à enflammer, Korazon parlera aux citoyen, et quitta Luvneel sans réclamer de couronne, et Karasu voulait le suivre, non par loyauté, et non par gratitude, mais parce qu’il avait vu en lui une ambition qui dépassait les murs d’un palais. Un roi gouverne un pays, un conquérant gouverne l’histoire, et Karasu ne voulait plus survivre dans l’ombre d’un trône, il voulait redessiner <span class="redacted">le monde</span>, le mettre en sang et violence, le Cavalier Rouge naquit… Il couru vers le port pour retrouver Korazon, il ne trouva rien, à part un petit garçon qui regarde l’horizon, lui disant qu’un homme lui a donné rendez-vous… 
+            </span>
+
             <div class="story-date-container">
-                <span class="story-date">DATE : XX XXXXXX XXXX</span>
-                <span class="story-time">TEMPS RESTANT : X MOIS ET X JOURS</span>
+                <span class="story-date">DATE : 06 MARS 1499</span>
+                <span class="story-time">TEMPS RESTANT : 2 ANS ET 9 MOIS</span>
             </div>
             <div class="story-quote">
-                <p>« XXXXXXXXX »</p>
-                <footer>- NOUVEAU MEMBRE</footer>
+                <p>« On m’a refusé une couronne. Alors j’ai choisi un empire. »</p>
+                <footer>- KURO KARASU</footer>
             </div>
         `
     },
@@ -1390,8 +1403,9 @@ function checkPassword() {
 }
 
 // ====================================
-// 8. STORY MODAL LOGIC (Typewriter)
+// STORY MODAL LOGIC (MISE À JOUR)
 // ====================================
+// Variable globale pour pouvoir stopper l'écriture si on ferme la fenêtre
 let isTyping = false; 
 
 function openStory(id) {
@@ -1405,29 +1419,37 @@ function openStory(id) {
     const text = document.getElementById('modal-text');
     const fileId = document.getElementById('modal-id');
 
-    // Reset
+    // Reset visuel immédiat
     text.innerHTML = '';
     
+    // Infos statiques
     img.src = data.img;
     name.textContent = data.name;
     subtitle.textContent = data.subtitle;
     fileId.textContent = "FILE_" + id.toUpperCase() + "_" + Math.floor(Math.random() * 9999);
     
+    // Affichage Modal
     modal.style.display = 'block';
     gsap.to(modal, { opacity: 1, duration: 0.3 });
 
-    // Stop ancien curseur statique
+    // === NOUVEAUTÉ : Empêcher le scroll de l'arrière-plan ===
+    document.body.classList.add('overflow-hidden');
+
+    // Nettoyage du curseur statique s'il existe dans le HTML de base
     const staticCursor = document.querySelector('.story-text-container .animate-pulse');
     if(staticCursor) staticCursor.style.display = 'none';
 
+    // Démarrage de l'écriture
     isTyping = true;
+    
+    // On lance un petit délai pour laisser l'animation d'ouverture se faire
     setTimeout(() => {
-        if(isTyping) typeHtml(text, data.story, 1);
+        if(isTyping) typeHtml(text, data.story, 1); // 5ms de base = rapide
     }, 300);
 }
 
 function closeStory() {
-    isTyping = false;
+    isTyping = false; // Arrête l'écriture si on ferme
     const modal = document.getElementById('story-modal');
     
     gsap.to(modal, { 
@@ -1435,7 +1457,10 @@ function closeStory() {
         duration: 0.3, 
         onComplete: () => {
             modal.style.display = 'none';
-            document.getElementById('modal-text').innerHTML = '';
+            document.getElementById('modal-text').innerHTML = ''; // Nettoyer
+            
+            // === NOUVEAUTÉ : Réactiver le scroll de l'arrière-plan ===
+            document.body.classList.remove('overflow-hidden');
         } 
     });
 }
