@@ -1200,22 +1200,7 @@ body.hovering .cursor-dot {
 }
 
 /* Barre de chargement rouge sous l'input */
-.hardware-progress {
-    height: 2px;
-    background: #222;
-    width: 100%;
-    margin-top: 5px;
-    position: relative;
-    overflow: hidden;
-}
-.hardware-progress::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; bottom: 0; width: 30%;
-    background: var(--trinity-red);
-    animation: progress-scan 2s ease-in-out infinite;
-    box-shadow: 0 0 10px var(--trinity-red);
-}
+
 @keyframes progress-scan {
     0% { left: -30%; } 100% { left: 100%; }
 }

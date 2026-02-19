@@ -5,13 +5,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Liste des fichiers lourds à précharger obligatoirement (même s'ils sont cachés ou en CSS)
     const manualAssets = [
-        'assets/icons/denden_marine_closed.png',
-        'assets/icons/denden_marine_open.png',
-        'assets/icons/denden_closed.png',
-        'assets/icons/denden_open.png',
-        'assets/icons/denden_laugh.png',
-        'assets/icons/mostwanted.png',
-        'assets/icons/mara3.png'
+        'assets/icons/denden_marine_closed.webp',
+        'assets/icons/denden_marine_open.webp',
+        'assets/icons/denden_closed.webp',
+        'assets/icons/denden_open.webp',
+        'assets/icons/denden_laugh.webp',
+        'assets/icons/mostwanted.webp',
+        'assets/icons/mara3.webp'
     ];
 
     initPreloader(manualAssets);
@@ -127,7 +127,7 @@ const database = {
     'korazon': {
         name: 'KORAZON',
         subtitle: 'THE HEARTLESS CHILD',
-        img: 'assets/icons/mara3.png',
+        img: 'assets/icons/mara3.webp',
         story: `
             <span class="story-paragraph">
                 <strong>Korazon</strong> naquit dans les ruelles de <span class="redacted">Namakura</span>, une île où la faim valait plus que l’or et où les <span class="redacted">dieux</span>, s’ils existaient, avaient détourné le regard. Étant un enfant abandonné, il survécut dans un monde de misère et de violence, avec le ventre creux, ça créera un lieu de prières et surtout que les faibles périssaient.
@@ -163,7 +163,7 @@ const database = {
     'elio': {
         name: 'ELIO VIRELLI',
         subtitle: 'THE PALE RIDER',
-        img: 'assets/icons/cieven2.png',
+        img: 'assets/icons/cieven2.webp',
         story: `
             <span class="story-paragraph">
                 <strong>Elio Virelli</strong> naquit dans une famille de chercheurs anonymes, mais le monde ne tarda pas à découvrir qu’il n’était pas simplement brillant, il était dangereux. Car dès son adolescence, il développa une fascination maladive pour la <span class="redacted">douleur humaine</span>, et non par cruauté, mais par curiosité scientifique. Il disséquait les animaux, étudiait les réactions du cerveau à la peur, et parlait à des voix que personne d’autre n’entendait. Peu à peu, la frontière entre génie et folie se brisa en lui.
@@ -205,7 +205,7 @@ const database = {
     'blanc': {
         name: 'AZRAEL',
         subtitle: 'CAVALIER BLANC',
-        img: 'assets/icons/blanc2.png',
+        img: 'assets/icons/blanc2.webp',
         story: `
             <span class="story-paragraph">
                 <strong>Azrael </strong> est né dans un port misérable entièrement contrôlé par la <span class="redacted">Marine</span>. Alors il grandit entre discours de propagande et têtes qui roulaient sur l’échafaud.
@@ -247,7 +247,7 @@ const database = {
     'noir': {
         name: 'CAÏN',
         subtitle: 'THE CURSED PROPHET',
-        img: 'assets/icons/noir2.png',
+        img: 'assets/icons/noir2.webp',
         story: `
             <span class="story-paragraph">
                 <strong>Caïn</strong> naquit sur l’île isolée de Namakura, dans l’archipel de <span class="redacted">Sanctaris</span>. Dès sa naissance, les prêtres de <span class="redacted">L’Ordre du Premier Péché</span> remarquèrent une marque rouge sombre sur son corps, symbole du meurtrier mythique.
@@ -280,7 +280,7 @@ const database = {
     'rouge': {
         name: 'KURO KARASU',
         subtitle: 'CAVALIER ROUGE',
-        img: 'assets/icons/rouge2.png',
+        img: 'assets/icons/rouge2.webp',
         story: `
             <span class="story-paragraph">
                 <strong>EN</strong> ATTENTE
@@ -301,7 +301,7 @@ const database = {
     'c_blanc??': {
         name: '???',
         subtitle: 'CAVALIER BLANC',
-        img: 'assets/icons/blanc4.png',
+        img: 'assets/icons/blanc4.webp',
         story: `
             <span class="story-paragraph">
                 <strong>?</strong>?????????????????? ??????????????????????????????????????????? ????????????????????????????????????? ???????????????????????????????????????
@@ -331,7 +331,7 @@ const database = {
     'c_noir??': {
         name: '???',
         subtitle: 'CAVALIER NOIR',
-        img: 'assets/icons/noir4.png',
+        img: 'assets/icons/noir4.webp',
         story: `
             <span class="story-paragraph">
                 <strong>?</strong>?????????????????????????? ??????????? ??????????????? ???????????????????????? ????????????????????????????????????????????????? ????????????????????????
@@ -361,7 +361,7 @@ const database = {
     'c_rouge??': {
         name: '???',
         subtitle: 'CAVALIER ROUGE',
-        img: 'assets/icons/rouge4.png',
+        img: 'assets/icons/rouge4.webp',
         story: `
             <span class="story-paragraph">
                 <strong>?</strong>????????????????????????????????????????? ???????????????????? ????????????????????????????????????????????????????????? ??????????????????? ???????????????????
@@ -1109,12 +1109,11 @@ function initBloodRain() {
     }
 }
 
-// --- INPUT & CHECK LOGIC ---
-// --- INPUT INJECTION (RESPONSIVE COMMAND PROMPT + BUTTON) ---
+// --- INPUT INJECTION (AVEC PROGRESSION DYNAMIQUE EN TEMPS RÉEL) ---
 function injectPirateLogin() {
     const container = document.getElementById('auth-container');
     container.innerHTML = `
-        <div class="hardware-wrapper p-3 sm:p-4 md:p-8 group relative overflow-hidden">
+        <div class="hardware-wrapper p-3 sm:p-4 md:p-8 group relative overflow-hidden" id="hw-wrapper">
             <div class="absolute top-0 left-0 w-full h-[200%] bg-gradient-to-b from-transparent via-[var(--trinity-red)] to-transparent opacity-10 animate-scan-input pointer-events-none"></div>
             
             <div class="flex justify-between items-center mb-3 md:mb-6 border-b-2 border-gray-800 pb-2 md:pb-3">
@@ -1130,7 +1129,7 @@ function injectPirateLogin() {
                 
                 <input type="text" id="password-input" 
                     class="w-full bg-transparent text-white font-mono text-base sm:text-xl md:text-3xl border-none focus:ring-0 outline-none uppercase tracking-[0.1em] md:tracking-[0.2em] placeholder-hint"
-                    placeholder="'MOST WANTED'" autocomplete="off">
+                    placeholder="TYPE KEY" autocomplete="off">
                 
                 <div class="hidden md:block w-4 h-4 bg-[var(--trinity-red)] rounded-sm opacity-50 group-focus-within:opacity-100 shadow-[0_0_15px_red] animate-pulse"></div>
 
@@ -1139,7 +1138,9 @@ function injectPirateLogin() {
                 </button>
             </div>
 
-            <div class="hardware-progress mt-3 md:mt-6"></div>
+            <div class="w-full h-1 md:h-1.5 bg-[#111] mt-3 md:mt-6 relative overflow-hidden rounded-full">
+                <div id="pass-progress-fill" class="absolute top-0 left-0 h-full w-0 bg-[var(--trinity-red)] transition-all duration-200 shadow-[0_0_10px_var(--trinity-red)]"></div>
+            </div>
             
             <div class="mt-2 md:mt-4 text-center bg-[var(--trinity-red)]/5 py-1.5 md:py-2 border border-[var(--trinity-red)]/20">
                  <span class="text-[8px] md:text-xs text-gray-400 font-mono tracking-widest">TARGET OVERRIDE PASSKEY : <span class="text-white font-bold">MOST WANTED</span></span>
@@ -1151,26 +1152,42 @@ function injectPirateLogin() {
     
     const input = document.getElementById('password-input');
     const submitBtn = document.getElementById('auth-submit-btn');
+    const progressFill = document.getElementById('pass-progress-fill');
+    const hwWrapper = document.getElementById('hw-wrapper');
     
+    const TARGET_PASS = "MOSTWANTED";
+    let previousLength = 0;
+    
+    // Fonction de validation finale
     function checkPasswordAttempt() {
         const val = input.value.trim().toUpperCase().replace(/\s/g, '');
-        if(val === "MOSTWANTED") {
+        if(val === TARGET_PASS) {
             input.style.color = "#00ff41"; 
+            progressFill.style.backgroundColor = "#00ff41";
+            progressFill.style.boxShadow = "0 0 20px #00ff41";
+            progressFill.style.width = "100%";
             triggerSnailSuccess();
         } else {
             input.value = "";
-            const wrapper = document.querySelector('.hardware-wrapper');
-            gsap.to(wrapper, { x: 15, duration: 0.05, yoyo: true, repeat: 5 });
+            progressFill.style.width = "0%";
+            gsap.to(hwWrapper, { x: 15, duration: 0.05, yoyo: true, repeat: 5 });
             triggerSnailTaunt();
+            previousLength = 0;
         }
     }
 
+    // ANALYSE EN TEMPS RÉEL (FRAPPE PAR FRAPPE)
     input.addEventListener('input', () => {
-       const imgClosed = document.getElementById('snail-closed');
-       const imgOpen = document.getElementById('snail-open');
-       const imgLaugh = document.getElementById('snail-laugh');
+        const val = input.value.toUpperCase().replace(/\s/g, '');
+        const isDeleting = val.length < previousLength;
+        previousLength = val.length;
+
+        // Gestion de l'animation de l'escargot quand on tape
+        const imgClosed = document.getElementById('snail-closed');
+        const imgOpen = document.getElementById('snail-open');
+        const imgLaugh = document.getElementById('snail-laugh');
        
-       if(!isSpeaking) {
+        if(!isSpeaking) {
            imgClosed.classList.add('hidden');
            imgLaugh.classList.add('hidden');
            imgOpen.classList.remove('hidden');
@@ -1180,7 +1197,54 @@ function injectPirateLogin() {
                imgOpen.classList.add('hidden');
                imgClosed.classList.remove('hidden');
            }, 500);
-       }
+        }
+
+        // Vider la barre si l'input est vide
+        if (val.length === 0) {
+            progressFill.style.width = '0%';
+            progressFill.style.backgroundColor = 'var(--trinity-red)';
+            progressFill.style.boxShadow = '0 0 10px var(--trinity-red)';
+            input.style.color = 'white';
+            return;
+        }
+
+        // VERIFICATION DE LA SOUS-CHAINE
+        const expectedSubstring = TARGET_PASS.substring(0, val.length);
+
+        if (val === expectedSubstring) {
+            // ---> LETTRE CORRECTE
+            input.style.color = 'white';
+            const percent = (val.length / TARGET_PASS.length) * 100;
+            progressFill.style.width = `${percent}%`;
+
+            if (!isDeleting) {
+                // Flash Vert de confirmation (Split second)
+                progressFill.style.backgroundColor = '#00ff41';
+                progressFill.style.boxShadow = '0 0 15px #00ff41';
+                setTimeout(() => {
+                    // S'il n'a pas encore fini le mot, on remet en rouge (sauf si on est à 100%)
+                    if (val !== TARGET_PASS) {
+                        progressFill.style.backgroundColor = 'var(--trinity-red)';
+                        progressFill.style.boxShadow = '0 0 10px var(--trinity-red)';
+                    }
+                }, 200);
+            }
+
+            // AUTO-VALIDATION : S'il tape la dernière bonne lettre (le "D")
+            if (val === TARGET_PASS) {
+                input.blur(); // Retire le clavier sur mobile
+                setTimeout(() => checkPasswordAttempt(), 300); // Petit délai pour voir la barre à 100% verte
+            }
+
+        } else {
+            // ---> MAUVAISE LETTRE
+            input.style.color = 'red';
+            progressFill.style.backgroundColor = 'red';
+            progressFill.style.boxShadow = '0 0 15px red';
+            
+            // Petit tremblement visuel de la zone de saisie pour prévenir l'erreur
+            gsap.to(input, { x: [-3, 3, -3, 3, 0], duration: 0.2 });
+        }
     });
 
     input.addEventListener('keyup', (e) => {
