@@ -36,51 +36,173 @@
     <div id="ascii-bg"></div>
 
     <!-- INTRO SCREEN -->
-    <div id="intro-screen" class="fixed inset-0 z-[99999] bg-black flex flex-col items-center justify-center overflow-hidden">
+    <div id="intro-screen" class="fixed inset-0 z-[99999] bg-[#000508] flex flex-col items-center justify-center overflow-hidden font-mono text-sm marine-theme cursor-crosshair selection:bg-cyan-500 selection:text-white">
     
-    <div id="hint-bg" class="absolute inset-0 z-0 pointer-events-none opacity-50"></div>
-    <div class="grid-bg z-0 opacity-20"></div>
+    <div class="crt-overlay pointer-events-none fixed inset-0 z-[60]"></div>
+    <div class="scanlines pointer-events-none fixed inset-0 z-[50] opacity-20"></div>
+    <div class="vignette pointer-events-none fixed inset-0 z-[50]"></div>
+    <div id="noise-layer" class="absolute inset-0 z-[45] opacity-0 bg-[url('assets/noise.png')] mix-blend-overlay pointer-events-none"></div>
+    <div id="flash-layer" class="absolute inset-0 z-[100] bg-white pointer-events-none opacity-0 mix-blend-overlay"></div>
 
-    <div class="relative z-10 w-full max-w-md px-6 text-center">
+    <div id="marine-layer" class="absolute inset-0 z-10 transition-all duration-300">
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(0,242,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,242,255,0.05)_1px,transparent_1px)] bg-[size:50px_50px] opacity-40 perspective-grid-anim"></div>
         
-        <div class="mb-10 relative group flex flex-col items-center">
-    <div class="relative">
-        <div class="absolute inset-0 bg-[var(--trinity-red)] blur-[30px] opacity-20 animate-pulse rounded-full"></div>
-        <img src="assets/icons/mostwanted.png" 
-             alt="Access Control" 
-             class="relative h-32 md:h-40 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,0,60,0.5)]">
-    </div>
-    
-    <p class="font-mono text-[var(--trinity-red)] text-sm md:text-base tracking-[0.3em] mt-6 border-b border-red-900/30 pb-2">
-        AUTHENTIFICATION REQUISE
-    </p>
-</div>
+        <div class="absolute inset-0 flex items-center justify-center opacity-40 pointer-events-none">
+             <div class="w-[60vw] h-[60vw] border border-cyan-500/20 rounded-full border-dashed animate-[spin_60s_linear_infinite]"></div>
+             <div class="absolute w-[50vw] h-[50vw] border border-cyan-500/10 rounded-full animate-[spin_30s_linear_infinite_reverse]"></div>
+             <div class="absolute w-[100vw] h-[1px] bg-cyan-500/10 rotate-45"></div>
+             <div class="absolute w-[100vw] h-[1px] bg-cyan-500/10 -rotate-45"></div>
+        </div>
 
-        <div class="relative group">
-            <div class="absolute -inset-1 bg-gradient-to-r from-[var(--trinity-red)] to-[#333] opacity-30 group-hover:opacity-100 transition duration-500 blur-sm"></div>
-            
-            <div class="relative bg-black border border-[#333] p-1 flex items-center">
-                <span class="pl-4 font-mono text-[var(--trinity-red)] animate-pulse">></span>
-                
-                <input type="text" id="password-input" 
-                    class="w-full bg-transparent border-none outline-none text-white font-mono text-xl p-4 uppercase placeholder-gray-800 tracking-widest"
-                    placeholder="MOST WANTED" 
-                    autocomplete="off"
-                    autofocus>
-                
-                <button onclick="checkPassword()" class="p-3 hover:bg-[var(--trinity-red)]/20 transition-colors">
-                    <i data-lucide="arrow-right" class="text-white w-6 h-6"></i>
-                </button>
+        <div class="absolute top-8 left-8 text-cyan-500/60 text-[10px] font-mono leading-tight hidden md:block">
+            <div class="scramble-text" data-text="SECTOR: GRAND_LINE">SECTOR: GRAND_LINE</div>
+            <div class="scramble-text" data-text="COORDS: 34.55.12 N">COORDS: 34.55.12 N</div>
+            <div class="mt-2 text-[var(--trinity-red)] hidden" id="breach-alert">/!\ BREACH DETECTED</div>
+        </div>
+    </div>
+
+    <div id="haki-wave" class="absolute inset-0 z-40 hidden pointer-events-none flex items-center justify-center">
+        <div class="w-0 h-0 rounded-full bg-[#4a00e0] mix-blend-exclusion blur-[50px] opacity-80"></div>
+    </div>
+
+    <div id="main-stage" class="relative z-30 flex flex-col items-center justify-center w-full h-full">
+        
+        <div id="top-bar" class="absolute top-10 w-full max-w-2xl px-4 md:px-8 flex justify-between items-center opacity-80 font-mono text-[9px] md:text-[10px] tracking-widest border-b border-cyan-500/30 pb-2">
+            <div class="flex flex-col z-10">
+                <span id="sys-status" class="text-cyan-400 font-bold glitch-wrapper" data-text="SYSTEM: SECURE">SYSTEM: SECURE</span>
+            </div>
+
+            <div id="admin-status" class="absolute left-1/2 -translate-x-1/2 flex items-center gap-1.5 text-cyan-300 opacity-80 transition-all duration-200">
+                <i data-lucide="user" class="w-3 h-3 opacity-70"></i>
+                <span class="uppercase">Admin : <span class="text-white font-bold">cieven</span></span>
+            </div>
+
+            <div id="def-level" class="flex items-center gap-2 text-cyan-400 z-10">
+                <div class="h-1.5 w-1.5 md:h-2 md:w-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                <span>DEFCON 5</span>
             </div>
         </div>
 
-        <div class="mt-6 font-mono text-xs space-y-2">
-            <div id="login-status" class="text-gray-500 tracking-widest">STATUS: LOCKED</div>
-            <div class="text-[var(--deep-red)] text-[10px] animate-pulse">/// HINT: LOOK AROUND ///</div>
+        <div class="relative group cursor-pointer mt-8" onclick="triggerTakeover()">
+            
+            <div id="marine-aura" class="absolute inset-0 flex items-center justify-center pointer-events-none transition-all duration-300 group-hover:scale-110">
+                <div class="w-64 h-64 border border-cyan-500/20 rounded-full animate-ping opacity-20"></div>
+                <div class="absolute w-72 h-72 border border-dashed border-cyan-500/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-4 bg-cyan-500/50"></div>
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-4 bg-cyan-500/50"></div>
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-[1px] bg-cyan-500/50"></div>
+                <div class="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-[1px] bg-cyan-500/50"></div>
+            </div>
+
+            <div id="snail-wrapper" class="relative w-48 h-48 md:w-64 md:h-64 transition-transform duration-200">
+                
+                <div id="marine-snail" class="absolute inset-0 transition-all duration-300 z-20">
+                    <img src="assets/icons/denden_marine_closed.png" class="w-full h-full object-contain drop-shadow-[0_0_30px_rgba(0,242,255,0.3)] shaking-snail">
+                </div>
+
+                <div id="marine-snail-scared" class="absolute inset-0 hidden z-20">
+                    <img src="assets/icons/denden_marine_open.png" class="w-full h-full object-contain filter hue-rotate-15 contrast-150 drop-shadow-[0_0_50px_rgba(75,0,130,0.8)]">
+                </div>
+            </div>
+
+            <div id="sound-fx" class="absolute -right-16 top-0 flex flex-col font-mono font-bold text-cyan-400 opacity-80 pointer-events-none mix-blend-screen">
+                <span class="text-sm animate-bounce" style="animation-delay: 0s;">puru</span>
+                <span class="text-sm animate-bounce" style="animation-delay: 0.1s;">puru</span>
+                <span class="text-sm animate-bounce" style="animation-delay: 0.2s;">puru</span>
+            </div>
         </div>
 
+        <button id="action-btn" onclick="triggerTakeover()" class="mt-20 relative px-10 py-4 overflow-hidden group">
+            <div class="absolute inset-0 border border-cyan-500/50 bg-cyan-900/10 backdrop-blur-sm skew-x-[-10deg] group-hover:bg-cyan-500/20 transition-all duration-300"></div>
+            <div class="absolute bottom-0 left-0 h-[2px] w-full bg-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+            
+            <div class="relative z-10 flex items-center gap-3">
+                <i data-lucide="radio" class="w-4 h-4 text-cyan-400 animate-pulse"></i>
+                <span class="font-mono text-cyan-300 text-xs tracking-[0.25em] group-hover:text-white transition-colors">
+                    INTERCEPT_CALL
+                </span>
+            </div>
+        </button>
+
+    </div>
+
+    <div id="pirate-ui" class="fixed inset-0 z-[99999] hidden flex-col items-center justify-center overflow-hidden bg-[#050101] font-mono cursor-crosshair h-[100dvh]">
+    
+    <div class="absolute inset-0 z-[60] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
+    <div class="absolute inset-0 z-[60] pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.15)_50%),linear-gradient(90deg,rgba(255,0,0,0.04),rgba(0,255,0,0.01),rgba(0,0,255,0.04))] bg-[size:100%_2px,3px_100%] opacity-40"></div>
+    <div class="absolute inset-0 z-[60] pointer-events-none shadow-[inset_0_0_80px_rgba(0,0,0,0.6)]"></div>
+
+    <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none overflow-hidden mix-blend-color-dodge">
+        <div class="font-display text-[25vw] text-[var(--trinity-red)] whitespace-nowrap animate-scroll-giant leading-none blur-[2px]">
+            MOST WANTED MOST WANTED
+        </div>
+    </div>
+    <div id="hacker-rain-container" class="absolute inset-0 z-0 opacity-40 pointer-events-none mix-blend-screen text-[10px] md:text-[12px] leading-none"></div>
+
+    <div class="relative z-20 flex flex-col items-center w-full max-w-5xl h-full justify-center p-2 md:p-4" id="pirate-content">
+        
+        <div class="absolute top-4 md:top-8 w-full px-4 md:px-8 flex justify-between items-end border-b-2 border-[var(--trinity-red)]/70 pb-2 md:pb-3 opacity-0 translate-y-[-20px]" id="elio-header">
+            <div>
+                <div class="flex items-center gap-2 text-[var(--trinity-red)] animate-pulse mb-1">
+                    <div class="w-1.5 h-1.5 md:w-2 md:h-2 bg-[var(--trinity-red)] shadow-[0_0_10px_red]"></div>
+                    <span class="text-[9px] md:text-xs tracking-[0.2em] md:tracking-[0.4em] font-bold">SYSTEM_OVERRIDE</span>
+                </div>
+                <h2 class="font-display text-white text-3xl sm:text-5xl md:text-7xl tracking-widest mt-1 text-glow">
+                    MW<span class="text-[var(--trinity-red)]">.EXE</span>
+                </h2>
+                <div class="font-mono text-[7px] sm:text-[9px] md:text-[10px] text-gray-400 mt-1 md:mt-2 tracking-[0.1em] md:tracking-[0.3em] uppercase">
+                    Admin: <span class="text-[var(--trinity-red)] font-bold">Elio Virelli (cieven)</span>
+                </div>
+            </div>
+            <div class="text-right hidden sm:block">
+                <p class="text-[var(--trinity-red)] text-[10px] md:text-sm tracking-widest">CIBLE: <span class="bg-[var(--trinity-red)] text-black px-2 py-0.5 font-bold">MOST WANTED</span></p>
+                <p class="text-gray-400 text-[9px] md:text-xs mt-2 tracking-widest">ENCRYPTION: BROKEN</p>
+            </div>
+        </div>
+
+        <div class="relative mt-12 sm:mt-8 md:mt-0 flex flex-col items-center justify-center group perspective-1000">
+            
+            <div class="absolute bottom-[-10px] w-48 md:w-72 h-12 md:h-20 bg-[var(--trinity-red)]/30 rounded-[100%] blur-[25px] animate-pulse-fast"></div>
+            <div class="absolute bottom-0 w-32 md:w-48 h-1.5 md:h-2 bg-[var(--trinity-red)] shadow-[0_0_30px_var(--trinity-red)]"></div>
+            
+            <div class="absolute inset-[-20px] md:inset-[-40px] border border-[var(--trinity-red)]/40 rounded-full border-dashed animate-[spin_30s_linear_infinite]"></div>
+            <div class="absolute inset-[-5px] md:inset-[-15px] border-2 border-[var(--trinity-red)]/20 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+
+            <div id="pirate-snail-container" class="relative w-40 h-40 sm:w-48 sm:h-48 md:w-80 md:h-80 transition-transform duration-200 z-10 filter drop-shadow-[0_0_40px_rgba(255,0,60,0.8)] animate-snail-fluid">
+                <img id="snail-closed" src="assets/icons/denden_closed.png" class="absolute w-full h-full object-contain">
+                <img id="snail-open" src="assets/icons/denden_open.png" class="absolute w-full h-full object-contain hidden">
+                <img id="snail-laugh" src="assets/icons/denden_laugh.png" class="absolute w-full h-full object-contain hidden">
+                
+                <div id="snail-speech-bubble" class="absolute -bottom-8 md:-bottom-12 left-1/2 -translate-x-1/2 w-[95vw] sm:w-[120%] md:w-[600px] max-w-3xl flex flex-col items-center opacity-0 transition-all duration-300 z-50 pointer-events-none translate-y-4">
+                    <div class="flex items-center gap-2 md:gap-3 mb-1 md:mb-2 bg-black/80 px-3 py-1 md:px-4 md:py-1.5 rounded-full border border-[var(--trinity-red)]/40 backdrop-blur-sm">
+                        <div class="w-1.5 h-1.5 md:w-2.5 md:h-2.5 bg-[var(--trinity-red)] rounded-full animate-ping"></div>
+                        <span class="font-mono text-[8px] md:text-xs text-[var(--trinity-red)] tracking-[0.2em] md:tracking-[0.4em] font-bold">ELIO_VOICE</span>
+                    </div>
+                    <div class="bg-black/90 border-y-2 border-[var(--trinity-red)]/60 px-4 py-3 md:px-8 md:py-5 w-full text-center backdrop-blur-xl shadow-[0_0_40px_rgba(255,0,60,0.25)]">
+                        <p id="snail-text" class="font-mono text-white text-sm sm:text-base md:text-xl leading-snug md:leading-relaxed typing-effect font-bold drop-shadow-lg tracking-wide"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="auth-container" class="w-full max-w-xl mt-16 sm:mt-20 md:mt-24 px-2 md:px-4 opacity-0 z-50">
+            </div>
+
+        <div class="absolute bottom-2 md:bottom-6 w-full text-center opacity-0 transition-opacity duration-1000" id="pirate-footer">
+            <p class="font-mono text-[8px] md:text-[10px] text-[var(--trinity-red)] uppercase tracking-[0.2em] md:tracking-[0.5em] animate-pulse">
+                WAITING FOR CAPTAIN'S KEY
+            </p>
+        </div>
     </div>
 </div>
+
+        <div class="absolute bottom-4 w-full text-center opacity-0 transition-opacity duration-1000" id="pirate-footer">
+            <p class="font-mono text-[8px] text-[var(--trinity-red)]/50 uppercase tracking-[0.5em]">
+                PROJECT_TRINITY // UNAUTHORIZED ACCESS WILL BE PUNISHED
+            </p>
+        </div>
+    </div>
 
     <!-- STORY MODAL (POPUP) -->
     <div id="story-modal" class="fixed inset-0 z-[10001] hidden opacity-0">
@@ -189,8 +311,7 @@
     </div>
     
     <div class="flex gap-4 md:gap-8 pointer-events-auto">
-        <a href="#manifesto" class="nav-link font-mono text-[10px] md:text-xs text-gray-400 hover:text-[var(--trinity-red)] transition-colors tracking-widest">[OBJECTIFS]</a>
-        <a href="#wanted-list" class="nav-link font-mono text-[10px] md:text-xs text-gray-400 hover:text-[var(--trinity-red)] transition-colors tracking-widest">[MEMBRES]</a>
+        <a href="#wanted-list" class="nav-link font-mono text-[10px] md:text-xs text-gray-400 hover:text-[var(--trinity-red)] transition-colors tracking-widest">[MEMBERS]</a>
     </div>
 </nav>
 
@@ -357,16 +478,7 @@
             </div>
         </div>
 
-        <div class="mb-20 md:mb-32">
-            <div class="flex items-center gap-4 mb-8 md:mb-12">
-                <div class="h-[1px] flex-grow bg-gradient-to-r from-transparent via-[var(--trinity-red)] to-transparent"></div>
-                <h4 class="font-mono text-white text-xs md:text-sm tracking-[0.2em] md:tracking-[0.3em] uppercase bg-black px-4 border border-[#333] whitespace-nowrap">
-                    SÉQUENCE DE L'APOCALYPSE
-                </h4>
-                <div class="h-[1px] flex-grow bg-gradient-to-r from-transparent via-[var(--trinity-red)] to-transparent"></div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 
                 <div class="monolith-card group relative h-[300px] md:h-[400px] border border-[#222] bg-[#050505] overflow-hidden hover:border-[var(--trinity-red)] transition-all duration-500">
                     <div class="absolute inset-0 bg-[url('assets/icons/blanc1.png')] bg-cover bg-center opacity-20 grayscale group-hover:opacity-40 group-hover:scale-110 transition-all duration-700"></div>
@@ -504,9 +616,9 @@
     <div class="absolute inset-0 bg-[url('assets/grid.png')] opacity-10 pointer-events-none"></div>
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-[#333] to-transparent hidden lg:block"></div>
 
-    <svg class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 hidden lg:block opacity-50" preserveAspectRatio="none">
-        <path d="M50% 0 V 15% L 20% 25% M50% 30% L 80% 40% M50% 50% L 20% 60% M50% 70% L 60% 80% M50% 85% L 80% 95%" 
-              fill="none" stroke="var(--trinity-red)" stroke-width="1" class="animate-dash-draw" stroke-dasharray="10,10"/>
+    <svg class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 hidden lg:block opacity-50" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <path d="M50 0 V 15 L 20 25 M50 30 L 80 40 M50 50 L 20 60 M50 70 L 60 80 M50 85 L 80 95" 
+          fill="none" stroke="var(--trinity-red)" stroke-width="0.2" class="animate-dash-draw" stroke-dasharray="1,1"/>
     </svg>
 
     <div class="max-w-[95vw] mx-auto space-y-32 relative z-10" id="hierarchy-container">
@@ -514,7 +626,7 @@
         <div class="tilt-box group relative w-full max-w-6xl mx-auto z-20" onclick="openStory('korazon')">
             <div class="absolute -top-12 left-1/2 -translate-x-1/2 text-center z-20">
                 <div class="inline-block bg-[var(--trinity-red)] text-black font-bestial text-xl px-6 py-1 transform skew-x-[-20deg]">
-                    <span class="inline-block transform skew-x-[20deg] tracking-widest">CAPTAIN // KING</span>
+                    <span class="inline-block transform skew-x-[20deg] tracking-widest">CAPTAINE // ROI</span>
                 </div>
                 <div class="h-8 w-[1px] bg-[var(--trinity-red)] mx-auto"></div>
             </div>
@@ -560,7 +672,7 @@
             </div>
         </div>
 
-        <div class="tilt-box group relative w-full max-w-2xl ml-4 md:ml-12" onclick="openStory('blanc')">
+         <div class="tilt-box group relative w-full max-w-2xl ml-4 md:ml-12" onclick="openStory('blanc')">
             <div class="cyber-card h-[450px] tilt-content border border-white/20 group-hover:border-white">
                 <div class="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors z-10"></div>
                 
@@ -570,16 +682,20 @@
                     <span class="font-display text-6xl text-transparent stroke-white stroke-1">BLANC</span>
                 </div>
 
-                <div class="absolute bottom-6 right-6 text-right z-20">
-                    <h2 class="font-display text-4xl text-white group-hover:tracking-widest transition-all duration-500">AZRAEL</h2>
-                    <div class="font-mono text-xs text-gray-400">[ CAVALIER BLANC ]</div>
+                <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                    <h2 class="font-display text-5xl text-white mix-blend-difference">AZRAEL</h2>
+                    <div class="w-full h-[1px] bg-gray-300 mt-2 mb-1"></div>
+                    <div class="flex justify-between font-mono text-[10px] text-gray-200">
+                        <span>[ CAVALIER BLANC ]</span>
+                        <span>STATUS : <strong>OCCUPÉ</strong></span> 
+                    </div>
                 </div>
 
                 <img src="assets/icons/blanc1.png" class="cyber-img w-full h-full object-cover filter grayscale contrast-150">
             </div>
         </div>
 
-        <div class="tilt-box group relative w-full max-w-3xl mx-auto translate-x-4 md:translate-x-12" onclick="openStory('c_rouge??')">
+        <div class="tilt-box group relative w-full max-w-3xl mx-auto translate-x-4 md:translate-x-12" onclick="openStory('rouge')">
             <div class="cyber-card h-[500px] tilt-content border border-red-900 group-hover:border-red-600">
                 <div class="absolute inset-0 bg-red-900/10 group-hover:bg-red-900/20 transition-colors z-10"></div>
                 
@@ -590,15 +706,15 @@
                 </div>
                 
                 <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
-                    <h2 class="font-display text-5xl text-white mix-blend-difference">PLACE LIBRE</h2>
+                    <h2 class="font-display text-5xl text-white mix-blend-difference">KURO KARASU</h2>
                     <div class="w-full h-[1px] bg-red-600 mt-2 mb-1"></div>
                     <div class="flex justify-between font-mono text-[10px] text-red-500">
                         <span>[ CAVALIER ROUGE ]</span>
-                        <span>STATUS: PENDING</span>
+                        <span>STATUS : <strong>OCCUPÉ</strong></span>
                     </div>
                 </div>
 
-                <img src="assets/icons/rouge3.png" class="cyber-img w-full h-full object-cover">
+                <img src="assets/icons/rouge1.png" class="cyber-img w-full h-full object-cover">
             </div>
         </div>
 
@@ -611,13 +727,14 @@
                     <span class="font-display text-6xl text-transparent stroke-white stroke-1">NOIR</span>
                 </div>
 
-                
-
-                <div class="absolute bottom-6 right-6 text-right z-20">
-                    <h2 class="font-display text-4xl text-white group-hover:tracking-widest transition-all duration-500">PLACE LIBRE</h2>
-                    <div class="font-mono text-xs text-gray-400">[ CAVALIER NOIR ]</div>
+                <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                    <h2 class="font-display text-5xl text-white mix-blend-difference">PLACE LIBRE</h2>
+                    <div class="w-full h-[1px] bg-gray-600 mt-2 mb-1"></div>
+                    <div class="flex justify-between font-mono text-[10px] text-gray-500">
+                        <span>[ CAVALIER NOIR ]</span>
+                        <span>STATUS : <strong>LIBRE</strong></span>
+                    </div>
                 </div>
-
                 <img src="assets/icons/noir4.png" class="cyber-img w-full h-full object-cover brightness-50 group-hover:brightness-75">
             </div>
         </div>
@@ -746,7 +863,5 @@
     </main>
 
     <script src="js/script.js"></script>
-</body>
-</html>
 </body>
 </html>

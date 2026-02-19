@@ -1,9 +1,20 @@
+/* ==========================================================================
+   1. VARIABLES & RESET
+   ========================================================================== */
 :root {
     --trinity-red: #ff003c;
     --deep-red: #2a000a;
     --chrome: #e0e0e0;
     --void: #030303;
     --grid: rgba(255, 255, 255, 0.03);
+    
+    /* Marine Theme Specifics */
+    --marine-blue: #00f2ff;
+    --marine-bg: #020b14;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
@@ -11,24 +22,62 @@ body {
     color: var(--chrome);
     font-family: 'Share Tech Mono', monospace;
     overflow-x: hidden; 
+    margin: 0;
+    padding: 0;
     cursor: none; /* Hide default cursor on desktop */
 }
 
-/* --- RESPONSIVE CURSOR HANDLING --- */
-@media (hover: none) and (pointer: coarse) {
-    body { cursor: auto; }
-    #cursor-system, #spotlight { display: none !important; }
-    .tilt-box { transform: none !important; }
-    .tilt-content { transform: none !important; }
-}
-
-/* --- FONTS --- */
+/* ==========================================================================
+   2. TYPOGRAPHY
+   ========================================================================== */
 .font-trinity { font-family: 'Wallpoet', cursive; }
 .font-bestial { font-family: 'Pirata One', cursive; }
 .font-glitch { font-family: 'Rubik Glitch', system-ui; }
 .font-display { font-family: 'Syncopate', sans-serif; }
 
-/* --- NEW TACTICAL CURSOR --- */
+strong {
+    color: white;
+    font-weight: normal;
+    text-shadow: 0 0 5px rgba(255,255,255,0.2);
+}
+
+.stroke-text {
+    -webkit-text-stroke: 1px #333;
+    color: transparent;
+}
+
+.stroke-white {
+    -webkit-text-stroke: 1px white;
+}
+
+.stroke-1 {
+    -webkit-text-stroke-width: 1px;
+}
+
+.text-outline-red {
+    text-shadow: 
+        -1px -1px 0 var(--trinity-red),  
+         1px -1px 0 var(--trinity-red),
+        -1px  1px 0 var(--trinity-red),
+         1px  1px 0 var(--trinity-red);
+    color: black;
+}
+
+.writing-vertical-rl {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.text-shadow-glow {
+    text-shadow: 0 0 0 transparent;
+}
+.group:hover .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================================================
+   3. CUSTOM CURSOR SYSTEM
+   ========================================================================== */
 #cursor-system {
     position: fixed;
     top: 0; left: 0;
@@ -94,7 +143,7 @@ body.hovering .cursor-dot {
     transform: translate(-50%, -50%) scale(1.5);
 }
 
-/* --- SPOTLIGHT EFFECT --- */
+/* Spotlight Effect */
 #spotlight {
     position: fixed;
     top: 0; left: 0;
@@ -104,7 +153,17 @@ body.hovering .cursor-dot {
     background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(255, 0, 60, 0.06), transparent 40%);
 }
 
-/* --- TEXTURES --- */
+/* Responsive: Disable custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    body { cursor: auto; }
+    #cursor-system, #spotlight { display: none !important; }
+    .tilt-box { transform: none !important; }
+    .tilt-content { transform: none !important; }
+}
+
+/* ==========================================================================
+   4. GLOBAL BACKGROUND EFFECTS (Noise, Scanlines, ASCII)
+   ========================================================================== */
 .noise {
     position: fixed;
     inset: 0;
@@ -113,6 +172,7 @@ body.hovering .cursor-dot {
     pointer-events: none;
     background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC42IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI24pIiBvcGFjaXR5PSIwLjUiLz48L3N2Zz4=');
 }
+
 .scanlines {
     position: fixed;
     inset: 0;
@@ -121,7 +181,132 @@ body.hovering .cursor-dot {
     pointer-events: none;
 }
 
-/* --- HERO FX --- */
+#ascii-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+    font-size: 10px;
+    line-height: 10px;
+    color: rgba(255, 0, 60, 0.08);
+    pointer-events: none;
+    white-space: pre-wrap;
+    word-break: break-all;
+    mask-image: radial-gradient(circle, black 20%, transparent 80%);
+}
+
+/* ==========================================================================
+   5. INTRO SCREEN (MARINE -> PIRATE TRANSITION)
+   ========================================================================== */
+#intro-screen {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0f1a 25%, #0f1a1a 50%, #0a0a0a 100%);
+    transition: background-color 0.5s;
+    animation: chill-pulse 8s ease-in-out infinite;
+}
+
+/* Marine Theme (Blue) */
+.marine-theme {
+    --trinity-red: var(--marine-blue) !important;
+    background-color: var(--marine-bg) !important;
+}
+
+.marine-theme .crt-overlay {
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 10, 20, 0.25) 50%), linear-gradient(90deg, rgba(0, 255, 255, 0.06), rgba(0, 0, 255, 0.02), rgba(0, 0, 50, 0.06));
+    background-size: 100% 2px, 3px 100%;
+}
+
+/* Animations Intro */
+@keyframes chill-pulse {
+    0%, 100% { filter: brightness(0.8); }
+    50% { filter: brightness(1); }
+}
+
+.crt-overlay {
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+.vignette {
+    background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8) 100%);
+}
+
+/* --- TRANSITION EFFECTS (HAKI / TAKEOVER) --- */
+
+/* 1. Siren Mode (Alerte) */
+.siren-mode {
+    animation: siren 0.2s infinite;
+}
+@keyframes siren {
+    0% { background-color: rgba(0, 242, 255, 0.2); }
+    50% { background-color: rgba(255, 0, 0, 0.3); }
+    100% { background-color: rgba(0, 242, 255, 0.2); }
+}
+
+/* 2. Violent Shake */
+.animate-shake-violent {
+    animation: shake-violent 0.4s infinite linear;
+}
+@keyframes shake-violent {
+    0% { transform: translate(0, 0) rotate(0); }
+    10% { transform: translate(-5px, -5px) rotate(-5deg); }
+    20% { transform: translate(5px, 5px) rotate(5deg); }
+    30% { transform: translate(-5px, 5px) rotate(-5deg); }
+    40% { transform: translate(5px, -5px) rotate(5deg); }
+    50% { transform: translate(0, 0) scale(1.1); filter: invert(1); }
+    100% { transform: translate(0, 0) rotate(0); }
+}
+
+/* 3. Haki Blast (Impact) */
+.haki-blast {
+    animation: haki-expand 0.8s cubic-bezier(0.1, 1, 0.1, 1) forwards;
+}
+@keyframes haki-expand {
+    0% { width: 0; height: 0; opacity: 1; }
+    50% { width: 200vw; height: 200vw; opacity: 0.8; background: #000; }
+    100% { width: 300vw; height: 300vw; opacity: 1; background: #000; }
+}
+
+/* 4. Text Glitch Appearance */
+.pirate-text-appear {
+    animation: glitch-appear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes glitch-appear {
+    0% { opacity: 0; transform: scale(1.5); filter: blur(10px); }
+    50% { opacity: 1; transform: scale(0.9); }
+    70% { transform: scale(1.05) skewX(-10deg); }
+    100% { transform: scale(1) skewX(0); }
+}
+
+/* 5. TV Off Animation */
+.tv-off-anim {
+    animation: tv-off 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    background: white !important;
+}
+@keyframes tv-off {
+    0% { transform: scale(1, 1); filter: brightness(1); }
+    40% { transform: scale(1, 0.005); filter: brightness(5); }
+    100% { transform: scale(0, 0); filter: brightness(0); }
+}
+
+/* Warning Popup */
+.warning-popup {
+    position: absolute;
+    color: var(--trinity-red);
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+    border: 2px solid var(--trinity-red);
+    background: black;
+    padding: 0.5rem;
+    z-index: 50;
+    pointer-events: none;
+    box-shadow: 0 0 15px var(--trinity-red), inset 0 0 10px rgba(255, 0, 60, 0.2);
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+/* ==========================================================================
+   6. HERO & MAIN LAYOUT
+   ========================================================================== */
 .perspective-grid {
     position: absolute;
     bottom: -20%; left: -50%; width: 200%; height: 100%;
@@ -150,70 +335,50 @@ body.hovering .cursor-dot {
 }
 @keyframes pulse-aura { 0% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.8); } 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); } }
 
-/* --- INTRO SCREEN --- */
-#call-screen {
-    position: fixed;
-    inset: 0;
-    background: var(--void);
-    z-index: 10000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.grid-bg {
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-    background-size: 50px 50px;
-    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-}
-
-/* --- STORY MODAL --- */
-#story-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 10001; /* Above everything */
-    background: rgba(0,0,0,0.95);
-    backdrop-filter: blur(10px);
-    display: none;
-    opacity: 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-}
-
-.modal-content {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding: 4rem 1.5rem;
-    position: relative;
-}
-
-.modal-content img {
-    max-width: 100%;
-    height: auto;
-}
-
-.story-text-container {
-    border-left: 2px solid var(--trinity-red);
-    padding-left: 1.5rem;
-    margin-top: 1.5rem;
-    position: relative;
-    min-height: 30vh;
-}
-.story-text-container::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(90deg, rgba(255,0,60,0.05), transparent);
+/* Floating Kanji */
+.floating-kanji {
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1;
     pointer-events: none;
+    z-index: 0;
 }
 
-/* --- 3D TILT ELEMENT --- */
+/* Embers Particles */
+.ember {
+    position: absolute;
+    bottom: -10%;
+    width: 2px;
+    height: 2px;
+    background: var(--trinity-red);
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 0 10px var(--trinity-red);
+    pointer-events: none;
+    animation: rise var(--duration) linear infinite;
+    animation-delay: var(--delay);
+}
+@keyframes rise {
+    0% { bottom: -10%; opacity: 0; transform: translateX(0); }
+    50% { opacity: 1; }
+    100% { bottom: 120%; opacity: 0; transform: translateX(var(--sway)); }
+}
+
+/* Animations Hero */
+.animate-scanline { animation: scanline 3s linear infinite; }
+@keyframes scanline { 0% { top: 0%; opacity: 0; } 50% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+
+.animate-scan-radar { animation: scan-radar 2s linear infinite; transform-origin: center; }
+@keyframes scan-radar { 0% { transform: rotate(0deg); opacity: 0.5; } 50% { opacity: 1; } 100% { transform: rotate(360deg); opacity: 0.5; } }
+
+.animate-loading-bar { animation: loading-bar 2s ease-in-out infinite; }
+@keyframes loading-bar { 0% { width: 0%; transform: translateX(-100%); } 100% { width: 100%; transform: translateX(200%); } }
+
+.animate-spin-slow { animation: spin 10s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* ==========================================================================
+   7. CARDS, GLITCH & 3D TILT
+   ========================================================================== */
 .tilt-box {
     transform-style: preserve-3d;
     will-change: transform;
@@ -222,7 +387,31 @@ body.hovering .cursor-dot {
     transform: translateZ(20px);
 }
 
-/* --- GLITCH TEXT --- */
+.cyber-card {
+    position: relative;
+    background: #080808;
+    border: 1px solid #1a1a1a;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+}
+.cyber-card:hover {
+    border-color: var(--trinity-red);
+    box-shadow: 0 0 30px rgba(255, 0, 60, 0.15);
+}
+
+.cyber-img {
+    filter: grayscale(100%) contrast(1.1) brightness(0.9);
+    transition: all 0.5s ease;
+    mix-blend-mode: luminosity;
+}
+.group:hover .cyber-img {
+    filter: grayscale(0%) contrast(1.2) brightness(1.1);
+    transform: scale(1.05);
+    mix-blend-mode: normal;
+}
+
+/* Glitch Wrapper */
 .glitch-wrapper {
     position: relative;
     display: inline-block;
@@ -248,113 +437,73 @@ body.hovering .cursor-dot {
     animation: glitch-anim-2 2s infinite linear alternate-reverse;
 }
 @keyframes glitch-anim-1 {
-    0% { clip-path: inset(20% 0 80% 0); }
-    20% { clip-path: inset(60% 0 10% 0); }
-    40% { clip-path: inset(40% 0 50% 0); }
-    60% { clip-path: inset(80% 0 5% 0); }
-    80% { clip-path: inset(10% 0 70% 0); }
-    100% { clip-path: inset(30% 0 20% 0); }
+    0% { clip-path: inset(20% 0 80% 0); } 20% { clip-path: inset(60% 0 10% 0); } 100% { clip-path: inset(30% 0 20% 0); }
 }
 @keyframes glitch-anim-2 {
-    0% { clip-path: inset(10% 0 60% 0); }
-    20% { clip-path: inset(30% 0 10% 0); }
-    40% { clip-path: inset(70% 0 20% 0); }
-    60% { clip-path: inset(20% 0 50% 0); }
-    80% { clip-path: inset(50% 0 30% 0); }
-    100% { clip-path: inset(0% 0 80% 0); }
+    0% { clip-path: inset(10% 0 60% 0); } 20% { clip-path: inset(30% 0 10% 0); } 100% { clip-path: inset(0% 0 80% 0); }
 }
 
-/* --- CARDS & IMAGES --- */
-.cyber-card {
-    position: relative;
-    background: #080808;
-    border: 1px solid #1a1a1a;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    cursor: pointer;
-}
-.cyber-card:hover {
-    border-color: var(--trinity-red);
-    box-shadow: 0 0 30px rgba(255, 0, 60, 0.15);
-}
-
-.cyber-img {
-    filter: grayscale(100%) contrast(1.1) brightness(0.9);
+/* Hierarchy Focus Dimming */
+#hierarchy-container:hover .tilt-box {
+    opacity: 0.3;
+    filter: blur(2px) grayscale(100%);
+    transform: scale(0.98);
     transition: all 0.5s ease;
-    mix-blend-mode: luminosity;
 }
-.group:hover .cyber-img {
-    filter: grayscale(0%) contrast(1.2) brightness(1.1);
-    transform: scale(1.05);
-    mix-blend-mode: normal;
+#hierarchy-container .tilt-box:hover {
+    opacity: 1;
+    filter: blur(0) grayscale(0%);
+    transform: scale(1.02);
+    z-index: 50;
 }
 
-.card-overlay {
-    position: absolute;
+/* Scan Line Vertical */
+.scan-line {
+    box-shadow: 0 0 10px var(--trinity-red), 0 0 5px var(--trinity-red);
+}
+.animate-scan-vertical { animation: scan-vertical 3s linear infinite; }
+@keyframes scan-vertical {
+    0% { top: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+/* ==========================================================================
+   8. STORY MODAL (TYPOGRAPHY & LAYOUT)
+   ========================================================================== */
+#story-modal {
+    position: fixed;
     inset: 0;
-    background: linear-gradient(to top, black 0%, transparent 60%);
-    z-index: 10;
+    z-index: 10001; 
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(10px);
+    display: none;
+    opacity: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
-/* --- MARQUEE STACKED (3 LINES) --- */
-.marquee-container {
-    position: absolute;
-    top: 50%; 
-    left: -50%; 
-    width: 200%; 
-    transform: translateY(-50%) rotate(-10deg);
-    opacity: 0;
-    mix-blend-mode: difference;
-    pointer-events: none;
-    z-index: 20;
-    transition: opacity 0.3s;
-    /* Column layout for stacking */
+.modal-content {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 0;
-}
-.group:hover .marquee-container { opacity: 1; }
-
-.marquee-inner {
-    display: flex;
-    gap: 1rem;
-    width: max-content; 
-    animation: scroll 45s linear infinite;
+    padding: 4rem 1.5rem;
+    position: relative;
 }
 
-@keyframes scroll { 
-    0% { transform: translateX(0); } 
-    100% { transform: translateX(-33.333%); } 
-}
-
-/* --- ASCII --- */
-#ascii-bg {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 0;
-    font-size: 10px;
-    line-height: 10px;
-    color: rgba(255, 0, 60, 0.08);
-    pointer-events: none;
-    white-space: pre-wrap;
-    word-break: break-all;
-    mask-image: radial-gradient(circle, black 20%, transparent 80%);
-}
-
-/* --- STORY TEXT FORMATTING (FINAL VERSION) --- */
 .story-text-container {
-    /* On retire la barre à gauche pour un look plus "écran complet" ou on la garde fine */
     border-left: 1px solid rgba(255, 0, 60, 0.3);
     padding-left: 1.5rem;
     position: relative;
-    min-height: 50vh; /* Garde la hauteur pour éviter que la page saute */
+    min-height: 50vh;
 }
 
 .story-paragraph {
     display: block;
     margin-bottom: 1.5rem;
-    color: #a3a3a3; /* Gris technique */
-    font-family: 'Share Tech Mono', monospace; /* Police système */
+    color: #a3a3a3;
+    font-family: 'Share Tech Mono', monospace;
     line-height: 1.8;
     text-align: justify;
     position: relative;
@@ -363,7 +512,6 @@ body.hovering .cursor-dot {
     transition: all 0.3s ease;
 }
 
-/* Lettrine (Première lettre en gras/rouge) */
 .story-paragraph strong:first-child {
     color: white;
     font-weight: bold;
@@ -372,79 +520,43 @@ body.hovering .cursor-dot {
     letter-spacing: 0.05em;
 }
 
-/* Effet Hover sur paragraphe : Focus de lecture */
 .story-paragraph:hover {
     color: #e5e5e5;
     border-left-color: var(--trinity-red);
     background: linear-gradient(90deg, rgba(255, 0, 60, 0.05) 0%, transparent 100%);
-    padding-left: 1.5rem; /* Petit décalage vers la droite */
+    padding-left: 1.5rem;
 }
 
-@media (min-width: 768px) {
-    .story-paragraph {
-        text-indent: 2.5rem;
-        margin-bottom: 0.6rem;
-    }
-}
-
-/* LE CURSEUR CUBE (VOTRE DEMANDE) */
-.typing-cursor {
-    display: inline-block;
-    width: 0.6em;       /* Largeur d'un caractère */
-    height: 1.1em;      /* Hauteur de la ligne */
-    background-color: var(--trinity-red);
-    vertical-align: text-bottom;
-    margin-left: 2px;
-    animation: blink 0.1s infinite; /* Clignotement très rapide type "calculateur" */
-    box-shadow: 0 0 10px var(--trinity-red);
-}
-
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-/* DIALOGUE (Mise en valeur) */
-/* Dans css/styles.css */
-
+/* Dialogue Box */
 .story-dialogue {
-    /* Utiliser Flexbox permet de "tuer" les problèmes d'indentation texte classiques */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
     margin: 2rem 0;
     padding: 1.5rem;
-    
-    /* Style visuel */
     background: #080808;
     border-left: 3px solid var(--trinity-red);
     color: white;
     font-style: italic;
     font-family: 'Share Tech Mono', monospace;
     font-size: 1.1em;
-    
-    /* Annulation forcée des espaces parasites */
-    text-indent: 0 !important;
     text-align: center;
-    white-space: normal;
-    
     position: relative;
     clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%);
 }
 
-/* Le pseudo-élément reste le même */
 .story-dialogue::before {
     content: "AUDIO_LOG_RECOVERED //";
     display: block;
     font-size: 0.6em;
     color: var(--trinity-red);
-    margin-bottom: 0.8rem; /* Un peu plus d'espace */
+    margin-bottom: 0.8rem;
     letter-spacing: 0.2em;
     font-style: normal;
     opacity: 0.7;
-    text-indent: 0; /* Sécurité */
 }
 
-/* Guillemets décoratifs */
 .story-dialogue::after {
     content: "”";
     position: absolute;
@@ -456,7 +568,7 @@ body.hovering .cursor-dot {
     pointer-events: none;
 }
 
-/* DATE (Style Header de log) */
+/* Date & Time */
 .story-date-container {
     margin-top: 3rem;
     margin-bottom: 2rem;
@@ -469,12 +581,8 @@ body.hovering .cursor-dot {
     padding: 1rem 0;
     font-family: 'Share Tech Mono', monospace;
 }
-
-/* Écran >= 768px (taille "md" typique) */
 @media (min-width: 768px) {
-    .story-date-container {
-        flex-direction: row;
-    }
+    .story-date-container { flex-direction: row; }
 }
 
 .story-date {
@@ -492,34 +600,22 @@ body.hovering .cursor-dot {
     border-radius: 2px;
     animation: pulse 2s infinite;
 }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 
-/* CITATION (Style final impactant) */
+/* Quote */
 .story-quote {
     margin-top: 3rem;
     text-align: center;
     position: relative;
     padding: 2rem;
 }
-
-/* Lignes décoratives autour de la citation */
-.story-quote::before, .story-quote::after {
-    content: "";
-    display: block;
-    width: 50px;
-    height: 1px;
-    background: var(--trinity-red);
-    margin: 1rem auto;
-    opacity: 0.5;
-}
-
 .story-quote p {
-    font-family: 'Pirata One', cursive; /* Police Pirate */
+    font-family: 'Pirata One', cursive;
     font-size: 1.4em;
     color: #fff;
     line-height: 1.4;
     font-style: italic;
 }
-
 .story-quote footer {
     margin-top: 1rem;
     font-family: 'Share Tech Mono', monospace;
@@ -529,20 +625,50 @@ body.hovering .cursor-dot {
     text-transform: uppercase;
 }
 
+/* Redacted Effect */
+.redacted {
+    background-color: var(--trinity-red);
+    color: transparent;
+    cursor: help;
+    padding: 0 4px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    user-select: none;
+    position: relative;
+}
+.redacted:hover {
+    background-color: transparent;
+    color: var(--trinity-red);
+    text-decoration: underline;
+}
+
+/* Typing Cursor */
+.typing-cursor {
+    display: inline-block;
+    width: 0.6em;
+    height: 1.1em;
+    background-color: var(--trinity-red);
+    vertical-align: text-bottom;
+    margin-left: 2px;
+    animation: blink 0.1s infinite;
+    box-shadow: 0 0 10px var(--trinity-red);
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* IA Monologue */
 .search-ia-monologue {
     margin: 2rem 0;
     padding: 1rem;
     background: #000;
     border: 1px solid #333;
-    color: #00ff41; /* Vert Terminal classique ou Rouge selon votre goût */
+    color: #00ff41;
     font-family: 'Courier New', monospace;
     font-size: 0.85em;
     box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
     position: relative;
     overflow: hidden;
+    animation: research-pulse 2s infinite ease-in-out;
 }
-
-/* Ligne de scan verte qui descend */
 .search-ia-monologue::before {
     content: "";
     position: absolute;
@@ -551,39 +677,24 @@ body.hovering .cursor-dot {
     animation: scan-vertical 2s linear infinite;
     pointer-events: none;
 }
-
-/* Le mot "ANALYSIS" en fond */
-.search-ia-monologue::after {
-    content: "SYSTEM_ANALYSIS";
-    position: absolute;
-    bottom: 2px;
-    right: 4px;
-    font-size: 0.6em;
-    opacity: 0.3;
-    color: #00ff41;
-}
-
-/* Animation de pulse sur la bordure pour simuler une recherche active */
-.search-ia-monologue {
-    animation: research-pulse 2s infinite ease-in-out;
-}
-
 @keyframes research-pulse {
     0%, 100% { border-left-color: var(--trinity-red); }
     50% { border-left-color: #ffffff; }
 }
 
-/* --- LOGIN SCREEN STYLES --- */
-#intro-screen input::placeholder {
+/* ==========================================================================
+   9. LOGIN & PASSWORD INPUT STYLES
+   ========================================================================== */
+#password-input::placeholder {
     color: #333;
     opacity: 0.5;
     text-shadow: none;
+    transition: color 0.3s;
 }
 
-/* Style des indices flottants "Most Wanted" */
 .hint-text {
     position: absolute;
-    font-family: 'Rubik Glitch', system-ui; /* Ou Wallpoet */
+    font-family: 'Rubik Glitch', system-ui;
     color: var(--trinity-red);
     opacity: 0;
     pointer-events: none;
@@ -592,23 +703,19 @@ body.hovering .cursor-dot {
     mix-blend-mode: screen;
 }
 
-/* Animation d'accès autorisé */
 .access-granted {
     animation: success-flash 0.5s forwards;
 }
-
 @keyframes success-flash {
     0% { background-color: black; }
     50% { background-color: var(--trinity-red); }
     100% { background-color: black; }
 }
 
-/* Animation d'erreur (secousse) */
 .shake-input {
     animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
     border-color: var(--trinity-red) !important;
 }
-
 @keyframes shake {
     10%, 90% { transform: translate3d(-1px, 0, 0); }
     20%, 80% { transform: translate3d(2px, 0, 0); }
@@ -616,456 +723,563 @@ body.hovering .cursor-dot {
     40%, 60% { transform: translate3d(4px, 0, 0); }
 }
 
-/* --- CUSTOM SCROLLBAR POUR LA MODALE --- */
-.custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-    background: #000;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 3px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: var(--trinity-red);
-}
-
-/* Ajustement mobile pour éviter que le texte ne soit caché par le bouton */
-@media (max-width: 768px) {
-    .modal-content {
-        padding-top: 60px; /* Espace pour le bouton header */
-    }
-}
-
-/* --- HERO SECTION UPGRADES --- */
-
-/* Stroke Text Effect (Texte transparent avec contour) */
-.stroke-text {
-    -webkit-text-stroke: 1px #333;
-    color: transparent;
-}
-
-/* Texte avec contour Rouge pour le titre */
-.text-outline-red {
-    text-shadow: 
-        -1px -1px 0 var(--trinity-red),  
-         1px -1px 0 var(--trinity-red),
-        -1px  1px 0 var(--trinity-red),
-         1px  1px 0 var(--trinity-red);
-    color: black; /* Intérieur noir */
-}
-
-/* Animation Scanline sur le texte */
-@keyframes scanline {
-    0% { top: 0%; opacity: 0; }
-    50% { opacity: 1; }
-    100% { top: 100%; opacity: 0; }
-}
-.animate-scanline {
-    animation: scanline 3s linear infinite;
-}
-
-/* Animation Radar (Rotation) */
-@keyframes scan-radar {
-    0% { transform: rotate(0deg); opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { transform: rotate(360deg); opacity: 0.5; }
-}
-.animate-scan-radar {
-    animation: scan-radar 2s linear infinite;
-    transform-origin: center;
-}
-
-/* Animation Loading Bar (Stats) */
-@keyframes loading-bar {
-    0% { width: 0%; transform: translateX(-100%); }
-    100% { width: 100%; transform: translateX(200%); }
-}
-.animate-loading-bar {
-    animation: loading-bar 2s ease-in-out infinite;
-}
-
-/* Rotation lente pour le réticule */
-.animate-spin-slow {
-    animation: spin 10s linear infinite;
-}
-
-/* Kanji flottants */
-.floating-kanji {
-    font-family: 'Noto Sans JP', sans-serif; /* Fallback safe */
-    line-height: 1;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Particules de Cendres (Embers) */
-.ember {
-    position: absolute;
-    bottom: -10%;
-    width: 2px;
-    height: 2px;
-    background: var(--trinity-red);
-    border-radius: 50%;
-    opacity: 0;
-    box-shadow: 0 0 10px var(--trinity-red);
-    pointer-events: none;
-    animation: rise var(--duration) linear infinite;
-    animation-delay: var(--delay);
-}
-
-@keyframes rise {
-    0% { bottom: -10%; opacity: 0; transform: translateX(0); }
-    50% { opacity: 1; }
-    100% { bottom: 120%; opacity: 0; transform: translateX(var(--sway)); }
-}
-
-/* Vertical Text Utility */
-.writing-vertical-rl {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-}
-
-/* --- HIERARCHY : NEURAL LINK STYLES --- */
-
-/* Animation de la ligne SVG */
-.animate-dash-draw {
-    stroke-dasharray: 10;
-    animation: dash-flow 20s linear infinite;
-    opacity: 0.6;
-}
-
-@keyframes dash-flow {
-    to { stroke-dashoffset: -1000; }
-}
-
-/* --- MODE FOCUS (DIMMING) --- */
-/* Quand on survole le conteneur, tout s'assombrit... */
-#hierarchy-container:hover .tilt-box {
-    opacity: 0.3;
-    filter: blur(2px) grayscale(100%);
-    transform: scale(0.98);
-    transition: all 0.5s ease;
-}
-
-/* ...Sauf celui qu'on survole (qui redevient net et coloré) */
-#hierarchy-container .tilt-box:hover {
-    opacity: 1;
-    filter: blur(0) grayscale(0%);
-    transform: scale(1.02);
-    z-index: 50;
-}
-
-/* --- CAPTAIN SCAN LINE --- */
-.scan-line {
-    box-shadow: 0 0 10px var(--trinity-red), 0 0 5px var(--trinity-red);
-}
-
-@keyframes scan-vertical {
-    0% { top: 0%; opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { top: 100%; opacity: 0; }
-}
-
-.animate-scan-vertical {
-    animation: scan-vertical 3s linear infinite;
-}
-
-/* --- UTILS --- */
-.stroke-white {
-    -webkit-text-stroke: 1px white;
-}
-.stroke-1 {
-    -webkit-text-stroke-width: 1px;
-}
-
-/* --- STORY MODAL : ULTIMATE UPGRADE --- */
-
-/* 1. Animation de Grille de fond */
-@keyframes pan-grid {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 100% 100%; }
-}
-.animate-pan-grid {
-    animation: pan-grid 60s linear infinite;
-}
-
-/* 2. Visualiseur Audio (Barres qui bougent) */
-@keyframes wave {
-    0%, 100% { height: 10%; }
-    50% { height: 100%; }
-}
-.animate-wave {
-    height: 10%;
-    animation: wave 1s ease-in-out infinite;
-    animation-delay: var(--d);
-}
-
-/* 3. EFFET REDACTED (CENSURE) - LE PLUS IMPORTANT */
-/* C'est la classe qu'on utilisera dans le JS */
-.redacted {
-    background-color: var(--trinity-red);
-    color: transparent;
-    cursor: help;
-    
-    /* Utilisation de 'em' pour s'adapter à la taille de la police actuelle */
-    padding: 0.1em 0.4em; 
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    user-select: none;
-    
-    /* C'est ici que la magie opère pour le multi-lignes */
-    display: inline;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-    
-    line-height: 1.6; /* Un peu d'air pour éviter que les barres noires se touchent */
-    vertical-align: baseline;
-    position: relative;
-}
-
-/* Au survol, on révèle le texte */
-.redacted:hover {
-    background-color: transparent;
-    color: var(--trinity-red);
-    text-decoration: underline;
-}
-
-/* Petite icône de cadenas au survol (optionnel, pour le style) */
-.redacted::after {
-    content: "🔒";
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 10px;
-    color: black;
-    pointer-events: none;
-    opacity: 1;
-    transition: opacity 0.2s;
-}
-.redacted:hover::after {
-    opacity: 0;
-}
-
-/* 4. Scrollbar stylisée */
-.custom-scrollbar::-webkit-scrollbar { width: 6px; }
-.custom-scrollbar::-webkit-scrollbar-track { background: #050505; }
-.custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border: 1px solid #000; }
-.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--trinity-red); }
-
-/* --- FOOTER ANIMATIONS --- */
-
-/* 1. Terminal Scroll (Texte défilant vertical) */
-@keyframes terminal-scroll {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50%); } /* Monte de la moitié (car on a dupliqué le texte) */
-}
-.animate-terminal-scroll {
-    animation: terminal-scroll 10s linear infinite;
-}
-
-/* 3. Scan rapide pour le terminal */
-@keyframes scan-fast {
-    0% { top: -10%; opacity: 0; }
-    50% { opacity: 1; }
-    100% { top: 110%; opacity: 0; }
-}
-.animate-scan-fast {
-    animation: scan-fast 2s linear infinite;
-}
-
-strong {
-    color: white;
-    font-weight: normal;
-    text-shadow: 0 0 5px rgba(255,255,255,0.2);
-}
-
-/* ANIMATION PULSE POUR LE TEXTE */
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-}
-
-/* --- SECTION MANIFESTO --- */
-
-/* Hover Effect sur les Piliers */
-.pillar-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px -10px rgba(255, 0, 60, 0.2);
-}
-
-/* Texte justifié propre pour le manifeste */
-.prose-manifesto p {
-    margin-bottom: 1rem;
-}
-
-/* Effet Glitch Wrapper (Simple) */
-.glitch-wrapper {
-    position: relative;
-}
-
-.glitch-wrapper::before,
-.glitch-wrapper::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.8;
-}
-
-.glitch-wrapper::before {
-    color: #0ff;
-    z-index: -1;
-    animation: glitch-anim-1 3s infinite linear alternate-reverse;
-}
-
-.glitch-wrapper::after {
-    color: #f0f;
-    z-index: -2;
-    animation: glitch-anim-2 2s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-anim-1 {
-    0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
-    20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
-    100% { clip-path: inset(10% 0 50% 0); transform: translate(-2px, 2px); }
-}
-
-@keyframes glitch-anim-2 {
-    0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, 1px); }
-    100% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, -2px); }
-}
-
-/* Text Shadow Glow pour le Grand Reset */
-.text-shadow-glow {
-    text-shadow: 0 0 0 transparent;
-}
-.group:hover .text-shadow-glow {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-}
-
-/* Monolithes (Cartes Piliers) */
+/* ==========================================================================
+   10. MANIFESTO & GRAND RESET
+   ========================================================================== */
 .monolith-card {
-    /* Style de base géré par Tailwind, ici on ajoute la profondeur */
     box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
 }
 
-/* Texte transparent avec contour (Stroke Text) */
-.stroke-text {
-    -webkit-text-stroke: 1px white;
-    color: transparent;
+/* Grand Reset Visuals */
+.animate-eclipse-pulse {
+    animation: eclipse-pulse 4s ease-in-out infinite;
 }
-
-/* Prose : Justification et style */
-.prose-manifesto strong {
-    color: white;
-    font-weight: bold;
-}
-
-/* Effet de scanline simple */
-@keyframes scanline-horizontal {
-    0% { top: 0%; opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { top: 100%; opacity: 0; }
-}
-
-/* --- GRAND RESET : DOOMSDAY VISUALS --- */
-
-/* L'Eclipse Rouge Pulsante */
 @keyframes eclipse-pulse {
     0% { box-shadow: 0 0 50px var(--trinity-red), inset 0 0 20px var(--trinity-red); transform: translate(-50%, -50%) scale(1); }
     50% { box-shadow: 0 0 150px var(--trinity-red), inset 0 0 50px var(--trinity-red); transform: translate(-50%, -50%) scale(1.05); }
     100% { box-shadow: 0 0 50px var(--trinity-red), inset 0 0 20px var(--trinity-red); transform: translate(-50%, -50%) scale(1); }
 }
 
-.animate-eclipse-pulse {
-    animation: eclipse-pulse 4s ease-in-out infinite;
+.animate-float-slow {
+    animation: float-slow 6s ease-in-out infinite;
 }
-
-/* Flottement lent pour la couronne */
 @keyframes float-slow {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
 }
 
-.animate-float-slow {
-    animation: float-slow 6s ease-in-out infinite;
+.animate-slow-zoom {
+    animation: slow-zoom 20s ease-in-out infinite;
 }
-
-/* --- NOUVEAUX EFFETS GRAND RESET --- */
-
-/* Animation de zoom lent pour l'image dans l'éclipse */
 @keyframes slow-zoom {
     0%, 100% { transform: scale(1.1); }
     50% { transform: scale(1.2); }
 }
-.animate-slow-zoom {
-    animation: slow-zoom 20s ease-in-out infinite;
-}
 
-/* --- GLITCH AGRESSIF POUR LE COMPTEUR "01" --- */
+/* Aggressive Glitch for Numbers */
 .glitch-aggressive {
     position: relative;
     color: var(--trinity-red);
-    /* Tremblement constant */
     animation: glitch-skew 0.5s infinite linear alternate-reverse;
 }
-
-/* Création des "fantômes" rouge et bleu (aberration chromatique) */
 .glitch-aggressive::before,
 .glitch-aggressive::after {
     content: attr(data-text);
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     opacity: 0.8;
 }
-
-/* Fantôme Bleu/Cyan (décalé à gauche) */
 .glitch-aggressive::before {
-    color: #0ff;
-    z-index: -1;
-    transform: translate(-2px, 0);
+    color: #0ff; z-index: -1; transform: translate(-2px, 0);
     clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
     animation: glitch-strobe 0.3s infinite steps(2, start) reverse;
 }
-
-/* Fantôme Rouge/Magenta (décalé à droite) */
 .glitch-aggressive::after {
-    color: #f0f;
-    z-index: -2;
-    transform: translate(2px, 0);
+    color: #f0f; z-index: -2; transform: translate(2px, 0);
     clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
     animation: glitch-strobe 0.5s infinite steps(2, start);
 }
-
-/* Animation de tremblement et déformation */
 @keyframes glitch-skew {
     0% { transform: skewX(0deg); }
-    10% { transform: skewX(-2deg); }
     20% { transform: skewX(1deg); }
-    30% { transform: skewX(0deg); }
     40% { transform: translate(-1px, 1px); }
-    50% { transform: skewX(2deg); }
     60% { transform: translate(1px, -1px); }
-    70% { transform: skewX(0deg); }
     80% { transform: skewX(-1deg); }
-    90% { transform: translate(0px, 1px); }
     100% { transform: skewX(0deg); }
 }
-
-/* Animation de flash stroboscopique */
 @keyframes glitch-strobe {
-    0% { opacity: 1; }
-    50% { opacity: 0; visibility: hidden; }
-    100% { opacity: 1; }
+    0% { opacity: 1; } 50% { opacity: 0; visibility: hidden; } 100% { opacity: 1; }
+}
+
+/* ==========================================================================
+   11. DEN DEN MUSHI ANIMATIONS
+   ========================================================================== */
+.shaking-snail {
+    animation: snail-shake 2s infinite; /* Ralenti un peu pour faire plus "vivant" */
+    transform-origin: center bottom;
+}
+@keyframes snail-shake {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-2px, 2px) rotate(-2deg); }
+    50% { transform: translate(2px, -2px) rotate(2deg); }
+    75% { transform: translate(-2px, -2px) rotate(-2deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.animate-bounce {
+    animation: bounce 0.5s infinite;
+}
+@keyframes bounce {
+    0%, 100% { transform: translateY(-10%); }
+    50% { transform: translateY(10%); }
+}
+
+/* ==========================================================================
+   12. FOOTER & SCROLLBARS
+   ========================================================================== */
+.animate-terminal-scroll {
+    animation: terminal-scroll 10s linear infinite;
+}
+@keyframes terminal-scroll {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
+.animate-scan-fast {
+    animation: scan-fast 2s linear infinite;
+}
+@keyframes scan-fast {
+    0% { top: -10%; opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 110%; opacity: 0; }
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: #000; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--trinity-red); }
+
+@media (max-width: 768px) {
+    .modal-content { padding-top: 60px; }
+}
+
+/* --- GOD TIER INTRO STYLES --- */
+
+/* Perspective Grid Animation */
+.perspective-grid-anim {
+    transform: perspective(1000px) rotateX(60deg) translateY(0);
+    animation: grid-move-intro 10s linear infinite;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+}
+@keyframes grid-move-intro {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 50px; }
+}
+
+/* Haki Distortion Wave */
+.haki-shockwave {
+    animation: haki-boom 1s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+@keyframes haki-boom {
+    0% { width: 0; height: 0; opacity: 1; filter: blur(10px); }
+    30% { opacity: 0.8; filter: blur(20px) hue-rotate(280deg); background: white; }
+    100% { width: 300vw; height: 300vw; opacity: 0; filter: blur(100px); background: #2a0040; }
+}
+
+/* RGB Split Glitch Effect (The "Tear") */
+.chromatic-aberration {
+    animation: chromatic-shake 0.3s infinite;
+}
+@keyframes chromatic-shake {
+    0% { text-shadow: 2px 0 red, -2px 0 blue; transform: translate(1px, 1px); }
+    25% { text-shadow: -2px 0 red, 2px 0 blue; transform: translate(-1px, -1px); }
+    50% { text-shadow: 0 2px red, 0 -2px blue; transform: translate(-1px, 1px); }
+    75% { text-shadow: 0 -2px red, 0 2px blue; transform: translate(1px, -1px); }
+    100% { text-shadow: 2px 0 red, -2px 0 blue; transform: translate(0, 0); }
+}
+
+/* Text Stroke Helper */
+.text-stroke-white {
+    -webkit-text-stroke: 1px white;
+    color: var(--trinity-red);
+}
+
+/* Red Rain (Pirate Background) */
+.blood-particle {
+    position: absolute;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--trinity-red));
+    opacity: 0.5;
+    animation: blood-fall 1s linear infinite;
+}
+@keyframes blood-fall {
+    0% { transform: translateY(-100px); opacity: 0; }
+    50% { opacity: 0.8; }
+    100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Hard Glitch for Images */
+.img-glitch-hard {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    animation: clip-glitch 0.4s infinite linear alternate-reverse;
+    filter: contrast(200%) grayscale(100%) drop-shadow(5px 5px 0 red);
+}
+@keyframes clip-glitch {
+    0% { clip-path: inset(10% 0 80% 0); transform: translate(-5px, 2px); }
+    20% { clip-path: inset(80% 0 5% 0); transform: translate(5px, -2px); }
+    40% { clip-path: inset(40% 0 40% 0); transform: translate(-5px, 5px); }
+    60% { clip-path: inset(10% 0 60% 0); transform: translate(5px, -5px); }
+    80% { clip-path: inset(50% 0 20% 0); transform: translate(0px, 0px); }
+    100% { clip-path: inset(0% 0 0% 0); }
+}
+
+/* --- PIRATE UI GOD TIER --- */
+
+/* 1. Ghost Logo Drift */
+@keyframes drift-ghost {
+    0% { transform: translate(-5%, -5%) rotate(-2deg) scale(1); opacity: 0.05; }
+    25% { transform: translate(5%, 5%) rotate(2deg) scale(1.05); opacity: 0.12; }
+    50% { transform: translate(-2%, 8%) rotate(-1deg) scale(1); opacity: 0.08; filter: hue-rotate(0deg); }
+    75% { transform: translate(4%, -4%) rotate(1deg) scale(1.02); opacity: 0.1; filter: hue-rotate(-10deg); }
+    100% { transform: translate(-5%, -5%) rotate(-2deg) scale(1); opacity: 0.05; }
+}
+
+.animate-drift-ghost {
+    animation: drift-ghost 20s infinite ease-in-out alternate;
+}
+
+/* 2. Snail Laugh (Mouvement saccadé haut/bas) */
+@keyframes laugh-violent {
+    0%, 100% { transform: translateY(0) scale(1); }
+    25% { transform: translateY(-5px) scale(1.02) rotate(-2deg); }
+    50% { transform: translateY(2px) scale(0.98) rotate(2deg); }
+    75% { transform: translateY(-8px) scale(1.05) rotate(-1deg); }
+}
+
+.animate-laugh-violent {
+    animation: laugh-violent 0.3s infinite cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    filter: drop-shadow(0 0 10px rgba(255,0,0,0.5));
+}
+
+/* 3. Floating Hints (Indices) */
+.hint-float {
+    position: absolute;
+    font-family: 'Rubik Glitch', monospace;
+    color: var(--trinity-red);
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    mix-blend-mode: hard-light;
+    z-index: 20;
+}
+
+/* 4. Pulse Rapide (Aura Rouge) */
+.animate-pulse-fast {
+    animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 5. Input 3D Effect */
+.input-3d-wrapper {
+    transform-style: preserve-3d;
+    transition: transform 0.2s;
+}
+.input-3d-wrapper:focus-within {
+    transform: translateZ(20px) scale(1.05);
+}
+/* --- ELIO'S HACKER UI --- */
+
+/* 1. Hacker Rain (Matrix Style but horizontal/vertical mix) */
+.hacker-column {
+    position: absolute;
+    top: -20%;
+    color: var(--trinity-red);
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-family: 'Share Tech Mono', monospace;
+    white-space: nowrap;
+    user-select: none;
+    opacity: 0;
+    animation: rain-fall linear infinite;
+    text-shadow: 0 0 5px var(--trinity-red);
+}
+
+@keyframes rain-fall {
+    0% { transform: translateY(-100%); opacity: 0; }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.5; }
+    100% { transform: translateY(120vh); opacity: 0; }
+}
+
+/* 2. Snail Glitch Talk Animation */
+.glitch-talk {
+    animation: talk-shake 0.1s infinite;
+}
+@keyframes talk-shake {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* 3. Input Terminal Style */
+.terminal-input-wrapper {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #333;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    transition: all 0.3s ease;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 98% 100%, 0 100%);
+}
+
+.terminal-input-wrapper:focus-within {
+    border-color: var(--trinity-red);
+    box-shadow: 0 0 30px rgba(255, 0, 60, 0.15);
+}
+
+.caret-blink {
+    animation: blink-caret 0.8s step-end infinite;
+}
+@keyframes blink-caret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* --- SNAIL AI STYLES --- */
+
+/* La Bulle de Dialogue */
+#snail-speech-bubble {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Peut être modifié pour effet glitch */
+}
+
+/* Animation "Rire Moqueur" */
+.laughing {
+    animation: mock-laugh 0.2s infinite;
+}
+
+@keyframes mock-laugh {
+    0% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-3px) rotate(-2deg); }
+    75% { transform: translateY(3px) rotate(2deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Curseur de frappe dans la bulle */
+.typing-cursor::after {
+    content: '█';
+    animation: blink 0.8s infinite;
+    margin-left: 2px;
+}
+
+/* --- GOD TIER HACKER DESIGN --- */
+
+/* Glow Text */
+.text-glow {
+    text-shadow: 0 0 10px rgba(255, 0, 60, 0.5), 0 0 20px rgba(255, 0, 60, 0.3);
+}
+
+/* Flash Glitch sur l'escargot */
+@keyframes glitch-flash {
+    0% { opacity: 0; transform: translateX(0); }
+    2% { opacity: 0.5; transform: translateX(-5px); }
+    4% { opacity: 0; transform: translateX(5px); }
+    100% { opacity: 0; }
+}
+.animate-glitch-flash {
+    animation: glitch-flash 3s infinite random;
+}
+
+/* CLI Input Design */
+.cli-wrapper {
+    background: rgba(10, 0, 0, 0.8);
+    border: 1px solid rgba(255, 0, 60, 0.3);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.cli-wrapper:focus-within {
+    border-color: var(--trinity-red);
+    box-shadow: 0 0 30px rgba(255, 0, 60, 0.2);
+    background: rgba(20, 0, 0, 0.9);
+}
+
+/* Scanline qui passe sur l'input */
+.cli-scanline {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--trinity-red);
+    opacity: 0.3;
+    animation: scan-input 2s linear infinite;
+    pointer-events: none;
+}
+@keyframes scan-input {
+    0% { top: 0%; }
+    100% { top: 100%; }
+}
+
+/* Curseur clignotant */
+.cli-cursor {
+    display: inline-block;
+    width: 8px; height: 1.2em;
+    background: var(--trinity-red);
+    animation: blink-block 1s step-end infinite;
+    vertical-align: middle;
+}
+@keyframes blink-block { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* Tremblement quand il rit (CSS Class triggered by JS) */
+.shake-laugh {
+    animation: shake-hard 0.3s cubic-bezier(.36,.07,.19,.97) infinite;
+}
+@keyframes shake-hard {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+/* --- GOD TIER : BIG HINTS --- */
+
+/* Texte géant en fond */
+@keyframes scroll-giant {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.animate-scroll-giant {
+    animation: scroll-giant 20s linear infinite;
+}
+
+/* Apparition retardée pour les indices */
+@keyframes fade-in-delayed {
+    0% { opacity: 0; transform: translateX(20px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-in-delayed {
+    animation: fade-in-delayed 1s ease-out 1s forwards;
+}
+
+/* Glow Text puissant */
+.text-glow {
+    text-shadow: 0 0 10px var(--trinity-red), 0 0 30px var(--trinity-red);
+}
+
+/* Curseurs et Inputs */
+.cli-wrapper {
+    background: rgba(5, 5, 5, 0.95);
+    border: 1px solid var(--trinity-red);
+    box-shadow: 0 0 50px rgba(255, 0, 60, 0.15);
+    transition: transform 0.2s;
+}
+
+.cli-wrapper:focus-within {
+    transform: scale(1.02);
+    box-shadow: 0 0 80px rgba(255, 0, 60, 0.25);
+}
+
+.placeholder-hint::placeholder {
+    color: rgba(255, 0, 60, 0.3);
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+/* --- OMEGA TIER STYLES --- */
+
+/* 1. Giant Scroll Background */
+@keyframes scroll-giant {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+.animate-scroll-giant {
+    animation: scroll-giant 25s linear infinite;
+}
+
+/* 2. Hardware Input Style */
+.hardware-wrapper {
+    background: #050505;
+    border: 1px solid #333;
+    position: relative;
+    padding: 2px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    transform: perspective(1000px) rotateX(10deg); /* Légère 3D */
+    transition: all 0.3s ease;
+}
+
+.hardware-wrapper:focus-within {
+    border-color: var(--trinity-red);
+    box-shadow: 0 0 40px rgba(255, 0, 60, 0.2);
+    transform: perspective(1000px) rotateX(0deg) scale(1.02);
+}
+
+/* Barre de chargement rouge sous l'input */
+.hardware-progress {
+    height: 2px;
+    background: #222;
+    width: 100%;
+    margin-top: 5px;
+    position: relative;
+    overflow: hidden;
+}
+.hardware-progress::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0; width: 30%;
+    background: var(--trinity-red);
+    animation: progress-scan 2s ease-in-out infinite;
+    box-shadow: 0 0 10px var(--trinity-red);
+}
+@keyframes progress-scan {
+    0% { left: -30%; } 100% { left: 100%; }
+}
+
+/* 3. Text Glow Violent */
+.text-glow {
+    text-shadow: 0 0 10px var(--trinity-red), 0 0 20px var(--trinity-red), 0 0 40px red;
+}
+
+/* 4. Snail Pulse Fast (Holo Effect) */
+@keyframes pulse-fast {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+}
+.animate-pulse-fast {
+    animation: pulse-fast 1s ease-in-out infinite;
+}
+
+/* 5. System Overload (Whiteout on success) */
+@keyframes system-overload {
+    0% { background: #020000; filter: contrast(1); }
+    10% { background: #500000; filter: contrast(2) hue-rotate(0deg); }
+    40% { transform: scale(1.1) rotate(1deg); }
+    80% { background: #ff003c; filter: invert(1); }
+    100% { background: white; opacity: 1; }
+}
+.overload-mode {
+    animation: system-overload 1.5s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+    z-index: 999999;
+}
+
+/* --- AMÉLIORATIONS FLUIDITÉ & VISIBILITÉ --- */
+
+/* Flottaison organique et fluide du Denden */
+@keyframes snail-float-fluid {
+    0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+    33% { transform: translateY(-10px) rotate(2deg) scale(1.02); filter: drop-shadow(0 0 50px rgba(255,0,60,0.9)); }
+    66% { transform: translateY(5px) rotate(-1deg) scale(0.98); filter: drop-shadow(0 0 30px rgba(255,0,60,0.6)); }
+}
+
+.animate-snail-fluid {
+    animation: snail-float-fluid 6s ease-in-out infinite;
+}
+
+/* Command Prompt Design Amélioré */
+.hardware-wrapper {
+    background: rgba(10, 0, 5, 0.95);
+    border: 2px solid rgba(255, 0, 60, 0.4);
+    position: relative;
+    padding: 4px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.9);
+    transform: perspective(1000px) rotateX(5deg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hardware-wrapper:focus-within {
+    border-color: var(--trinity-red);
+    box-shadow: 0 0 60px rgba(255, 0, 60, 0.3), inset 0 0 20px rgba(255, 0, 60, 0.1);
+    transform: perspective(1000px) rotateX(0deg) scale(1.03);
+    background: rgba(15, 0, 5, 0.98);
+}
+
+.hardware-wrapper .placeholder-hint::placeholder {
+    color: rgba(255, 0, 60, 0.4);
+    font-size: 0.85em;
+    letter-spacing: 0.1em;
 }
