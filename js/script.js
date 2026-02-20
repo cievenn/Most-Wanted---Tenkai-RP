@@ -859,25 +859,25 @@ const SNAIL_PHRASES = {
     // Phrases d'introduction (Choisies aléatoirement au démarrage)
     intro_sequences: [
         [
-            "Ah, un visiteur...",
+            "Ah, un visiteur, pourquoi tu me fixes derrière ton écran ?",
             "Écoute-moi bien, j'ai pas le temps.",
-            "Le mot de passe, c'est le nom de l'équipage.",
+            "Écris ce fichu mot de passe, c'est le nom de l'équipage.",
             "C'est écrit en GROS derrière moi.",
-            "Allez, tape 'MOST WANTED' et on en finit."
+            "Allez, tape et on en finit."
         ],
         [
-            "Connexion établie avec Elio.Net...",
-            "Tu veux entrer ? Facile.",
-            "Regarde sur ta droite. 'TARGET: MOST WANTED'.",
-            "C'est ça le code. Tape-le.",
+            "Connexion établie avec MW.net...",
+            "Salut ! Ne me fixe pas comme ça... Tu veux entrer ? Facile.",
+            "Regarde bien ton écran.",
+            "Tu verras le code. Tape-le.",
             "Je t'ouvre la porte si tu l'écris bien."
         ],
         [
             "Hé toi ! Oui toi derrière l'écran.",
-            "On est les pirates les plus recherchés...",
-            "Les... MOST WANTED.",
-            "Tu as compris ? C'est ça le pass.",
-            "Tape-le en bas. M... O... S... T..."
+            "Nous sommes les MOST WANTED...",
+            "Je suis assez mauvais pour trouver des mots de passe tu sais.",
+            "Tu dois taper le nom de notre équipage pour entrer.",
+            "Euuuh... OUPSSS... oublie ce que je viens de dire, c'est un secret !!"
         ]
     ],
     
@@ -889,15 +889,16 @@ const SNAIL_PHRASES = {
         "Elio aurait honte de toi.",
         "Non. Juste... non.",
         "Essaie encore, noob.",
-        "Tu tapes avec des gants de boxe ?",
+        "Tu tapes avec tes pieds ?",
         "Aïe aïe aïe... C'est gênant.",
-        "Même un Roi des Mers est plus malin.",
+        "Tu penses vraiment que c'est ça ?",
         "Erreur 404 : Intelligence non trouvée.",
         "Tu veux que j'appelle ta mère ?",
         "C'est ça ta meilleure tentative ?",
         "Faux. Archifaux.",
-        "Arrête, tu me fais mal aux circuits.",
-        "T'as trouvé ce mot dans une poubelle ?"
+        "Tu crois que le mec qui a créé ce mot de passe était à jeun ?",
+        "T'as trouvé ce mot dans une poubelle ?",
+        "Tu crains... Mais c'est mignon.",
     ],
     
     // Indices après 3 échecs
@@ -915,7 +916,8 @@ const SNAIL_PHRASES = {
         "Enfin ! C'était pas trop tôt.",
         "Bienvenue dans le système, pirate.",
         "Accès autorisé. Ne casse rien.",
-        "Oh ! Il a un cerveau finalement !"
+        "Oh ! Il a un cerveau finalement !",
+        "IMPECCABLE ! Tu gères."
     ]
 };
 

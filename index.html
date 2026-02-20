@@ -379,7 +379,7 @@
         <div class="flex items-center gap-4 mb-2 overflow-hidden">
             <div class="h-[1px] w-12 bg-[var(--trinity-red)]"></div>
             <p class="font-mono text-[var(--trinity-red)] text-[9px] md:text-xs tracking-[0.5em] uppercase" id="hero-date">
-                SYSTEM DATE // 1522
+                SYSTEM DATE // 2026
             </p>
         </div>
 
@@ -810,30 +810,30 @@
                     <div class="absolute top-0 left-0 w-full h-1 bg-[var(--trinity-red)] opacity-50 animate-scan-vertical pointer-events-none z-20"></div>
                 </div>
 
-                <p class="font-mono text-gray-500 text-xs leading-relaxed mb-8 border-l-2 border-[var(--trinity-red)] pl-4">
-                    "Le monde attend une réponse.<br>Nous sommes la question."<br>
-                    <span class="text-white mt-2 block">> PROTOCOLE: APOCALYPSE</span>
+                <p class="font-mono text-gray-500 text-xs leading-relaxed mb-8 border-l-2 border-[var(--trinity-red)] pl-4" style="text-align: justify;">
+                    "Et j’entendis une voix qui venait du milieu des quatre animaux, et qui disait : La mesure de froment vaudra un denier, et les trois mesures d’orge vaudront un denier ; mais ne gâte point ni l’huile ni le vin."<br>
+                    <span class="text-white mt-2 block">> APOCALYPSE[6-6]</span>
                 </p>
 
                 <div class="grid grid-cols-3 gap-2 w-full font-mono text-[9px] text-gray-400">
                     <div class="bg-black p-2 border border-[#222] hover:border-[var(--trinity-red)] transition-colors">
-                        <span class="block text-[var(--trinity-red)] mb-1">THREAT_LVL</span>
-                        <span class="text-white">OMEGA</span>
+                        <span class="block text-[var(--trinity-red)] mb-1">HEURE</span>
+                        <span class="text-white" id="current-time">--:--:--</span>
                     </div>
                     <div class="bg-black p-2 border border-[#222] hover:border-[var(--trinity-red)] transition-colors">
-                        <span class="block text-[var(--trinity-red)] mb-1">HAKI_CORE</span>
-                        <span class="text-white">98.4%</span>
+                        <span class="block text-[var(--trinity-red)] mb-1">DDM_STATUT</span>
+                        <span class="text-white">18.4%</span>
                     </div>
                     <div class="bg-black p-2 border border-[#222] hover:border-[var(--trinity-red)] transition-colors">
-                        <span class="block text-[var(--trinity-red)] mb-1">PONEGLYPH</span>
-                        <span class="text-[var(--trinity-red)] animate-pulse">SYNCING</span>
+                        <span class="block text-[var(--trinity-red)] mb-1">APPEL ENTRANT</span>
+                        <span class="text-[var(--trinity-red)] animate-pulse">CONNEXION...</span>
                     </div>
                 </div>
             </div>
 
             <div class="md:col-span-3 pt-2">
                 <h4 class="font-display text-white mb-6 flex items-center gap-3 text-sm tracking-widest border-b border-[#333] pb-4">
-                    <i data-lucide="folder-tree" class="w-4 h-4 text-[var(--trinity-red)]"></i> DIRECTORY
+                    <i data-lucide="folder-tree" class="w-4 h-4 text-[var(--trinity-red)]"></i> RÉPERTOIRE
                 </h4>
                 
                 <ul class="flex flex-col gap-4 font-mono text-xs text-gray-500">
@@ -847,7 +847,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center justify-between group hover:text-white transition-colors">
+                        <a href="#footer" class="flex items-center justify-between group hover:text-white transition-colors">
                             <div class="flex items-center gap-3">
                                 <span class="text-[var(--trinity-red)] opacity-0 group-hover:opacity-100 transition-opacity">></span>
                                 <span class="line-through opacity-50">[ JOURNAL_DE_BORD ]</span>
@@ -856,7 +856,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center justify-between group hover:text-white transition-colors">
+                        <a href="#footer" class="flex items-center justify-between group hover:text-white transition-colors">
                             <div class="flex items-center gap-3">
                                 <span class="text-[var(--trinity-red)] opacity-0 group-hover:opacity-100 transition-opacity">></span>
                                 <span>[ ALLIANCES_ACTIVES ]</span>
@@ -910,17 +910,17 @@
                     <div class="animate-terminal-scroll text-gray-500 space-y-1.5 leading-tight">
                         <p>> Écoute de la fréquence Marine 77.4...</p>
                         <p>> <span class="text-green-800">Success.</span> IP Spoofed (Loguetown).</p>
-                        <p>> Decrypting transmission...</p>
-                        <p class="text-white">> [AMIRAL_HQ] : "Mouvements suspects détectés."</p>
-                        <p>> Uploading Most Wanted bounties to dark net...</p>
-                        <p class="text-[var(--trinity-red)]">> WARNING: Cipher Pol trace detected.</p>
+                        <p>> Décryptage de la transmission...</p>
+                        <p class="text-white">> [MATELOT_G-2] : "EUUUH... Mouvements suspects détectés !"</p>
+                        <p>> Uploading Most Wanted bounties...</p>
+                        <p class="text-[var(--trinity-red)]">> WARNING: Ciph... Po... trace detected.</p>
                         <p>> Rerouting via Sabaody node...</p>
                         <p>> Connection secured.</p>
                         <p class="mt-4">> Écoute de la fréquence Marine 77.4...</p>
                         <p>> <span class="text-green-800">Success.</span> IP Spoofed (Loguetown).</p>
-                        <p>> Decrypting transmission...</p>
-                        <p class="text-white">> [AMIRAL_HQ] : "Mouvements suspects détectés."</p>
-                        <p>> Uploading Most Wanted bounties to dark net...</p>
+                        <p>> Décryptage de la transmission...</p>
+                        <p class="text-white">> [MATELOT_G-2] : "Je répèteuuh ! Mouvements S U S P E C T S détectés !"</p>
+                        <p>> Uploading Most Wanted bounties...</p>
                     </div>
                     
                     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--trinity-red)]/5 to-transparent h-8 animate-scan-fast pointer-events-none"></div>
@@ -935,13 +935,13 @@
             <div class="flex items-center gap-4">
                 <img src="assets/icons/mostwanted.webp" class="h-6 w-auto grayscale opacity-30 hover:opacity-100 transition-opacity">
                 <p class="font-mono text-[10px] text-gray-600">
-                    &copy; 1522 PROJECT_TRINITY. TOUS DROITS VOLÉS.
+                    &copy; © 2026 cieven. Tous droits réservés. Les images et textes sont la propriété de leurs auteurs respectifs.
                 </p>
             </div>
             
             <div class="flex items-center gap-4 font-mono text-[10px] text-gray-600">
                 <span class="hidden md:inline">LOC_TRACKER:</span>
-                <span class="text-[var(--trinity-red)] tracking-[0.4em] bg-[var(--trinity-red)]/10 px-2 py-1">32°N 14°W // RAFTEL</span>
+                <span class="text-[var(--trinity-red)] tracking-[0.4em] bg-[var(--trinity-red)]/10 px-2 py-1">32°N 14°W // ?????</span>
             </div>
 
         </div>
@@ -951,5 +951,26 @@
     </main>
 
     <script src="js/script.js"></script>
+    <script>
+        // Mise à jour de l'heure en temps réel
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            
+            const timeElement = document.getElementById('current-time');
+            if (timeElement) {
+                timeElement.textContent = timeString;
+            }
+        }
+        
+        // Mettre à jour immédiatement
+        updateTime();
+        
+        // Mettre à jour chaque seconde
+        setInterval(updateTime, 1000);
+    </script>
 </body>
 </html>
