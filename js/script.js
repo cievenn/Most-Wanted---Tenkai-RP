@@ -170,7 +170,7 @@ const database = {
     },
     'elio': {
         name: 'ELIO VIRELLI',
-        subtitle: 'THE PALE RIDER',
+        subtitle: 'THE MAD PROPHET OF IRON AND BLOOD',
         img: 'assets/icons/cieven2.webp',
         story: `
             <span class="story-paragraph">
@@ -212,7 +212,7 @@ const database = {
     },
     'blanc': {
         name: 'AZRAEL',
-        subtitle: 'CAVALIER BLANC',
+        subtitle: 'THE SILENT REQUIEM',
         img: 'assets/icons/blanc2.webp',
         story: `
             <span class="story-paragraph">
@@ -253,8 +253,8 @@ const database = {
         `
     },
     'noir': {
-        name: 'KURO KARASU',
-        subtitle: 'CAVALIER NOIR',
+        name: 'XXXX RECHERCHE',
+        subtitle: 'THE BLACK HEIR',
         img: 'assets/icons/noir2.webp',
         story: `
             <span class="story-paragraph">
@@ -287,7 +287,7 @@ const database = {
     },
     'rouge': {
         name: 'KURO KARASU',
-        subtitle: 'CAVALIER ROUGE',
+        subtitle: 'THE BLACK HEIR',
         img: 'assets/icons/rouge2.webp',
         story: `
             <span class="story-paragraph">
