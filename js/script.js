@@ -924,23 +924,44 @@ const SNAIL_PHRASES = {
 let isSpeaking = false;
 let failedAttemptsCount = 0;
 
+// NOUVELLES VARIABLES POUR L'INTERRUPTION
+let isHacked = false; 
+let currentTypeInterval = null; 
+let currentMouthInterval = null; 
+let currentSnailResolve = null; 
+
 // Lance une intro aléatoire parmi les séquences disponibles
 async function startSnailMonologue() {
-    // Choisir une séquence au hasard
     const sequenceIndex = Math.floor(Math.random() * SNAIL_PHRASES.intro_sequences.length);
     const sequence = SNAIL_PHRASES.intro_sequences[sequenceIndex];
 
     for (let line of sequence) {
+        if (isHacked) break; // Si le joueur a trouvé, on coupe la boucle d'intro
         await snailSpeak(line);
+        if (isHacked) break;
         await new Promise(r => setTimeout(r, 800)); // Pause entre les phrases
     }
 }
 
-// Fonction principale de parole (Avec gestion Open/Closed/Laugh)
-function snailSpeak(text, emotion = "neutral") {
+// Fonction principale de parole (Avec système d'interruption)
+function snailSpeak(text, emotion = "neutral", interrupt = false) {
     return new Promise(resolve => {
-        if(isSpeaking) return; 
+        if(isSpeaking) {
+            if (!interrupt) {
+                // S'il parle et qu'on ne veut pas l'interrompre, on résout direct pour ne pas bloquer le code
+                resolve(); 
+                return;
+            } else {
+                // COUPURE D'URGENCE DE LA PAROLE ACTUELLE
+                clearInterval(currentTypeInterval);
+                clearInterval(currentMouthInterval);
+                if (currentSnailResolve) currentSnailResolve();
+                isSpeaking = false;
+            }
+        }
+        
         isSpeaking = true;
+        currentSnailResolve = resolve;
 
         const bubble = document.getElementById('snail-speech-bubble');
         const p = document.getElementById('snail-text');
@@ -950,51 +971,43 @@ function snailSpeak(text, emotion = "neutral") {
         const imgOpen = document.getElementById('snail-open');
         const imgLaugh = document.getElementById('snail-laugh');
         
-        // AFFICHE LE NOUVEAU BANDEAU PROPREMENT
         bubble.style.opacity = 1;
-        bubble.style.transform = "translate(-50%, 0)"; // On garde le centrage à -50%
+        bubble.style.transform = "translate(-50%, 0)"; 
         p.innerHTML = ""; 
 
         let i = 0;
         
-        // ANIMATION DE BOUCHE COMPLEXE
-        const mouthInterval = setInterval(() => {
-            // Reset tout
+        currentMouthInterval = setInterval(() => {
             imgClosed.classList.add('hidden');
             imgOpen.classList.add('hidden');
             imgLaugh.classList.add('hidden');
 
             const rand = Math.random();
             if (rand < 0.4) {
-                // 40% chance : Ouvert (Parle)
                 imgOpen.classList.remove('hidden');
             } else if (rand < 0.7) {
-                // 30% chance : Fermé (Pause)
                 imgClosed.classList.remove('hidden');
             } else {
-                // 30% chance : Rire (Expression)
                 imgLaugh.classList.remove('hidden');
             }
-        }, 80); // Change d'image toutes les 80ms
+        }, 80); 
 
-        // TEXTE TYPEWRITER
-        const typeInterval = setInterval(() => {
+        currentTypeInterval = setInterval(() => {
             p.textContent += text.charAt(i);
             i++;
 
             if (i >= text.length) {
-                clearInterval(typeInterval);
-                clearInterval(mouthInterval);
+                clearInterval(currentTypeInterval);
+                clearInterval(currentMouthInterval);
                 
-                // ETAT FINAL SELON L'EMOTION
                 imgOpen.classList.add('hidden');
                 imgClosed.classList.add('hidden');
                 
                 if (emotion === "taunt" || emotion === "laugh") {
-                    imgLaugh.classList.remove('hidden'); // Reste sur le rire si moquerie
-                    gsap.to("#pirate-snail-container", { y: -5, yoyo: true, repeat: 3, duration: 0.1 }); // Petit rebond
+                    imgLaugh.classList.remove('hidden'); 
+                    gsap.to("#pirate-snail-container", { y: -5, yoyo: true, repeat: 3, duration: 0.1 }); 
                 } else {
-                    imgClosed.classList.remove('hidden'); // Revient au calme sinon
+                    imgClosed.classList.remove('hidden'); 
                     imgLaugh.classList.add('hidden');
                 }
                 
@@ -1005,52 +1018,44 @@ function snailSpeak(text, emotion = "neutral") {
     });
 }
 
-// Fonction appelée quand le mot de passe est faux
-// Fonction de Taunt mise à jour pour utiliser les nouvelles classes
+// Fonction de provocation si erreur
 function triggerSnailTaunt() {
     failedAttemptsCount++;
     const container = document.getElementById('pirate-snail-container');
     
-    // Ajouter classe CSS Shake (plus violent)
     container.classList.add('shake-laugh');
     setTimeout(() => container.classList.remove('shake-laugh'), 1000);
 
     let phrase = "";
     if(failedAttemptsCount >= 3) {
         phrase = SNAIL_PHRASES.hints[Math.floor(Math.random() * SNAIL_PHRASES.hints.length)];
-        snailSpeak(phrase, "neutral");
+        // On force l'interruption pour qu'il le dise tout de suite (true)
+        snailSpeak(phrase, "neutral", true); 
     } else {
         phrase = SNAIL_PHRASES.taunts[Math.floor(Math.random() * SNAIL_PHRASES.taunts.length)];
-        snailSpeak(phrase, "taunt"); // Active le rire
+        // On force l'interruption (true)
+        snailSpeak(phrase, "taunt", true); 
     }
 }
 
 // Fonction appelée quand c'est réussi
 async function triggerSnailSuccess() {
+    isHacked = true; // Verrouille le système et coupe l'intro
     const container = document.getElementById('pirate-snail-container');
     
-    // Animation de Joie (Sautille)
     gsap.to(container, { y: -20, scale: 1.1, duration: 0.2, yoyo: true, repeat: 3 });
 
-    // Phrase de victoire
-    await snailSpeak(SNAIL_PHRASES.success[Math.floor(Math.random() * SNAIL_PHRASES.success.length)], "laugh");
+    // On force l'interruption IMMÉDIATE de l'intro (true)
+    await snailSpeak(SNAIL_PHRASES.success[Math.floor(Math.random() * SNAIL_PHRASES.success.length)], "laugh", true);
     
     setTimeout(() => {
-        // Transition vers le site
         const tl = gsap.timeline();
-        
-        // 1. On efface l'interface pirate
         tl.to("#pirate-ui", { opacity: 0, duration: 1 })
-          
-          // 2. CORRECTION : On efface aussi le grand écran noir (intro-screen)
-          .to("#intro-screen", { opacity: 0, duration: 0.5 }, "<") // "<" signifie "en même temps que l'anim précédente"
-          .set("#intro-screen", { display: "none" }) // On le retire physiquement pour débloquer les clics
-          
-          // 3. On affiche le site principal
+          .to("#intro-screen", { opacity: 0, duration: 0.5 }, "<") 
+          .set("#intro-screen", { display: "none" }) 
           .set("#main-content", { display: "block", opacity: 0 }) 
-          .add(() => document.getElementById('main-content').classList.remove('hidden')) // Sécurité pour Tailwind
+          .add(() => document.getElementById('main-content').classList.remove('hidden')) 
           .to("#main-content", { opacity: 1, duration: 1 });
-          
     }, 2000);
 }
 
@@ -1183,6 +1188,8 @@ function injectPirateLogin() {
     
     // Fonction de validation finale
     function checkPasswordAttempt() {
+        if (isHacked) return; // Évite que le code se lance 2 fois si on spam
+        
         const val = input.value.trim().toUpperCase().replace(/\s/g, '');
         if(val === TARGET_PASS) {
             input.style.color = "#00ff41"; 
@@ -1191,6 +1198,7 @@ function injectPirateLogin() {
             progressFill.style.width = "100%";
             triggerSnailSuccess();
         } else {
+            // ... (le reste du else ne change pas)
             input.value = "";
             progressFill.style.width = "0%";
             gsap.to(hwWrapper, { x: 15, duration: 0.05, yoyo: true, repeat: 5 });
@@ -1256,7 +1264,10 @@ function injectPirateLogin() {
             // AUTO-VALIDATION : S'il tape la dernière bonne lettre (le "D")
             if (val === TARGET_PASS) {
                 input.blur(); // Retire le clavier sur mobile
-                setTimeout(() => checkPasswordAttempt(), 300); // Petit délai pour voir la barre à 100% verte
+                if (!isHacked) {
+                    // On a baissé de 300ms à 100ms. C'est quasi-instantané mais laisse le temps de voir la barre verte
+                    setTimeout(() => checkPasswordAttempt(), 100); 
+                }
             }
 
         } else {
