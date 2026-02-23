@@ -287,7 +287,7 @@ const database = {
     },
     'rouge': {
         name: 'KURO KARASU',
-        subtitle: 'THE BLACK HEIR',
+        subtitle: 'THE CRIMSON HEIR',
         img: 'assets/icons/rouge2.webp',
         story: `
             <span class="story-paragraph">
