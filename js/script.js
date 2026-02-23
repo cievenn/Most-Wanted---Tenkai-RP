@@ -156,10 +156,10 @@ const database = {
                 <strong>Lorsque</strong> la <span class="redacted">Marine</span> arriva, les habitants trahirent le tyran, ils virent une chance pour sa sauver de la misère, et enfin se débarrasser de celui qu’ils avaient craint. Korazon ne fut pas surpris, car une révolution se crée souvent via la fragilité du peuple. Mais cette trahison affûta sa volonté, s’il voulait régner, il lui fallait un royaume à la mesure de son ambition. Il prit un navire et quitta Namakura, non en fugitif, mais en conquérant.
             </span>
             <span class="story-paragraph">
-                <strong>Ainsi</strong> naquit le pirate Korazon, stratège sans pitié, maître de la terreur et fondateur de l’équipage <span class="redacted">Most Wanted</span>. Son royaume désormais n’aurait plus de frontières. Son but premier était de trouver ces futurs membres, il lui fallait un rendez pour chacun, à <span class="redacted">Logue Town</span>, l'endroit où les légendes s'éveillent. En l’an 1496, le 6/11, il ne reste à Korazen que 5 ans et 1 mois pour rassembler les futures légendes et montrer au monde toute sa puissance.
+                <strong>Ainsi</strong> naquit le pirate Korazon, stratège sans pitié, maître de la terreur et fondateur de l’équipage <span class="redacted">Most Wanted</span>. Son royaume désormais n’aurait plus de frontières. Son but premier était de trouver ces futurs membres, il lui fallait un rendez pour chacun, à <span class="redacted">Logue Town</span>, l'endroit où les légendes s'éveillent. En l’an XXXX, le 6/11, il ne reste à Korazen que 5 ans et 1 mois pour rassembler les futures légendes et montrer au monde toute sa puissance.
             </span>
             <div class="story-date-container">
-                <span class="story-date">06 NOVEMBRE 1496</span>
+                <span class="story-date">06 NOVEMBRE XXXX</span>
                 <span class="story-time">TEMPS RESTANT : 5 ANS ET 1 MOIS</span>
             </div>
             <div class="story-quote">
@@ -183,7 +183,7 @@ const database = {
                 <strong>Et</strong> il décida… de devenir son prophète. À vingt ans, il renversa une petite île isolée, utilisant la terreur, les expériences, et une poignée de fanatiques recrutés parmi les marginaux. Il imposa son règne comme un scientifique tyrannique, opérant sur les habitants au nom de son <span class="redacted">dieu imaginaire</span>, envoyant des lettres incohérentes à une mystérieuse personne sur Namakura, des lettres remplies de schémas, des écrits, des prophéties.
             </span>
             <span class="story-paragraph">
-                <strong>Mais</strong> la trahison vint de l’intérieur. Ses propres disciples, écœurés, le capturèrent et l’empalèrent. En l’an 1497, 23/06, Elio resta cinq jours ainsi, sans boire, sans manger, entre vie et mort, ses lèvres gercées étirées en un rire démentiel qui ne voulait pas mourir, chaque jour, son rire se fit entendre dans tout le camp. Le sixième jour, alors que son cœur battait faiblement, une véritable trompette retentit, et non une vision, tout simplement un homme apparut dans le contre-jour, buvant dans sa bouteille en souriant en regardant Elio.
+                <strong>Mais</strong> la trahison vint de l’intérieur. Ses propres disciples, écœurés, le capturèrent et l’empalèrent. En l’an XXXX, 23/06, Elio resta cinq jours ainsi, sans boire, sans manger, entre vie et mort, ses lèvres gercées étirées en un rire démentiel qui ne voulait pas mourir, chaque jour, son rire se fit entendre dans tout le camp. Le sixième jour, alors que son cœur battait faiblement, une véritable trompette retentit, et non une vision, tout simplement un homme apparut dans le contre-jour, buvant dans sa bouteille en souriant en regardant Elio.
             </span>
             <div class="story-dialogue">
                 « Brise ta couronne. Le pouvoir véritable n’attend que dans le sang des tiens. »
@@ -195,14 +195,14 @@ const database = {
                 « Lève-toi, frère. Le Monde t'attend. »
             </div>
             <span class="story-paragraph">
-                <strong>Elio</strong> cessa de rire. Nous sommes en l’an 1497, 28/06, un instant, il vit ou crut voir les lignes du destin se tordre autour de Korazon comme des serpents d’ombre. Il n’eut pas besoin d’en savoir plus. Il n’eut pas besoin de comprendre. Il accepta. Car il ne suivait pas un capitaine… Il suivait le seul homme dont la folie dépassait la sienne. La seule condition était d'attendre les nouvelles recrues, les futurs conquérants de ses mers. C'est ici que le <span class="redacted">Most Wanted</span> s'officilisera...
+                <strong>Elio</strong> cessa de rire. Nous sommes en l’an XXXX, 28/06, un instant, il vit ou crut voir les lignes du destin se tordre autour de Korazon comme des serpents d’ombre. Il n’eut pas besoin d’en savoir plus. Il n’eut pas besoin de comprendre. Il accepta. Car il ne suivait pas un capitaine… Il suivait le seul homme dont la folie dépassait la sienne. La seule condition était d'attendre les nouvelles recrues, les futurs conquérants de ses mers. C'est ici que le <span class="redacted">Most Wanted</span> s'officilisera...
             </span>
             <span class="story-paragraph">
                 <strong>Le</strong>capitaine donnera un rendez-vous sur <span class="redacted">Logue Town</span>, dans précisément 4 ans et 5 mois et 8 jours, jour pour jour, le Most Wanted s'éveillera à ce moment, une nouvelle ère débutera, et le duo élevera la piraterie avec l'équipage. Elio Virelli est devenu le chirurgien du chaos, le terroriste, le scientifique dément et le prophète de son propre dieu imaginaire. Sous le pavillon des Most Wanted, sa science n’a plus de limites, et sa voix résonne encore sur les mers, son rire se fit entendre à chaque endroit que le Most Wanted fit une action, portée par ses éclats de rire et ses visions.
             </span>
             <div class="story-date-container">
-                <span class="story-date">DATE : 28 JUIN 1497</span>
-                <span class="story-time">TEMPS RESTANT AVANT L'ÉVEIL : 4 ANS, 5 MOIS ET 8 JOURS</span>
+                <span class="story-date">DATE : 28 JUIN XXXX</span>
+                <span class="story-time">TEMPS RESTANT : 4 ANS, 5 MOIS ET 8 JOURS</span>
             </div>
             <div class="story-quote">
                 <p>« La souffrance n’est pas une erreur… c’est un langage. Et moi, j’en suis le traducteur. »</p>
@@ -219,7 +219,7 @@ const database = {
                 <strong>Azrael </strong> est né dans un port misérable entièrement contrôlé par la <span class="redacted">Marine</span>. Alors il grandit entre discours de propagande et têtes qui roulaient sur l’échafaud.
             </span>
             <span class="story-paragraph">
-                <strong>Dans </strong> la panoplie de têtes qui roulaient, il y avait son père, qui fut accusé de trahison, <span class="redacted">aucun de procès</span>, et surtout <span class="redacted">aucune d’explication</span>, tout simplement un matin… il disparut. Sa mère cessa de parler après ça, étant dans un état de choc traumatique, comme si les mots eux-mêmes étaient devenus dangereux. Car ils étaient directement dans le collimateur de la <span class="redacted">Marine</span>, très tôt, Azrael comprit que la paix imposée par le <span class="redacted">Gouvernement</span> n’était pas une protection, mais c’était une cage.
+                <strong>Dans </strong> la panoplie de têtes qui roulaient, il y avait son père, qui fut accusé de trahison, <span class="redacted">aucun procès</span>, et surtout <span class="redacted">aucune explication</span>, tout simplement un matin… il disparut. Sa mère cessa de parler après ça, étant dans un état de choc traumatique, comme si les mots eux-mêmes étaient devenus dangereux. Car ils étaient directement dans le collimateur de la <span class="redacted">Marine</span>, très tôt, Azrael comprit que la paix imposée par le <span class="redacted">Gouvernement</span> n’était pas une protection, mais c’était une cage.
             </span>
             <span class="story-paragraph">
                 <strong>À </strong> douze ans, il regarda une exécution de trop. À treize ans, il quitta le port sans prévenir. À quatorze ans, il tua pour la première fois.
@@ -228,7 +228,7 @@ const database = {
                 « Le silence avant ma lame est la seule miséricorde que j’accorde. »
             </div>
             <span class="story-paragraph">
-                <strong>Azrael </strong> survécut seul en mer, volant des vivres, dormant sous les ponts de navires <span class="redacted">marchands</span>, apprenant à se battre comme d’autres apprennent à lire, il cherchait la conquête. Mais Azrael n’avait ni équipage ni bannière, une seule chose le sauvera, c’était sa méthode. Car Il observait, attendait, puis frappait. Grâce à cela, à vingt ans, il avait déjà renversé trois capitaines pirates et pris le contrôle d’une petite île stratégique utilisée pour le commerce illégal. Il ne se proclamait pas roi, il ne faisait aucun discours, mais il gouvernait. 
+                <strong>Azrael </strong> survécut seul en mer, volant des vivres, dormant sous les ponts de navires <span class="redacted">marchands</span>, apprenant à se battre comme d’autres apprennent à lire, il cherchait la conquête. Mais Azrael n’avait ni équipage ni bannière, une seule chose le sauvera, c’était sa méthode. Car Il observait, attendait, puis frappait. Grâce à cela, à vingt ans, il avait déjà renversé trois capitaines pirates et prit le contrôle d’une petite île stratégique utilisée pour le commerce illégal. Il ne se proclamait pas roi, il ne faisait aucun discours, mais il gouvernait. 
             </span>
             <span class="story-paragraph">
                 <strong>Sous </strong> son contrôle, l’île devint une forteresse silencieuse, pas de chaos, pas de célébrations, seulement l’ordre imposé par la peur froide. Des <span class="redacted">rumeurs</span>, disaient qu’il ne criait jamais, qu’il ne menaçait jamais, et finalement ne regardait simplement que sa cible… car sa décision était déjà prise. L’île était silencieuse, seul les bruits des marchandises qui tapaient contre le sol, les coups de fusils, tel un véritable roi du silence. 
@@ -243,7 +243,7 @@ const database = {
                 <strong>Après </strong> une légère discussion, des hommes s’opposèrent à Korazon, brisant leurs crânes à tout les individus voulant passer à travers de sa route, il partie, laissant un seul papier tombé de sa poche...
             </span>
             <div class="story-date-container">
-                <span class="story-date">DATE : 01 SEPTEMBRE 1496</span>
+                <span class="story-date">DATE : 01 SEPTEMBRE XXXX</span>
                 <span class="story-time">TEMPS RESTANT : 1 AN, 3 MOIS ET 5 JOURS</span>
             </div>
             <div class="story-quote">
@@ -264,7 +264,7 @@ const database = {
                 Élevé dans le fanatisme, Caïn grandit convaincu que sa vie était liée à un destin inexorable. Ses journées étaient rythmées par les rituels et l'étude des Cartes du Destin. Mais à 14 ans, lors d'un rituel, les effigies sacrées s’animèrent et massacrèrent les prêtres. Caïn survécut, seul, couvert du sang de ses confrères.
             </span>
             <span class="story-paragraph">
-                En l’an 1499, le <strong>06/03</strong>, à 19 ans, il quitta Sanctaris. Hué et menacé, il se fit agresser. Alors que le sang coulait sur sa marque qui s'illuminait, il pria pour être sauvé.
+                En l’an XXXX, le <strong>06/03</strong>, à 19 ans, il quitta Sanctaris. Hué et menacé, il se fit agresser. Alors que le sang coulait sur sa marque qui s'illuminait, il pria pour être sauvé.
             </span>
             <div class="story-dialogue">
                 « Même marqué par le péché, mon enfant, tu n’es jamais condamné tant que tu observes les signes... »
@@ -276,7 +276,7 @@ const database = {
                 Aujourd’hui, Caïn navigue en tant que divinateur du <strong><span class="redacted">Most Wanted</span></strong>. Stoïque et fataliste, il reçut une dernière lettre de son capitaine en fuite. Il nota le lieu du rendez-vous au dos de l'<span class="redacted">Arcane 13</span>.
             </span>
             <div class="story-date-container">
-                <span class="story-date">DATE : 06 MARS 1499</span>
+                <span class="story-date">DATE : 06 MARS XXXX</span>
                 <span class="story-time">TEMPS RESTANT : 2 ANS ET 9 MOIS</span>
             </div>
             <div class="story-quote">
@@ -297,20 +297,20 @@ const database = {
                 <strong>Mais</strong> à la cour, les bâtards ne deviennent pas princes, mais des <span class="redacted">problèmes</span>. Karasu grandit comme une rumeur qu’on tente d’étouffer. Peut être toléré, mais jamais accepté. Et encore nourri, mais jamais aimé. Puis un jour, le silence fut choisi, pour éviter toute contestation future, pour éteindre à jamais l’idée d’un héritier illégitime, on l’accusa de <span class="redacted">complot imginaire</span> , Karasu n’a pas eu le droit à la parole, il fut envoyé aux prisons souterraines du palais, étant destinée aux oubliés, un endroit où le seul moyen de purge pas sa peine est de disparaître.
             </span>
             <span class="story-paragraph">
-                <strong>La</strong> prison était un tombeau humide, envahit de criminels, traîtres, tout ceux qui se sont opposés au royaume d’un façon ou d’une autre. Et parmi eux, un détenu qui ne parlait jamais, <span class="redacted">Korazon</span>. , pendant des jours, il observa Kuro, avec sa posture droite malgré les chaînes, son regard noir, et sa haine canalisé. Un soir, Korazon s’approcha enfin, il ne proposa pas la vengeance, et aucunement de justice, quelques mots lui sont soufflés :
+                <strong>La</strong> prison était un tombeau humide, envahit de criminels, traîtres, tout ceux qui se sont opposés au royaume d'une façon ou d’une autre. Et parmi eux, un détenu qui ne parlait jamais, <span class="redacted">Korazon</span>, pendant des jours, il observa Kuro, avec sa posture droite malgré les chaînes, son regard noir, et sa haine canalisée. Un soir, Korazon s’approcha enfin, il ne proposa pas la vengeance, et aucunement de justice, quelques mots lui sont soufflés :
             </span>
             <div class="story-dialogue">
                 «  Tu peux assiéger le trône… ou t’agenouiller devant plus grand que lui. »
             </div>
             <span class="story-paragraph">
-                <strong>Karasu</strong> comprit immédiatement que Korazon ne voulait pas renverser Luvneel pour s’y asseoir,  ce royaume peut devenir une <span class="redacted">pièce </span> sur l’échiquier du monde. L’évasion fut chirurgicale, aucune perte de temps était accepté, en une seule nuit, des gardes furent <span class="redacted">éliminés </span> en silence. Korazon galvanise les prisonniers, pendant que Karasu se dirige vers les portes de la prison et les ouvrir pour générer le conflit, tel un <span class="redacted">Cavalier</span>…
+                <strong>Karasu</strong> comprit immédiatement que Korazon ne voulait pas renverser Luvneel pour s’y asseoir,  ce royaume peut devenir une <span class="redacted">pièce </span> sur l’échiquier du monde. L’évasion fut chirurgicale, aucune perte de temps était acceptée, en une seule nuit, des gardes furent <span class="redacted">éliminés</span> en silence. Korazon galvanise les prisonniers, pendant que Karasu se dirige vers les portes de la prison et les ouvrir pour générer le conflit, tel un <span class="redacted">Cavalier</span>…
             </span>
             <span class="story-paragraph">
-                <strong>Ce</strong> comprit quelque chose de plus grand que le pouvoir, car un royaume est une <span class="redacted">cage</span> mais le monde est un champ de bataille à enflammer, Korazon parlera aux citoyen, et quitta Luvneel sans réclamer de couronne, et Karasu voulait le suivre, non par loyauté, et non par gratitude, mais parce qu’il avait vu en lui une ambition qui dépassait les murs d’un palais. Un roi gouverne un pays, un conquérant gouverne l’histoire, et Karasu ne voulait plus survivre dans l’ombre d’un trône, il voulait redessiner <span class="redacted">le monde</span>, le mettre en sang et violence, le Cavalier Rouge naquit… Il couru vers le port pour retrouver Korazon, il ne trouva rien, à part un petit garçon qui regarde l’horizon, lui disant qu’un homme lui a donné rendez-vous… 
+                <strong>Il</strong> comprit quelque chose de plus grand que le pouvoir, car un royaume est une <span class="redacted">cage</span> mais le monde est un champ de bataille à enflammer, Korazon parlera aux citoyens, et quitta Luvneel sans réclamer de couronne, et Karasu voulait le suivre, non par loyauté, et non par gratitude, mais parce qu’il avait vu en lui une ambition qui dépassait les murs d’un palais. Un roi gouverne un pays, un conquérant gouverne l’histoire, et Karasu ne voulait plus survivre dans l’ombre d’un trône, il voulait redessiner <span class="redacted">le monde</span>, le mettre en sang et violence, le Cavalier Rouge naquit… Il couru vers le port pour retrouver Korazon, il ne trouva rien, à part un petit garçon qui regarde l’horizon, lui disant qu’un homme lui a donné rendez-vous… 
             </span>
 
             <div class="story-date-container">
-                <span class="story-date">DATE : 06 MARS 1499</span>
+                <span class="story-date">DATE : 06 MARS XXXX</span>
                 <span class="story-time">TEMPS RESTANT : 2 ANS ET 9 MOIS</span>
             </div>
             <div class="story-quote">
@@ -340,8 +340,8 @@ const database = {
                 <strong>?</strong>???????? ??????????????????? ?????????????????????????????????? ??????????????????????? ????????????????????????????????
             </span>
             <div class="story-date-container">
-                <span class="story-date">DATE : ????</span>
-                <span class="story-time">TEMPS RESTANT : ??????</span>
+                <span class="story-date">DATE : XXXX</span>
+                <span class="story-time">TEMPS RESTANT : XXXX</span>
             </div>
             <div class="story-quote">
                 <p>« Je regardai donc, et je vis un <span class="redacted">cheval blanc</span>, et celui qui était monté dessus avait un arc, et on lui donna une couronne, et il partit en vainqueur, pour remporter la victoire. »</p>
@@ -370,8 +370,8 @@ const database = {
                 <strong>?</strong>???? ???????????? ?????????????????????? ?????????????????????????????????????? ?????????????????????????????
             </span>
             <div class="story-date-container">
-                <span class="story-date">DATE : ????</span>
-                <span class="story-time">TEMPS RESTANT : ??????</span>
+                <span class="story-date">DATE : XXXX</span>
+                <span class="story-time">TEMPS RESTANT : XXXX</span>
             </div>
             <div class="story-quote">
                 <p>« Et il sortit un autre cheval qui était roux ; et celui qui le montait reçut le pouvoir de bannir la <span class="redacted">paix</span> de la terre, et de faire que les hommes se tuassent les uns les autres ; et on lui donna une grande épée. »</p>
@@ -400,8 +400,8 @@ const database = {
                 <strong>?</strong>????????????????????? ????????????????????? ?????????????? ???????????????????? ????????????? ?????????? ???????????????????????????????????????????????
             </span>
             <div class="story-date-container">
-                <span class="story-date">DATE : ????</span>
-                <span class="story-time">TEMPS RESTANT : ??????</span>
+                <span class="story-date">DATE : XXXX</span>
+                <span class="story-time">TEMPS RESTANT : XXXX</span>
             </div>
             <div class="story-quote">
                 <p>« Et quand l’Agneau eut ouvert le troisième sceau, j’entendis le troisième animal, qui disait : Viens et vois. Et je regardai, et il parut un cheval noir, et celui qui était monté dessus avait une <span class="redacted">balance</span> à la main. »</p>
