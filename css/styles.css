@@ -1,1271 +1,231 @@
-/* ==========================================================================
-   1. VARIABLES & RESET
-   ========================================================================== */
-:root {
-    --trinity-red: #ff003c;
-    --deep-red: #2a000a;
-    --chrome: #e0e0e0;
-    --void: #030303;
-    --grid: rgba(255, 255, 255, 0.03);
-    
-    /* Marine Theme Specifics */
-    --marine-blue: #00f2ff;
-    --marine-bg: #020b14;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    background-color: var(--void);
-    color: var(--chrome);
-    font-family: 'Share Tech Mono', monospace;
-    overflow-x: hidden; 
-    margin: 0;
-    padding: 0;
-    cursor: none; /* Hide default cursor on desktop */
-}
-
-/* ==========================================================================
-   2. TYPOGRAPHY
-   ========================================================================== */
-.font-trinity { font-family: 'Wallpoet', cursive; }
-.font-bestial { font-family: 'Pirata One', cursive; }
-.font-glitch { font-family: 'Rubik Glitch', system-ui; }
-.font-display { font-family: 'Syncopate', sans-serif; }
-
-strong {
-    color: white;
-    font-weight: normal;
-    text-shadow: 0 0 5px rgba(255,255,255,0.2);
-}
-
-.stroke-text {
-    -webkit-text-stroke: 1px #333;
-    color: transparent;
-}
-
-.stroke-white {
-    -webkit-text-stroke: 1px white;
-}
-
-.stroke-1 {
-    -webkit-text-stroke-width: 1px;
-}
-
-.text-outline-red {
-    text-shadow: 
-        -1px -1px 0 var(--trinity-red),  
-         1px -1px 0 var(--trinity-red),
-        -1px  1px 0 var(--trinity-red),
-         1px  1px 0 var(--trinity-red);
-    color: black;
-}
-
-.writing-vertical-rl {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-}
-
-.text-shadow-glow {
-    text-shadow: 0 0 0 transparent;
-}
-.group:hover .text-shadow-glow {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-}
-
-/* ==========================================================================
-   3. CUSTOM CURSOR SYSTEM
-   ========================================================================== */
-#cursor-system {
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 2147483647;
-    mix-blend-mode: difference;
-}
-
-.cursor-reticle {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    width: 40px; height: 40px;
-    transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                transform 0.3s ease;
-}
-
-.cursor-corner {
-    position: absolute;
-    width: 10px; height: 10px;
-    border: 2px solid var(--trinity-red);
-    transition: all 0.2s ease;
-}
-.cursor-corner:nth-child(1) { top: 0; left: 0; border-right: none; border-bottom: none; } 
-.cursor-corner:nth-child(2) { top: 0; right: 0; border-left: none; border-bottom: none; }
-.cursor-corner:nth-child(3) { bottom: 0; right: 0; border-left: none; border-top: none; }
-.cursor-corner:nth-child(4) { bottom: 0; left: 0; border-right: none; border-top: none; }
-
-.cursor-dot {
-    position: absolute;
-    top: 0; left: 0;
-    width: 4px; height: 4px;
-    background: var(--trinity-red);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px var(--trinity-red);
-}
-
-.cursor-label {
-    position: absolute;
-    top: 20px; left: 20px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    color: var(--trinity-red);
-    white-space: nowrap;
-    opacity: 0.7;
-    text-shadow: 0 0 5px var(--trinity-red);
-}
-
-body.hovering .cursor-reticle {
-    width: 60px; height: 60px;
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-
-body.hovering .cursor-corner {
-    border-color: white; 
-    width: 15px; height: 15px;
-}
-
-body.hovering .cursor-dot {
-    background: white;
-    box-shadow: 0 0 15px white;
-    transform: translate(-50%, -50%) scale(1.5);
-}
-
-/* Spotlight Effect */
-#spotlight {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    pointer-events: none;
-    z-index: 1;
-    background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(255, 0, 60, 0.06), transparent 40%);
-}
-
-/* Responsive: Disable custom cursor on touch devices */
-@media (hover: none) and (pointer: coarse) {
-    body { cursor: auto; }
-    #cursor-system, #spotlight { display: none !important; }
-    .tilt-box { transform: none !important; }
-    .tilt-content { transform: none !important; }
-}
-
-/* ==========================================================================
-   4. GLOBAL BACKGROUND EFFECTS (Noise, Scanlines, ASCII)
-   ========================================================================== */
-.noise {
-    position: fixed;
-    inset: 0;
-    z-index: 9000;
-    opacity: 0.05;
-    pointer-events: none;
-    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC42IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI24pIiBvcGFjaXR5PSIwLjUiLz48L3N2Zz4=');
-}
-
-.scanlines {
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.3) 3px);
-    z-index: 9001;
-    pointer-events: none;
-}
-
-#ascii-bg {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 0;
-    font-size: 10px;
-    line-height: 10px;
-    color: rgba(255, 0, 60, 0.08);
-    pointer-events: none;
-    white-space: pre-wrap;
-    word-break: break-all;
-    mask-image: radial-gradient(circle, black 20%, transparent 80%);
-}
-
-/* ==========================================================================
-   5. INTRO SCREEN (MARINE -> PIRATE TRANSITION)
-   ========================================================================== */
-#intro-screen {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a0f1a 25%, #0f1a1a 50%, #0a0a0a 100%);
-    transition: background-color 0.5s;
-    animation: chill-pulse 8s ease-in-out infinite;
-}
-
-/* Marine Theme (Blue) */
-.marine-theme {
-    --trinity-red: var(--marine-blue) !important;
-    background-color: var(--marine-bg) !important;
-}
-
-.marine-theme .crt-overlay {
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 10, 20, 0.25) 50%), linear-gradient(90deg, rgba(0, 255, 255, 0.06), rgba(0, 0, 255, 0.02), rgba(0, 0, 50, 0.06));
-    background-size: 100% 2px, 3px 100%;
-}
-
-/* Animations Intro */
-@keyframes chill-pulse {
-    0%, 100% { filter: brightness(0.8); }
-    50% { filter: brightness(1); }
-}
-
-.crt-overlay {
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    background-size: 100% 2px, 3px 100%;
-    pointer-events: none;
-}
-
-.vignette {
-    background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8) 100%);
-}
-
-/* --- TRANSITION EFFECTS (HAKI / TAKEOVER) --- */
-
-/* 1. Siren Mode (Alerte) */
-.siren-mode {
-    animation: siren 0.2s infinite;
-}
-@keyframes siren {
-    0% { background-color: rgba(0, 242, 255, 0.2); }
-    50% { background-color: rgba(255, 0, 0, 0.3); }
-    100% { background-color: rgba(0, 242, 255, 0.2); }
-}
-
-/* 2. Violent Shake */
-.animate-shake-violent {
-    animation: shake-violent 0.4s infinite linear;
-}
-@keyframes shake-violent {
-    0% { transform: translate(0, 0) rotate(0); }
-    10% { transform: translate(-5px, -5px) rotate(-5deg); }
-    20% { transform: translate(5px, 5px) rotate(5deg); }
-    30% { transform: translate(-5px, 5px) rotate(-5deg); }
-    40% { transform: translate(5px, -5px) rotate(5deg); }
-    50% { transform: translate(0, 0) scale(1.1); filter: invert(1); }
-    100% { transform: translate(0, 0) rotate(0); }
-}
-
-/* 3. Haki Blast (Impact) */
-.haki-blast {
-    animation: haki-expand 0.8s cubic-bezier(0.1, 1, 0.1, 1) forwards;
-}
-@keyframes haki-expand {
-    0% { width: 0; height: 0; opacity: 1; }
-    50% { width: 200vw; height: 200vw; opacity: 0.8; background: #000; }
-    100% { width: 300vw; height: 300vw; opacity: 1; background: #000; }
-}
-
-/* 4. Text Glitch Appearance */
-.pirate-text-appear {
-    animation: glitch-appear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-@keyframes glitch-appear {
-    0% { opacity: 0; transform: scale(1.5); filter: blur(10px); }
-    50% { opacity: 1; transform: scale(0.9); }
-    70% { transform: scale(1.05) skewX(-10deg); }
-    100% { transform: scale(1) skewX(0); }
-}
-
-/* 5. TV Off Animation */
-.tv-off-anim {
-    animation: tv-off 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-    background: white !important;
-}
-@keyframes tv-off {
-    0% { transform: scale(1, 1); filter: brightness(1); }
-    40% { transform: scale(1, 0.005); filter: brightness(5); }
-    100% { transform: scale(0, 0); filter: brightness(0); }
-}
-
-/* Warning Popup */
-.warning-popup {
-    position: absolute;
-    color: var(--trinity-red);
-    font-family: 'Share Tech Mono', monospace;
-    font-weight: bold;
-    border: 2px solid var(--trinity-red);
-    background: black;
-    padding: 0.5rem;
-    z-index: 50;
-    pointer-events: none;
-    box-shadow: 0 0 15px var(--trinity-red), inset 0 0 10px rgba(255, 0, 60, 0.2);
-    text-transform: uppercase;
-    opacity: 0.85;
-}
-
-/* ==========================================================================
-   6. HERO & MAIN LAYOUT
-   ========================================================================== */
-.perspective-grid {
-    position: absolute;
-    bottom: -20%; left: -50%; width: 200%; height: 100%;
-    background: 
-        linear-gradient(transparent 0%, var(--void) 100%),
-        linear-gradient(90deg, rgba(255,0,60,0.03) 1px, transparent 1px),
-        linear-gradient(rgba(255,0,60,0.03) 1px, transparent 1px);
-    background-size: 100% 100%, 40px 40px, 40px 40px;
-    transform: perspective(500px) rotateX(60deg);
-    pointer-events: none;
-    z-index: 0;
-    animation: grid-move 20s linear infinite;
-}
-@keyframes grid-move { 0% { transform: perspective(500px) rotateX(60deg) translateY(0); } 100% { transform: perspective(500px) rotateX(60deg) translateY(40px); } }
-
-.beast-aura {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50vw; height: 50vw;
-    background: radial-gradient(circle, rgba(255,0,60,0.08) 0%, transparent 70%);
-    filter: blur(60px);
-    z-index: 0;
-    pointer-events: none;
-    animation: pulse-aura 5s infinite alternate ease-in-out;
-}
-@keyframes pulse-aura { 0% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.8); } 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); } }
-
-/* Floating Kanji */
-.floating-kanji {
-    font-family: 'Noto Sans JP', sans-serif;
-    line-height: 1;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Embers Particles */
-.ember {
-    position: absolute;
-    bottom: -10%;
-    width: 2px;
-    height: 2px;
-    background: var(--trinity-red);
-    border-radius: 50%;
-    opacity: 0;
-    box-shadow: 0 0 10px var(--trinity-red);
-    pointer-events: none;
-    animation: rise var(--duration) linear infinite;
-    animation-delay: var(--delay);
-}
-@keyframes rise {
-    0% { bottom: -10%; opacity: 0; transform: translateX(0); }
-    50% { opacity: 1; }
-    100% { bottom: 120%; opacity: 0; transform: translateX(var(--sway)); }
-}
-
-/* Animations Hero */
-.animate-scanline { animation: scanline 3s linear infinite; }
-@keyframes scanline { 0% { top: 0%; opacity: 0; } 50% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
-
-.animate-scan-radar { animation: scan-radar 2s linear infinite; transform-origin: center; }
-@keyframes scan-radar { 0% { transform: rotate(0deg); opacity: 0.5; } 50% { opacity: 1; } 100% { transform: rotate(360deg); opacity: 0.5; } }
-
-.animate-loading-bar { animation: loading-bar 2s ease-in-out infinite; }
-@keyframes loading-bar { 0% { width: 0%; transform: translateX(-100%); } 100% { width: 100%; transform: translateX(200%); } }
-
-.animate-spin-slow { animation: spin 10s linear infinite; }
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-/* ==========================================================================
-   7. CARDS, GLITCH & 3D TILT
-   ========================================================================== */
-.tilt-box {
-    transform-style: preserve-3d;
-    will-change: transform;
-}
-.tilt-content {
-    transform: translateZ(20px);
-}
-
-.cyber-card {
-    position: relative;
-    background: #080808;
-    border: 1px solid #1a1a1a;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    cursor: pointer;
-}
-.cyber-card:hover {
-    border-color: var(--trinity-red);
-    box-shadow: 0 0 30px rgba(255, 0, 60, 0.15);
-}
-
-.cyber-img {
-    filter: grayscale(100%) contrast(1.1) brightness(0.9);
-    transition: all 0.5s ease;
-    mix-blend-mode: luminosity;
-}
-.group:hover .cyber-img {
-    filter: grayscale(0%) contrast(1.2) brightness(1.1);
-    transform: scale(1.05);
-    mix-blend-mode: normal;
-}
-
-/* Glitch Wrapper */
-.glitch-wrapper {
-    position: relative;
-    display: inline-block;
-}
-.glitch-wrapper::before,
-.glitch-wrapper::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: var(--void);
-}
-.glitch-wrapper::before {
-    left: 2px;
-    text-shadow: -1px 0 #0ff;
-    clip-path: inset(0 0 0 0);
-    animation: glitch-anim-1 4s infinite linear alternate-reverse;
-}
-.glitch-wrapper::after {
-    left: -2px;
-    text-shadow: -1px 0 #f0f;
-    clip-path: inset(0 0 0 0);
-    animation: glitch-anim-2 2s infinite linear alternate-reverse;
-}
-@keyframes glitch-anim-1 {
-    0% { clip-path: inset(20% 0 80% 0); } 20% { clip-path: inset(60% 0 10% 0); } 100% { clip-path: inset(30% 0 20% 0); }
-}
-@keyframes glitch-anim-2 {
-    0% { clip-path: inset(10% 0 60% 0); } 20% { clip-path: inset(30% 0 10% 0); } 100% { clip-path: inset(0% 0 80% 0); }
-}
-
-/* Hierarchy Focus Dimming */
-#hierarchy-container:hover .tilt-box {
-    opacity: 0.3;
-    filter: blur(2px) grayscale(100%);
-    transform: scale(0.98);
-    transition: all 0.5s ease;
-}
-#hierarchy-container .tilt-box:hover {
-    opacity: 1;
-    filter: blur(0) grayscale(0%);
-    transform: scale(1.02);
-    z-index: 50;
-}
-
-/* Scan Line Vertical */
-.scan-line {
-    box-shadow: 0 0 10px var(--trinity-red), 0 0 5px var(--trinity-red);
-}
-.animate-scan-vertical { animation: scan-vertical 3s linear infinite; }
-@keyframes scan-vertical {
-    0% { top: 0%; opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { top: 100%; opacity: 0; }
-}
-
-/* ==========================================================================
-   8. STORY MODAL (TYPOGRAPHY & LAYOUT)
-   ========================================================================== */
-#story-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 10001; 
-    background: rgba(0,0,0,0.95);
-    backdrop-filter: blur(10px);
-    display: none;
-    opacity: 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-.modal-content {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding: 4rem 1.5rem;
-    position: relative;
-}
-
-.story-text-container {
-    border-left: 1px solid rgba(255, 0, 60, 0.3);
-    padding-left: 1.5rem;
-    position: relative;
-    min-height: 50vh;
-}
-
-.story-paragraph {
-    display: block;
-    margin-bottom: 1.5rem;
-    color: #a3a3a3;
-    font-family: 'Share Tech Mono', monospace;
-    line-height: 1.8;
-    text-align: justify;
-    position: relative;
-    padding-left: 1rem;
-    border-left: 1px solid transparent;
-    transition: all 0.3s ease;
-    text-indent: 1.5em;
-}
-
-.story-paragraph strong:first-child {
-    color: white;
-    font-weight: bold;
-    font-size: 1.1em;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.story-paragraph:hover {
-    color: #e5e5e5;
-    border-left-color: var(--trinity-red);
-    background: linear-gradient(90deg, rgba(255, 0, 60, 0.05) 0%, transparent 100%);
-    padding-left: 1.5rem;
-}
-
-/* Dialogue Box */
-.story-dialogue {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 2rem 0;
-    padding: 1.5rem;
-    background: #080808;
-    border-left: 3px solid var(--trinity-red);
-    color: white;
-    font-style: italic;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1.1em;
-    text-align: center;
-    position: relative;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%);
-}
-
-.story-dialogue::before {
-    content: "AUDIO_LOG_RECOVERED //";
-    display: block;
-    font-size: 0.6em;
-    color: var(--trinity-red);
-    margin-bottom: 0.8rem;
-    letter-spacing: 0.2em;
-    font-style: normal;
-    opacity: 0.7;
-}
-
-.story-dialogue::after {
-    content: "”";
-    position: absolute;
-    right: 1rem;
-    bottom: -1rem;
-    font-size: 4rem;
-    color: #222;
-    font-family: serif;
-    pointer-events: none;
-}
-
-/* Date & Time */
-.story-date-container {
-    margin-top: 3rem;
-    margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px dashed #333;
-    border-bottom: 1px dashed #333;
-    padding: 1rem 0;
-    font-family: 'Share Tech Mono', monospace;
-}
-@media (min-width: 768px) {
-    .story-date-container { flex-direction: row; }
-}
-
-.story-date {
-    font-size: 1.2em;
-    color: white;
-    text-shadow: 0 0 10px rgba(255,255,255,0.3);
-    letter-spacing: 0.1em;
-}
-
-.story-time {
-    font-size: 0.8em;
-    color: var(--trinity-red);
-    background: rgba(255, 0, 60, 0.1);
-    padding: 0.2rem 0.5rem;
-    border-radius: 2px;
-    animation: pulse 2s infinite;
-}
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-
-/* Quote */
-.story-quote {
-    margin-top: 3rem;
-    text-align: center;
-    position: relative;
-    padding: 2rem;
-}
-.story-quote p {
-    font-family: 'Pirata One', cursive;
-    font-size: 1.4em;
-    color: #fff;
-    line-height: 1.4;
-    font-style: italic;
-}
-.story-quote footer {
-    margin-top: 1rem;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.8em;
-    color: var(--trinity-red);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-}
-
-/* Redacted Effect */
-.redacted {
-    background-color: var(--trinity-red);
-    color: transparent;
-    cursor: help;
-    padding: 0 4px;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    user-select: none;
-    position: relative;
-}
-.redacted:hover {
-    background-color: transparent;
-    color: var(--trinity-red);
-    text-decoration: underline;
-}
-
-/* Typing Cursor */
-.typing-cursor {
-    display: inline-block;
-    width: 0.6em;
-    height: 1.1em;
-    background-color: var(--trinity-red);
-    vertical-align: text-bottom;
-    margin-left: 2px;
-    animation: blink 0.1s infinite;
-    box-shadow: 0 0 10px var(--trinity-red);
-}
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-/* IA Monologue */
-.search-ia-monologue {
-    margin: 2rem 0;
-    padding: 1rem;
-    background: #000;
-    border: 1px solid #333;
-    color: #00ff41;
-    font-family: 'Courier New', monospace;
-    font-size: 0.85em;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-    position: relative;
-    overflow: hidden;
-    animation: research-pulse 2s infinite ease-in-out;
-}
-.search-ia-monologue::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 2px;
-    background: rgba(0, 255, 65, 0.3);
-    animation: scan-vertical 2s linear infinite;
-    pointer-events: none;
-}
-@keyframes research-pulse {
-    0%, 100% { border-left-color: var(--trinity-red); }
-    50% { border-left-color: #ffffff; }
-}
-
-/* ==========================================================================
-   9. LOGIN & PASSWORD INPUT STYLES
-   ========================================================================== */
-#password-input::placeholder {
-    color: #333;
-    opacity: 0.5;
-    text-shadow: none;
-    transition: color 0.3s;
-}
-
-.hint-text {
-    position: absolute;
-    font-family: 'Rubik Glitch', system-ui;
-    color: var(--trinity-red);
-    opacity: 0;
-    pointer-events: none;
-    white-space: nowrap;
-    user-select: none;
-    mix-blend-mode: screen;
-}
-
-.access-granted {
-    animation: success-flash 0.5s forwards;
-}
-@keyframes success-flash {
-    0% { background-color: black; }
-    50% { background-color: var(--trinity-red); }
-    100% { background-color: black; }
-}
-
-.shake-input {
-    animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
-    border-color: var(--trinity-red) !important;
-}
-@keyframes shake {
-    10%, 90% { transform: translate3d(-1px, 0, 0); }
-    20%, 80% { transform: translate3d(2px, 0, 0); }
-    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-    40%, 60% { transform: translate3d(4px, 0, 0); }
-}
-
-/* ==========================================================================
-   10. MANIFESTO & GRAND RESET
-   ========================================================================== */
-.monolith-card {
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
-}
-
-/* Grand Reset Visuals */
-.animate-eclipse-pulse {
-    animation: eclipse-pulse 4s ease-in-out infinite;
-}
-@keyframes eclipse-pulse {
-    0% { box-shadow: 0 0 50px var(--trinity-red), inset 0 0 20px var(--trinity-red); transform: translate(-50%, -50%) scale(1); }
-    50% { box-shadow: 0 0 150px var(--trinity-red), inset 0 0 50px var(--trinity-red); transform: translate(-50%, -50%) scale(1.05); }
-    100% { box-shadow: 0 0 50px var(--trinity-red), inset 0 0 20px var(--trinity-red); transform: translate(-50%, -50%) scale(1); }
-}
-
-.animate-float-slow {
-    animation: float-slow 6s ease-in-out infinite;
-}
-@keyframes float-slow {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-.animate-slow-zoom {
-    animation: slow-zoom 20s ease-in-out infinite;
-}
-@keyframes slow-zoom {
-    0%, 100% { transform: scale(1.1); }
-    50% { transform: scale(1.2); }
-}
-
-/* Aggressive Glitch for Numbers */
-.glitch-aggressive {
-    position: relative;
-    color: var(--trinity-red);
-    animation: glitch-skew 0.5s infinite linear alternate-reverse;
-}
-.glitch-aggressive::before,
-.glitch-aggressive::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    opacity: 0.8;
-}
-.glitch-aggressive::before {
-    color: #0ff; z-index: -1; transform: translate(-2px, 0);
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-    animation: glitch-strobe 0.3s infinite steps(2, start) reverse;
-}
-.glitch-aggressive::after {
-    color: #f0f; z-index: -2; transform: translate(2px, 0);
-    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-    animation: glitch-strobe 0.5s infinite steps(2, start);
-}
-@keyframes glitch-skew {
-    0% { transform: skewX(0deg); }
-    20% { transform: skewX(1deg); }
-    40% { transform: translate(-1px, 1px); }
-    60% { transform: translate(1px, -1px); }
-    80% { transform: skewX(-1deg); }
-    100% { transform: skewX(0deg); }
-}
-@keyframes glitch-strobe {
-    0% { opacity: 1; } 50% { opacity: 0; visibility: hidden; } 100% { opacity: 1; }
-}
-
-/* ==========================================================================
-   11. DEN DEN MUSHI ANIMATIONS
-   ========================================================================== */
-.shaking-snail {
-    animation: snail-shake 2s infinite; /* Ralenti un peu pour faire plus "vivant" */
-    transform-origin: center bottom;
-}
-@keyframes snail-shake {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(-2px, 2px) rotate(-2deg); }
-    50% { transform: translate(2px, -2px) rotate(2deg); }
-    75% { transform: translate(-2px, -2px) rotate(-2deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
-}
-
-.animate-bounce {
-    animation: bounce 0.5s infinite;
-}
-@keyframes bounce {
-    0%, 100% { transform: translateY(-10%); }
-    50% { transform: translateY(10%); }
-}
-
-/* ==========================================================================
-   12. FOOTER & SCROLLBARS
-   ========================================================================== */
-.animate-terminal-scroll {
-    animation: terminal-scroll 10s linear infinite;
-}
-@keyframes terminal-scroll {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50%); }
-}
-
-.animate-scan-fast {
-    animation: scan-fast 2s linear infinite;
-}
-@keyframes scan-fast {
-    0% { top: -10%; opacity: 0; }
-    50% { opacity: 1; }
-    100% { top: 110%; opacity: 0; }
-}
-
-/* Custom Scrollbar */
-.custom-scrollbar::-webkit-scrollbar { width: 6px; }
-.custom-scrollbar::-webkit-scrollbar-track { background: #000; }
-.custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--trinity-red); }
-
-@media (max-width: 768px) {
-    .modal-content { padding-top: 60px; }
-}
-
-/* --- GOD TIER INTRO STYLES --- */
-
-/* Perspective Grid Animation */
-.perspective-grid-anim {
-    transform: perspective(1000px) rotateX(60deg) translateY(0);
-    animation: grid-move-intro 10s linear infinite;
-    mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
-}
-@keyframes grid-move-intro {
-    0% { background-position: 0 0; }
-    100% { background-position: 0 50px; }
-}
-
-/* Haki Distortion Wave */
-.haki-shockwave {
-    animation: haki-boom 1s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
-}
-@keyframes haki-boom {
-    0% { width: 0; height: 0; opacity: 1; filter: blur(10px); }
-    30% { opacity: 0.8; filter: blur(20px) hue-rotate(280deg); background: white; }
-    100% { width: 300vw; height: 300vw; opacity: 0; filter: blur(100px); background: #2a0040; }
-}
-
-/* RGB Split Glitch Effect (The "Tear") */
-.chromatic-aberration {
-    animation: chromatic-shake 0.3s infinite;
-}
-@keyframes chromatic-shake {
-    0% { text-shadow: 2px 0 red, -2px 0 blue; transform: translate(1px, 1px); }
-    25% { text-shadow: -2px 0 red, 2px 0 blue; transform: translate(-1px, -1px); }
-    50% { text-shadow: 0 2px red, 0 -2px blue; transform: translate(-1px, 1px); }
-    75% { text-shadow: 0 -2px red, 0 2px blue; transform: translate(1px, -1px); }
-    100% { text-shadow: 2px 0 red, -2px 0 blue; transform: translate(0, 0); }
-}
-
-/* Text Stroke Helper */
-.text-stroke-white {
-    -webkit-text-stroke: 1px white;
-    color: var(--trinity-red);
-}
-
-/* Red Rain (Pirate Background) */
-.blood-particle {
-    position: absolute;
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, transparent, var(--trinity-red));
-    opacity: 0.5;
-    animation: blood-fall 1s linear infinite;
-}
-@keyframes blood-fall {
-    0% { transform: translateY(-100px); opacity: 0; }
-    50% { opacity: 0.8; }
-    100% { transform: translateY(100vh); opacity: 0; }
-}
-
-/* Hard Glitch for Images */
-.img-glitch-hard {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    animation: clip-glitch 0.4s infinite linear alternate-reverse;
-    filter: contrast(200%) grayscale(100%) drop-shadow(5px 5px 0 red);
-}
-@keyframes clip-glitch {
-    0% { clip-path: inset(10% 0 80% 0); transform: translate(-5px, 2px); }
-    20% { clip-path: inset(80% 0 5% 0); transform: translate(5px, -2px); }
-    40% { clip-path: inset(40% 0 40% 0); transform: translate(-5px, 5px); }
-    60% { clip-path: inset(10% 0 60% 0); transform: translate(5px, -5px); }
-    80% { clip-path: inset(50% 0 20% 0); transform: translate(0px, 0px); }
-    100% { clip-path: inset(0% 0 0% 0); }
-}
-
-/* --- PIRATE UI GOD TIER --- */
-
-/* 1. Ghost Logo Drift */
-@keyframes drift-ghost {
-    0% { transform: translate(-5%, -5%) rotate(-2deg) scale(1); opacity: 0.05; }
-    25% { transform: translate(5%, 5%) rotate(2deg) scale(1.05); opacity: 0.12; }
-    50% { transform: translate(-2%, 8%) rotate(-1deg) scale(1); opacity: 0.08; filter: hue-rotate(0deg); }
-    75% { transform: translate(4%, -4%) rotate(1deg) scale(1.02); opacity: 0.1; filter: hue-rotate(-10deg); }
-    100% { transform: translate(-5%, -5%) rotate(-2deg) scale(1); opacity: 0.05; }
-}
-
-.animate-drift-ghost {
-    animation: drift-ghost 20s infinite ease-in-out alternate;
-}
-
-/* 2. Snail Laugh (Mouvement saccadé haut/bas) */
-@keyframes laugh-violent {
-    0%, 100% { transform: translateY(0) scale(1); }
-    25% { transform: translateY(-5px) scale(1.02) rotate(-2deg); }
-    50% { transform: translateY(2px) scale(0.98) rotate(2deg); }
-    75% { transform: translateY(-8px) scale(1.05) rotate(-1deg); }
-}
-
-.animate-laugh-violent {
-    animation: laugh-violent 0.3s infinite cubic-bezier(0.36, 0.07, 0.19, 0.97);
-    filter: drop-shadow(0 0 10px rgba(255,0,0,0.5));
-}
-
-/* 3. Floating Hints (Indices) */
-.hint-float {
-    position: absolute;
-    font-family: 'Rubik Glitch', monospace;
-    color: var(--trinity-red);
-    opacity: 0;
-    pointer-events: none;
-    user-select: none;
-    white-space: nowrap;
-    mix-blend-mode: hard-light;
-    z-index: 20;
-}
-
-/* 4. Pulse Rapide (Aura Rouge) */
-.animate-pulse-fast {
-    animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* 5. Input 3D Effect */
-.input-3d-wrapper {
-    transform-style: preserve-3d;
-    transition: transform 0.2s;
-}
-.input-3d-wrapper:focus-within {
-    transform: translateZ(20px) scale(1.05);
-}
-/* --- ELIO'S HACKER UI --- */
-
-/* 1. Hacker Rain (Matrix Style but horizontal/vertical mix) */
-.hacker-column {
-    position: absolute;
-    top: -20%;
-    color: var(--trinity-red);
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-    font-family: 'Share Tech Mono', monospace;
-    white-space: nowrap;
-    user-select: none;
-    opacity: 0;
-    animation: rain-fall linear infinite;
-    text-shadow: 0 0 5px var(--trinity-red);
-}
-
-@keyframes rain-fall {
-    0% { transform: translateY(-100%); opacity: 0; }
-    10% { opacity: 0.5; }
-    90% { opacity: 0.5; }
-    100% { transform: translateY(120vh); opacity: 0; }
-}
-
-/* 2. Snail Glitch Talk Animation */
-.glitch-talk {
-    animation: talk-shake 0.1s infinite;
-}
-@keyframes talk-shake {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-/* 3. Input Terminal Style */
-.terminal-input-wrapper {
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid #333;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-    transition: all 0.3s ease;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 98% 100%, 0 100%);
-}
-
-.terminal-input-wrapper:focus-within {
-    border-color: var(--trinity-red);
-    box-shadow: 0 0 30px rgba(255, 0, 60, 0.15);
-}
-
-.caret-blink {
-    animation: blink-caret 0.8s step-end infinite;
-}
-@keyframes blink-caret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-/* --- SNAIL AI STYLES --- */
-
-/* La Bulle de Dialogue */
-#snail-speech-bubble {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Peut être modifié pour effet glitch */
-}
-
-/* Animation "Rire Moqueur" */
-.laughing {
-    animation: mock-laugh 0.2s infinite;
-}
-
-@keyframes mock-laugh {
-    0% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-3px) rotate(-2deg); }
-    75% { transform: translateY(3px) rotate(2deg); }
-    100% { transform: translateY(0) rotate(0deg); }
-}
-
-/* Curseur de frappe dans la bulle */
-.typing-cursor::after {
-    content: '█';
-    animation: blink 0.8s infinite;
-    margin-left: 2px;
-}
-
-/* --- GOD TIER HACKER DESIGN --- */
-
-/* Glow Text */
-.text-glow {
-    text-shadow: 0 0 10px rgba(255, 0, 60, 0.5), 0 0 20px rgba(255, 0, 60, 0.3);
-}
-
-/* Flash Glitch sur l'escargot */
-@keyframes glitch-flash {
-    0% { opacity: 0; transform: translateX(0); }
-    2% { opacity: 0.5; transform: translateX(-5px); }
-    4% { opacity: 0; transform: translateX(5px); }
-    100% { opacity: 0; }
-}
-.animate-glitch-flash {
-    animation: glitch-flash 3s infinite random;
-}
-
-/* CLI Input Design */
-.cli-wrapper {
-    background: rgba(10, 0, 0, 0.8);
-    border: 1px solid rgba(255, 0, 60, 0.3);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.cli-wrapper:focus-within {
-    border-color: var(--trinity-red);
-    box-shadow: 0 0 30px rgba(255, 0, 60, 0.2);
-    background: rgba(20, 0, 0, 0.9);
-}
-
-/* Scanline qui passe sur l'input */
-.cli-scanline {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 2px;
-    background: var(--trinity-red);
-    opacity: 0.3;
-    animation: scan-input 2s linear infinite;
-    pointer-events: none;
-}
-@keyframes scan-input {
-    0% { top: 0%; }
-    100% { top: 100%; }
-}
-
-/* Curseur clignotant */
-.cli-cursor {
-    display: inline-block;
-    width: 8px; height: 1.2em;
-    background: var(--trinity-red);
-    animation: blink-block 1s step-end infinite;
-    vertical-align: middle;
-}
-@keyframes blink-block { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-/* Tremblement quand il rit (CSS Class triggered by JS) */
-.shake-laugh {
-    animation: shake-hard 0.3s cubic-bezier(.36,.07,.19,.97) infinite;
-}
-@keyframes shake-hard {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
-
-/* --- GOD TIER : BIG HINTS --- */
-
-/* Texte géant en fond */
-@keyframes scroll-giant {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-}
-
-.animate-scroll-giant {
-    animation: scroll-giant 20s linear infinite;
-}
-
-/* Apparition retardée pour les indices */
-@keyframes fade-in-delayed {
-    0% { opacity: 0; transform: translateX(20px); }
-    100% { opacity: 1; transform: translateX(0); }
-}
-
-.animate-fade-in-delayed {
-    animation: fade-in-delayed 1s ease-out 1s forwards;
-}
-
-/* Glow Text puissant */
-.text-glow {
-    text-shadow: 0 0 10px var(--trinity-red), 0 0 30px var(--trinity-red);
-}
-
-/* Curseurs et Inputs */
-.cli-wrapper {
-    background: rgba(5, 5, 5, 0.95);
-    border: 1px solid var(--trinity-red);
-    box-shadow: 0 0 50px rgba(255, 0, 60, 0.15);
-    transition: transform 0.2s;
-}
-
-.cli-wrapper:focus-within {
-    transform: scale(1.02);
-    box-shadow: 0 0 80px rgba(255, 0, 60, 0.25);
-}
-
-.placeholder-hint::placeholder {
-    color: rgba(255, 0, 60, 0.3);
-    font-style: italic;
-    font-size: 0.8em;
-}
-
-/* --- OMEGA TIER STYLES --- */
-
-/* 1. Giant Scroll Background */
-@keyframes scroll-giant {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-}
-.animate-scroll-giant {
-    animation: scroll-giant 25s linear infinite;
-}
-
-/* 2. Hardware Input Style */
-.hardware-wrapper {
-    background: #050505;
-    border: 1px solid #333;
-    position: relative;
-    padding: 2px;
-    box-shadow: 0 0 50px rgba(0,0,0,0.8);
-    transform: perspective(1000px) rotateX(10deg); /* Légère 3D */
-    transition: all 0.3s ease;
-}
-
-.hardware-wrapper:focus-within {
-    border-color: var(--trinity-red);
-    box-shadow: 0 0 40px rgba(255, 0, 60, 0.2);
-    transform: perspective(1000px) rotateX(0deg) scale(1.02);
-}
-
-/* Barre de chargement rouge sous l'input */
-
-@keyframes progress-scan {
-    0% { left: -30%; } 100% { left: 100%; }
-}
-
-/* 3. Text Glow Violent */
-.text-glow {
-    text-shadow: 0 0 10px var(--trinity-red), 0 0 20px var(--trinity-red), 0 0 40px red;
-}
-
-/* 4. Snail Pulse Fast (Holo Effect) */
-@keyframes pulse-fast {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.1); }
-}
-.animate-pulse-fast {
-    animation: pulse-fast 1s ease-in-out infinite;
-}
-
-/* 5. System Overload (Whiteout on success) */
-@keyframes system-overload {
-    0% { background: #020000; filter: contrast(1); }
-    10% { background: #500000; filter: contrast(2) hue-rotate(0deg); }
-    40% { transform: scale(1.1) rotate(1deg); }
-    80% { background: #ff003c; filter: invert(1); }
-    100% { background: white; opacity: 1; }
-}
-.overload-mode {
-    animation: system-overload 1.5s cubic-bezier(0.7, 0, 0.84, 0) forwards;
-    z-index: 999999;
-}
-
-/* --- AMÉLIORATIONS FLUIDITÉ & VISIBILITÉ --- */
-
-/* Flottaison organique et fluide du Denden */
-@keyframes snail-float-fluid {
-    0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
-    33% { transform: translateY(-10px) rotate(2deg) scale(1.02); filter: drop-shadow(0 0 50px rgba(255,0,60,0.9)); }
-    66% { transform: translateY(5px) rotate(-1deg) scale(0.98); filter: drop-shadow(0 0 30px rgba(255,0,60,0.6)); }
-}
-
-.animate-snail-fluid {
-    animation: snail-float-fluid 6s ease-in-out infinite;
-}
-
-/* Command Prompt Design Amélioré */
-.hardware-wrapper {
-    background: rgba(10, 0, 5, 0.95);
-    border: 2px solid rgba(255, 0, 60, 0.4);
-    position: relative;
-    padding: 4px;
-    box-shadow: 0 0 40px rgba(0,0,0,0.9);
-    transform: perspective(1000px) rotateX(5deg);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.hardware-wrapper:focus-within {
-    border-color: var(--trinity-red);
-    box-shadow: 0 0 60px rgba(255, 0, 60, 0.3), inset 0 0 20px rgba(255, 0, 60, 0.1);
-    transform: perspective(1000px) rotateX(0deg) scale(1.03);
-    background: rgba(15, 0, 5, 0.98);
-}
-
-.hardware-wrapper .placeholder-hint::placeholder {
-    color: rgba(255, 0, 60, 0.4);
-    font-size: 0.85em;
-    letter-spacing: 0.1em;
-}
+        /* ==========================================================================
+           1. VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --trinity-red: #ff003c;
+            --deep-red: #2a000a;
+            --chrome: #e0e0e0;
+            --void: #030303;
+            --grid: rgba(255, 255, 255, 0.03);
+            --marine-blue: #00f2ff;
+            --marine-bg: #020b14;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--void);
+            color: var(--chrome);
+            font-family: 'Share Tech Mono', monospace;
+            overflow-x: hidden; 
+            margin: 0; padding: 0;
+            cursor: none;
+        }
+
+        /* ==========================================================================
+           2. TYPOGRAPHY
+           ========================================================================== */
+        .font-trinity { font-family: 'Wallpoet', cursive; }
+        .font-bestial { font-family: 'Pirata One', cursive; }
+        .font-glitch { font-family: 'Rubik Glitch', system-ui; }
+        .font-display { font-family: 'Syncopate', sans-serif; }
+
+        strong { color: white; font-weight: normal; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
+        .stroke-text { -webkit-text-stroke: 1px #333; color: transparent; }
+        .stroke-white { -webkit-text-stroke: 1px white; }
+        .stroke-1 { -webkit-text-stroke-width: 1px; }
+        .text-outline-red {
+            text-shadow: -1px -1px 0 var(--trinity-red), 1px -1px 0 var(--trinity-red),
+                         -1px 1px 0 var(--trinity-red), 1px 1px 0 var(--trinity-red);
+            color: black;
+        }
+        .writing-vertical-rl { writing-mode: vertical-rl; text-orientation: mixed; }
+        .text-shadow-glow { text-shadow: 0 0 0 transparent; }
+        .group:hover .text-shadow-glow { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+
+        /* ==========================================================================
+           3. CUSTOM CURSOR SYSTEM
+           ========================================================================== */
+        #cursor-system {
+            position: fixed; top: 0; left: 0; pointer-events: none;
+            z-index: 2147483647; mix-blend-mode: difference;
+        }
+        .cursor-reticle {
+            position: absolute; transform: translate(-50%, -50%);
+            width: 40px; height: 40px;
+            transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s ease;
+        }
+        .cursor-corner { position: absolute; width: 10px; height: 10px; border: 2px solid var(--trinity-red); transition: all 0.2s ease; }
+        .cursor-corner:nth-child(1) { top: 0; left: 0; border-right: none; border-bottom: none; } 
+        .cursor-corner:nth-child(2) { top: 0; right: 0; border-left: none; border-bottom: none; }
+        .cursor-corner:nth-child(3) { bottom: 0; right: 0; border-left: none; border-top: none; }
+        .cursor-corner:nth-child(4) { bottom: 0; left: 0; border-right: none; border-top: none; }
+        .cursor-dot {
+            position: absolute; top: 0; left: 0; width: 4px; height: 4px;
+            background: var(--trinity-red); border-radius: 50%; transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px var(--trinity-red);
+        }
+        .cursor-label {
+            position: absolute; top: 20px; left: 20px; font-size: 10px;
+            color: var(--trinity-red); white-space: nowrap; opacity: 0.7; text-shadow: 0 0 5px var(--trinity-red);
+        }
+        body.hovering .cursor-reticle { width: 60px; height: 60px; transform: translate(-50%, -50%) rotate(45deg); }
+        body.hovering .cursor-corner { border-color: white; width: 15px; height: 15px; }
+        body.hovering .cursor-dot { background: white; box-shadow: 0 0 15px white; transform: translate(-50%, -50%) scale(1.5); }
+        #spotlight {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 1;
+            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(255, 0, 60, 0.06), transparent 40%);
+        }
+        @media (hover: none) and (pointer: coarse) {
+            body { cursor: auto; }
+            #cursor-system, #spotlight { display: none !important; }
+            .tilt-box, .tilt-content { transform: none !important; }
+        }
+
+        /* ==========================================================================
+           4. GLOBAL BACKGROUND EFFECTS
+           ========================================================================== */
+        .noise {
+            position: fixed; inset: 0; z-index: 9000; opacity: 0.05; pointer-events: none;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC42IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI24pIiBvcGFjaXR5PSIwLjUiLz48L3N2Zz4=');
+        }
+        .scanlines { position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.3) 3px); z-index: 9001; pointer-events: none; }
+        #ascii-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            font-size: 10px; line-height: 10px; color: rgba(255, 0, 60, 0.08);
+            pointer-events: none; white-space: pre-wrap; word-break: break-all;
+            mask-image: radial-gradient(circle, black 20%, transparent 80%);
+        }
+
+        /* ==========================================================================
+           5. INTRO SCREEN
+           ========================================================================== */
+        #intro-screen {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0f1a 25%, #0f1a1a 50%, #0a0a0a 100%);
+            transition: background-color 0.5s; animation: chill-pulse 8s ease-in-out infinite;
+        }
+        .marine-theme { --trinity-red: var(--marine-blue) !important; background-color: var(--marine-bg) !important; }
+        .marine-theme .crt-overlay { background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 10, 20, 0.25) 50%), linear-gradient(90deg, rgba(0, 255, 255, 0.06), rgba(0, 0, 255, 0.02), rgba(0, 0, 50, 0.06)); background-size: 100% 2px, 3px 100%; }
+        @keyframes chill-pulse { 0%, 100% { filter: brightness(0.8); } 50% { filter: brightness(1); } }
+        .crt-overlay { background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%; pointer-events: none; }
+        .vignette { background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8) 100%); }
+        .siren-mode { animation: siren 0.2s infinite; }
+        @keyframes siren { 0%, 100% { background-color: rgba(0, 242, 255, 0.2); } 50% { background-color: rgba(255, 0, 0, 0.3); } }
+        .haki-blast { animation: haki-expand 0.8s cubic-bezier(0.1, 1, 0.1, 1) forwards; }
+        @keyframes haki-expand { 0% { width: 0; height: 0; opacity: 1; } 50% { width: 200vw; height: 200vw; opacity: 0.8; background: #000; } 100% { width: 300vw; height: 300vw; opacity: 1; background: #000; } }
+        .tv-off-anim { animation: tv-off 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards; background: white !important; }
+        @keyframes tv-off { 0% { transform: scale(1, 1); filter: brightness(1); } 40% { transform: scale(1, 0.005); filter: brightness(5); } 100% { transform: scale(0, 0); filter: brightness(0); } }
+
+        /* ==========================================================================
+           6. HERO & MAIN LAYOUT
+           ========================================================================== */
+        .perspective-grid {
+            position: absolute; bottom: -20%; left: -50%; width: 200%; height: 100%;
+            background: linear-gradient(transparent 0%, var(--void) 100%), linear-gradient(90deg, rgba(255,0,60,0.03) 1px, transparent 1px), linear-gradient(rgba(255,0,60,0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            transform: perspective(500px) rotateX(60deg); pointer-events: none; z-index: 0; animation: grid-move 20s linear infinite;
+        }
+        @keyframes grid-move { 0% { transform: perspective(500px) rotateX(60deg) translateY(0); } 100% { transform: perspective(500px) rotateX(60deg) translateY(40px); } }
+        .beast-aura {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(255,0,60,0.08) 0%, transparent 70%); filter: blur(60px); pointer-events: none; animation: pulse-aura 5s infinite alternate ease-in-out;
+        }
+        @keyframes pulse-aura { 0% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.8); } 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); } }
+        .floating-kanji { font-family: 'Noto Sans JP', sans-serif; line-height: 1; pointer-events: none; z-index: 0; }
+        .ember { position: absolute; bottom: -10%; width: 2px; height: 2px; background: var(--trinity-red); border-radius: 50%; opacity: 0; box-shadow: 0 0 10px var(--trinity-red); pointer-events: none; animation: rise var(--duration) linear infinite; animation-delay: var(--delay); }
+        @keyframes rise { 0% { bottom: -10%; opacity: 0; transform: translateX(0); } 50% { opacity: 1; } 100% { bottom: 120%; opacity: 0; transform: translateX(var(--sway)); } }
+        .animate-scanline { animation: scanline 3s linear infinite; }
+        @keyframes scanline { 0% { top: 0%; opacity: 0; } 50% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+        .animate-scan-radar { animation: scan-radar 2s linear infinite; transform-origin: center; }
+        @keyframes scan-radar { 0% { transform: rotate(0deg); opacity: 0.5; } 50% { opacity: 1; } 100% { transform: rotate(360deg); opacity: 0.5; } }
+        .animate-loading-bar { animation: loading-bar 2s ease-in-out infinite; }
+        @keyframes loading-bar { 0% { width: 0%; transform: translateX(-100%); } 100% { width: 100%; transform: translateX(200%); } }
+        .animate-spin-slow { animation: spin 10s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* ==========================================================================
+           7. CARDS, GLITCH & 3D TILT
+           ========================================================================== */
+        .tilt-box { transform-style: preserve-3d; will-change: transform; }
+        .tilt-content { transform: translateZ(20px); }
+        .cyber-card { position: relative; background: #080808; border: 1px solid #1a1a1a; overflow: hidden; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer; }
+        .cyber-card:hover { border-color: var(--trinity-red); box-shadow: 0 0 30px rgba(255, 0, 60, 0.15); }
+        .cyber-img { filter: grayscale(100%) contrast(1.1) brightness(0.9); transition: all 0.5s ease; mix-blend-mode: luminosity; }
+        .group:hover .cyber-img { filter: grayscale(0%) contrast(1.2) brightness(1.1); transform: scale(1.05); mix-blend-mode: normal; }
+        .glitch-wrapper { position: relative; display: inline-block; }
+        .glitch-wrapper::before, .glitch-wrapper::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--void); }
+        .glitch-wrapper::before { left: 2px; text-shadow: -1px 0 #0ff; clip-path: inset(0 0 0 0); animation: glitch-anim-1 4s infinite linear alternate-reverse; }
+        .glitch-wrapper::after { left: -2px; text-shadow: -1px 0 #f0f; clip-path: inset(0 0 0 0); animation: glitch-anim-2 2s infinite linear alternate-reverse; }
+        @keyframes glitch-anim-1 { 0% { clip-path: inset(20% 0 80% 0); } 20% { clip-path: inset(60% 0 10% 0); } 100% { clip-path: inset(30% 0 20% 0); } }
+        @keyframes glitch-anim-2 { 0% { clip-path: inset(10% 0 60% 0); } 20% { clip-path: inset(30% 0 10% 0); } 100% { clip-path: inset(0% 0 80% 0); } }
+        .scan-line { box-shadow: 0 0 10px var(--trinity-red), 0 0 5px var(--trinity-red); }
+        .animate-scan-vertical { animation: scan-vertical 3s linear infinite; }
+        @keyframes scan-vertical { 0% { top: 0%; opacity: 0; } 10%, 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+
+        /* ==========================================================================
+           8. STORY MODAL
+           ========================================================================== */
+        #story-modal { position: fixed; inset: 0; z-index: 10001; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); display: none; opacity: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        .modal-content { min-height: 100vh; display: flex; flex-direction: column; padding: 4rem 1.5rem; position: relative; }
+        .story-text-container { border-left: 1px solid rgba(255, 0, 60, 0.3); padding-left: 1.5rem; position: relative; min-height: 50vh; }
+        .story-paragraph { display: block; margin-bottom: 1.5rem; color: #a3a3a3; line-height: 1.8; text-align: justify; padding-left: 1rem; border-left: 1px solid transparent; transition: all 0.3s ease; text-indent: 1.5em; }
+        .story-paragraph strong:first-child { color: white; font-weight: bold; font-size: 1.1em; text-transform: uppercase; letter-spacing: 0.05em; }
+        .story-paragraph:hover { color: #e5e5e5; border-left-color: var(--trinity-red); background: linear-gradient(90deg, rgba(255, 0, 60, 0.05) 0%, transparent 100%); padding-left: 1.5rem; }
+        .story-dialogue { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2rem 0; padding: 1.5rem; background: #080808; border-left: 3px solid var(--trinity-red); color: white; font-style: italic; font-size: 1.1em; text-align: center; position: relative; clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%); }
+        .story-dialogue::before { content: "AUDIO_LOG_RECOVERED //"; display: block; font-size: 0.6em; color: var(--trinity-red); margin-bottom: 0.8rem; letter-spacing: 0.2em; font-style: normal; opacity: 0.7; }
+        .story-dialogue::after { content: "”"; position: absolute; right: 1rem; bottom: -1rem; font-size: 4rem; color: #222; font-family: serif; pointer-events: none; }
+        .story-date-container { margin-top: 3rem; margin-bottom: 2rem; display: flex; flex-direction: column; justify-content: space-between; align-items: center; border-top: 1px dashed #333; border-bottom: 1px dashed #333; padding: 1rem 0; }
+        @media (min-width: 768px) { .story-date-container { flex-direction: row; } }
+        .story-date { font-size: 1.2em; color: white; text-shadow: 0 0 10px rgba(255,255,255,0.3); letter-spacing: 0.1em; }
+        .story-time { font-size: 0.8em; color: var(--trinity-red); background: rgba(255, 0, 60, 0.1); padding: 0.2rem 0.5rem; border-radius: 2px; animation: pulse 2s infinite; }
+        .story-quote { margin-top: 3rem; text-align: center; position: relative; padding: 2rem; }
+        .story-quote p { font-family: 'Pirata One', cursive; font-size: 1.4em; color: #fff; line-height: 1.4; font-style: italic; }
+        .story-quote footer { margin-top: 1rem; font-size: 0.8em; color: var(--trinity-red); letter-spacing: 0.2em; text-transform: uppercase; }
+        .redacted { background-color: var(--trinity-red); color: transparent; cursor: help; padding: 0 4px; border-radius: 2px; transition: all 0.3s ease; user-select: none; position: relative; }
+        .redacted:hover { background-color: transparent; color: var(--trinity-red); text-decoration: underline; }
+        .typing-cursor { display: inline-block; width: 0.6em; height: 1.1em; background-color: var(--trinity-red); vertical-align: text-bottom; margin-left: 2px; animation: blink 0.1s infinite; box-shadow: 0 0 10px var(--trinity-red); }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* ==========================================================================
+           9. LOGIN & MANIFESTO
+           ========================================================================== */
+        #password-input::placeholder { color: #333; opacity: 0.5; text-shadow: none; transition: color 0.3s; }
+        .monolith-card { box-shadow: inset 0 0 50px rgba(0,0,0,0.8); }
+        .animate-eclipse-pulse { animation: eclipse-pulse 4s ease-in-out infinite; }
+        @keyframes eclipse-pulse { 0%, 100% { box-shadow: 0 0 50px var(--trinity-red), inset 0 0 20px var(--trinity-red); transform: translate(-50%, -50%) scale(1); } 50% { box-shadow: 0 0 150px var(--trinity-red), inset 0 0 50px var(--trinity-red); transform: translate(-50%, -50%) scale(1.05); } }
+        .animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+        @keyframes float-slow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .animate-slow-zoom { animation: slow-zoom 20s ease-in-out infinite; }
+        @keyframes slow-zoom { 0%, 100% { transform: scale(1.1); } 50% { transform: scale(1.2); } }
+        .glitch-aggressive { position: relative; color: var(--trinity-red); animation: glitch-skew 0.5s infinite linear alternate-reverse; }
+        .glitch-aggressive::before, .glitch-aggressive::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8; }
+        .glitch-aggressive::before { color: #0ff; z-index: -1; transform: translate(-2px, 0); clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); animation: glitch-strobe 0.3s infinite steps(2, start) reverse; }
+        .glitch-aggressive::after { color: #f0f; z-index: -2; transform: translate(2px, 0); clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); animation: glitch-strobe 0.5s infinite steps(2, start); }
+        @keyframes glitch-skew { 0%, 100% { transform: skewX(0deg); } 20% { transform: skewX(1deg); } 40% { transform: translate(-1px, 1px); } 60% { transform: translate(1px, -1px); } 80% { transform: skewX(-1deg); } }
+        @keyframes glitch-strobe { 0%, 100% { opacity: 1; } 50% { opacity: 0; visibility: hidden; } }
+
+        /* ==========================================================================
+           10. ANIMATIONS DENDEN & OTHERS
+           ========================================================================== */
+        .shaking-snail { animation: snail-shake 2s infinite; transform-origin: center bottom; }
+        @keyframes snail-shake { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 25% { transform: translate(-2px, 2px) rotate(-2deg); } 50% { transform: translate(2px, -2px) rotate(2deg); } 75% { transform: translate(-2px, -2px) rotate(-2deg); } }
+        .animate-bounce { animation: bounce 0.5s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(-10%); } 50% { transform: translateY(10%); } }
+        .perspective-grid-anim { transform: perspective(1000px) rotateX(60deg) translateY(0); animation: grid-move-intro 10s linear infinite; mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%); }
+        @keyframes grid-move-intro { 0% { background-position: 0 0; } 100% { background-position: 0 50px; } }
+        .haki-shockwave { animation: haki-boom 1s cubic-bezier(0.1, 0.9, 0.2, 1) forwards; }
+        @keyframes haki-boom { 0% { width: 0; height: 0; opacity: 1; filter: blur(10px); } 30% { opacity: 0.8; filter: blur(20px) hue-rotate(280deg); background: white; } 100% { width: 300vw; height: 300vw; opacity: 0; filter: blur(100px); background: #2a0040; } }
+        .chromatic-aberration { animation: chromatic-shake 0.3s infinite; }
+        @keyframes chromatic-shake { 0%, 100% { text-shadow: 2px 0 red, -2px 0 blue; transform: translate(1px, 1px); } 25% { text-shadow: -2px 0 red, 2px 0 blue; transform: translate(-1px, -1px); } 50% { text-shadow: 0 2px red, 0 -2px blue; transform: translate(-1px, 1px); } 75% { text-shadow: 0 -2px red, 0 2px blue; transform: translate(1px, -1px); } }
+        .hacker-column { position: absolute; top: -20%; color: var(--trinity-red); writing-mode: vertical-rl; text-orientation: upright; white-space: nowrap; user-select: none; opacity: 0; animation: rain-fall linear infinite; text-shadow: 0 0 5px var(--trinity-red); }
+        @keyframes rain-fall { 0% { transform: translateY(-100%); opacity: 0; } 10%, 90% { opacity: 0.5; } 100% { transform: translateY(120vh); opacity: 0; } }
+        #snail-speech-bubble { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+        @keyframes scroll-giant { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .animate-scroll-giant { animation: scroll-giant 25s linear infinite; }
+        .hardware-wrapper { background: rgba(10, 0, 5, 0.95); border: 2px solid rgba(255, 0, 60, 0.4); position: relative; padding: 4px; box-shadow: 0 0 40px rgba(0,0,0,0.9); transform: perspective(1000px) rotateX(5deg); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .hardware-wrapper:focus-within { border-color: var(--trinity-red); box-shadow: 0 0 60px rgba(255, 0, 60, 0.3), inset 0 0 20px rgba(255, 0, 60, 0.1); transform: perspective(1000px) rotateX(0deg) scale(1.03); background: rgba(15, 0, 5, 0.98); }
+        @keyframes snail-float-fluid { 0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); } 33% { transform: translateY(-10px) rotate(2deg) scale(1.02); filter: drop-shadow(0 0 50px rgba(255,0,60,0.9)); } 66% { transform: translateY(5px) rotate(-1deg) scale(0.98); filter: drop-shadow(0 0 30px rgba(255,0,60,0.6)); } }
+        .animate-snail-fluid { animation: snail-float-fluid 6s ease-in-out infinite; }
+        .text-glow { text-shadow: 0 0 10px var(--trinity-red), 0 0 20px var(--trinity-red), 0 0 40px red; }
